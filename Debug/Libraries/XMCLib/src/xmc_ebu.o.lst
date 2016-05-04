@@ -1,0 +1,1504 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_ebu.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_EBU_Enable,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_EBU_Enable:
+  25              	.LFB153:
+  26              	 .file 1 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc_ebu.h"
+   1:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+   2:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @file xmc_ebu.h
+   3:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @date 2016-01-12
+   4:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+   5:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @cond
+   6:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   *************************************************************************************************
+   7:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * XMClib v2.1.6 - XMC Peripheral Driver Library 
+   8:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+   9:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * All rights reserved.                        
+  11:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *                                             
+  12:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * following conditions are met:   
+  14:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *                                                                              
+  15:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * disclaimer.                        
+  17:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * 
+  18:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * 
+  21:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * products derived from this software without specific prior written permission.                  
+  23:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *                                                                              
+  24:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *                                                                              
+  32:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  **************************************************************************************************
+  35:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+  36:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Change History
+  37:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * --------------
+  38:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+  39:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * 2015-06-20:
+  40:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *     - Initial
+  41:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *     - Description of changes 2
+  42:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *      
+  43:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @endcond 
+  44:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+  45:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+  46:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+  47:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #ifndef XMC_EBU_H
+  48:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #define XMC_EBU_H
+  49:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  50:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**************************************************************************************************
+  51:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * HEADER FILES
+  52:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  **************************************************************************************************
+  53:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+  54:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #include <xmc_common.h>
+  55:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #if defined (EBU)
+  56:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #include <xmc_scu.h>
+  57:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  58:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+  59:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @addtogroup XMClib XMC Peripheral Library
+  60:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @{
+  61:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+  62:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  63:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+  64:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @addtogroup EBU
+  65:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @brief External Bus Unit (EBU) driver for the XMC4500 microcontroller
+  66:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+  67:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The External Bus Unit (EBU) controls the transactions between external memories or 
+  68:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * peripheral units, and the internal memories and peripheral units. Several external 
+  69:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * device configurations are supported; e.g. Asynchronous static memories, SDRAM 
+  70:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * and various flash memory types. It supports multiple programmable address regions. 
+  71:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+  72:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The EBU low level driver provides functions to configure and initialize the EBU
+  73:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * hardware peripheral. 
+  74:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @{
+  75:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+  76:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+  77:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**************************************************************************************************
+  78:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * MACROS
+  79:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** ***************************************************************************************************
+  80:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  81:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+  82:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * A convenient symbol for the EBU peripheral base address
+  83:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+  84:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #if defined (EBU)
+  85:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** # define XMC_EBU ((XMC_EBU_t *)EBU_BASE)
+  86:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #else
+  87:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** # error 'EBU' base peripheral pointer not defined
+  88:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #endif
+  89:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  90:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  91:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /*
+  92:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * This macro is used in the LLD for assertion checks (XMC_ASSERT).
+  93:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+  94:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #define XMC_EBU_CHECK_MODULE_PTR(p) ((p) == XMC_EBU)
+  95:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+  96:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**************************************************************************************************
+  97:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * ENUMS
+  98:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** ***************************************************************************************************
+  99:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+ 100:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 101:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Status return values for EBU low level driver
+ 102:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 103:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_STATUS
+ 104:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 105:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_STATUS_OK    = 0U, /**< Operation successful */
+ 106:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_STATUS_BUSY  = 1U, /**< Busy with a previous request */
+ 107:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_STATUS_ERROR = 3U  /**< Operation unsuccessful */
+ 108:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_STATUS_t;
+ 109:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 110:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 111:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU clock divide ratio
+ 112:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 113:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum  XMC_EBU_CLOCK_DIVIDE_RATIO
+ 114:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 115:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLOCK_DIVIDED_BY_1 = 0U, /**< Clock divided by 1 */
+ 116:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLOCK_DIVIDED_BY_2 = 1U, /**< Clock divided by 2 */
+ 117:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLOCK_DIVIDED_BY_3 = 2U, /**< Clock divided by 3 */
+ 118:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLOCK_DIVIDED_BY_4 = 3U  /**< Clock divided by 4 */
+ 119:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_CLOCK_DIVIDE_RATIO_t;
+ 120:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 121:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 122:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU DIV2 clocking mode
+ 123:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 124:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum  XMC_EBU_DIV2_CLK_MODE
+ 125:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 126:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DIV2_CLK_MODE_OFF = 0U, /**< Divider 2 clock mode OFF */
+ 127:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DIV2_CLK_MODE_ON = 1U   /**< Divider 2 clock mode ON */
+ 128:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_DIV2_CLK_MODE_t;
+ 129:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 130:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 131:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU clocking mode
+ 132:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 133:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum  XMC_EBU_CLK_MODE
+ 134:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 135:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_MODE_ASYNCHRONOUS_TO_AHB = 0U, /**< EBU is using standard clocking mode */
+ 136:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_MODE_SYNCHRONOUS_TO_CPU = 1U   /**< EBU is running at AHB bus clock divided by 2 */
+ 137:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_CLK_MODE_t;
+ 138:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 139:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 140:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU arbitration mode
+ 141:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 142:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum  XMC_EBU_ARB_MODE
+ 143:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 144:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ARB_MODE_NOT_SELECTED     = 0U, /**< No Bus arbitration mode selected */
+ 145:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ARB_MODE_ARBITER_MODE     = 1U, /**< Arbiter Mode arbitration mode selected */
+ 146:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ARB_MODE_PARTICIPANT_MODE = 2U, /**< Participant arbitration mode selected */
+ 147:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ARB_MODE_SOLE_MASTER_MODE = 3U  /**< Sole Master arbitration mode selected */
+ 148:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_ARB_MODE_t;
+ 149:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 150:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 151:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU ALE mode
+ 152:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 153:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum  XMC_EBU_ALE_MODE
+ 154:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 155:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ALE_OUTPUT_IS_INV_ADV = 0U, /**< Output is ADV */
+ 156:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ALE_OUTPUT_IS_ALE     = 1U  /**< Output is ALE */
+ 157:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_ALE_MODE_t;
+ 158:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 159:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 160:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU clock status
+ 161:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 162:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_CLK_STATUS
+ 163:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 164:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_STATUS_DISABLE_BIT = EBU_CLC_DISS_Msk,     /**< EBU Disable Status Bit */
+ 165:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_STATUS_MODE        = EBU_CLC_SYNCACK_Msk,  /**< EBU Clocking Mode Status */
+ 166:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_STATUS_DIV2_MODE   = EBU_CLC_DIV2ACK_Msk,  /**< DIV2 Clocking Mode Status */
+ 167:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_STATUS_DIV_RATIO   = EBU_CLC_EBUDIVACK_Msk /**< EBU Clock Divide Ratio Status */
+ 168:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_CLK_STATUS_t;
+ 169:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 170:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 171:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU address selection
+ 172:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 173:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_ADDRESS_SELECT
+ 174:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 175:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ADDRESS_SELECT_MEMORY_REGION_ENABLE        = EBU_ADDRSEL0_REGENAB_Msk, /**< Memory Region
+ 176:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ADDRESS_SELECT_ALTERNATE_REGION_ENABLE     = EBU_ADDRSEL0_ALTENAB_Msk, /**< Alternate Reg
+ 177:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ADDRESS_SELECT_MEMORY_REGION_WRITE_PROTECT = EBU_ADDRSEL0_WPROT_Msk    /**< Memory Region
+ 178:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_ADDRESS_SELECT_t;
+ 179:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 180:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 181:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU bus write configuration status
+ 182:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 183:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BUSWCON_SELECT
+ 184:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 185:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BUSWCON_SELECT_NAN_WORKAROUND = EBU_BUSWCON0_NAA_Msk, /**< Enable flash non-array access 
+ 186:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BUSWCON_SELECT_DEVICE_ADDRESSING_MODE = EBU_BUSWCON0_PORTW_Msk, /**< Device Addressing Mo
+ 187:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BUSWCON_SELECT_t;
+ 188:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 189:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 190:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU burst length for synchronous burst
+ 191:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 192:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_LENGTH_SYNC
+ 193:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 194:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_LENGTH_SYNC_1_DATA_ACCESS   = 0U, /**< 1 data access (default after reset) */
+ 195:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_LENGTH_SYNC_2_DATA_ACCESSES = 1U, /**< 2 data access */
+ 196:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_LENGTH_SYNC_4_DATA_ACCESSES = 2U, /**< 3 data access */
+ 197:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_LENGTH_SYNC_8_DATA_ACCESSES = 3U, /**< 4 data access */
+ 198:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_LENGTH_SYNC_t;
+ 199:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 200:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 201:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU burst buffer mode
+ 202:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 203:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_BUFFER_SYNC_MODE
+ 204:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 205:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_BUFFER_SYNC_LENGTH_SYNC_ENABLE = 0U, /**< Burst buffer length defined by value in F
+ 206:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_BUFFER_SYNC_SINGLE_MODE        = 1U  /**< All data required for transaction (single
+ 207:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_BUFFER_SYNC_MODE_t;
+ 208:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 209:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 210:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Read single stage synchronization
+ 211:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 212:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_READ_STAGES_SYNC
+ 213:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 214:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_READ_STAGES_SYNC_TWO = 0U, /**< Two stages of synchronization used (maximum margin) */
+ 215:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_READ_STAGES_SYNC_ONE = 1U  /**< One stage of synchronization used (minimum latency) */
+ 216:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_READ_STAGES_SYNC_t;
+ 217:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 218:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 219:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU burst flash clock feedback enable/disable
+ 220:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 221:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_FLASH_CLOCK_FEEDBACK
+ 222:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 223:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_FLASH_CLOCK_FEEDBACK_DISABLE = 0U, /**< BFCLK feedback not used */
+ 224:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_FLASH_CLOCK_FEEDBACK_ENABLE  = 1U  /**< BFCLK feedback used */
+ 225:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_FLASH_CLOCK_FEEDBACK_t;
+ 226:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 227:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 228:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU burst flash clock mode select
+ 229:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 230:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_FLASH_CLOCK_MODE
+ 231:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 232:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_FLASH_CLOCK_MODE_RUN_CONTINUOSLY = 0U, /**< Burst flash clock runs continuously */
+ 233:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_FLASH_CLOCK_MODE_DISABLED_BETWEEN_ACCESSES = 1U /**< Burst flash clock disabled */
+ 234:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_FLASH_CLOCK_MODE_t;
+ 235:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 236:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 237:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU flash non-array access
+ 238:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 239:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_FLASH_NON_ARRAY_ACCESS
+ 240:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 241:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FLASH_NON_ARRAY_ACCESS_DISNABLE = 0U, /**< Disable non-array access */
+ 242:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FLASH_NON_ARRAY_ACCESS_ENABLE   = 1U  /**< Enable non-array access */
+ 243:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_FLASH_NON_ARRAY_ACCESS_t;
+ 244:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 245:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 246:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU early chip select for synchronous burst
+ 247:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 248:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_EARLY_CHIP_SELECT_SYNC_BURST
+ 249:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 250:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EARLY_CHIP_SELECT_DELAYED     = 0U, /**< Chip select delayed */
+ 251:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EARLY_CHIP_SELECT_NOT_DELAYED = 1U  /**< Chip select not delayed */
+ 252:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_EARLY_CHIP_SELECT_SYNC_BURST_t;
+ 253:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 254:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 255:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU early burst signal enable for synchronous burst
+ 256:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 257:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_SIGNAL_SYNC_BURST
+ 258:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 259:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_SIGNAL_SYNC_BURST_ADV_DELAYED     = 0U, /**< Chip select delayed */
+ 260:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_SIGNAL_SYNC_BURST_ADV_NOT_DELAYED = 1U  /**< Chip select not delayed */
+ 261:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_SIGNAL_SYNC_BURST_t;
+ 262:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 263:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 264:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU burst address wrapping
+ 265:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 266:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BURST_ADDRESS_WRAPPING
+ 267:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 268:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_ADDRESS_WRAPPING_DISABLED = 0U, /**< Automatically re-aligns any non-aligned synchr
+ 269:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BURST_ADDRESS_WRAPPING_ENABLED  = 1U  /**< Starts any burst access at address specified b
+ 270:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BURST_ADDRESS_WRAPPING_t;
+ 271:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 272:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 273:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU reversed polarity at WAIT
+ 274:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 275:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_WAIT_SIGNAL_POLARITY
+ 276:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 277:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_SIGNAL_POLARITY_PIN_ACTIVE_LOW  = 0U, /**< OFF, input at WAIT pin is active low */
+ 278:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_SIGNAL_POLARITY_PIN_ACTIVE_HIGH = 1U  /**< Polarity reversed, input at WAIT pin is a
+ 279:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_WAIT_SIGNAL_POLARITY_t;
+ 280:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 281:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 282:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU byte control signal control
+ 283:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 284:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_BYTE_CONTROL
+ 285:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 286:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BYTE_CONTROL_FOLLOWS_CHIP_SELECT_TIMMING         = 0U, /**< Control signals follow chip s
+ 287:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BYTE_CONTROL_FOLLOWS_CONTROL_SIGNAL_TIMMING      = 1U, /**< Control signals follow contro
+ 288:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BYTE_CONTROL_FOLLOWS_WRITE_ENABLE_SIGNAL_TIMMING = 2U  /**< Control signals follow write 
+ 289:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BYTE_CONTROL_t;
+ 290:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 291:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 292:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU device addressing mode
+ 293:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 294:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_DEVICE_ADDRESSING_MODE
+ 295:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 296:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_ADDRESSING_MODE_16_BITS                  = 1U, /**< Address will only be driven on
+ 297:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_ADDRESSING_MODE_TWIN_16_BITS_MULTIPLEXED = 2U, /**< Lower 16b will be driven onto 
+ 298:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_ADDRESSING_MODE_32_BITS_MULTIPLEXED      = 3U  /**< Full address driven onto A[15:
+ 299:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_DEVICE_ADDRESSING_MODE_t;
+ 300:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 301:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 302:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU external wait control
+ 303:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 304:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_WAIT_CONTROL
+ 305:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 306:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_CONTROL_OFF = 0U, /**< Default after reset; Wait control off */  
+ 307:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_CONTROL_SYNC_EARLY_WAIT_ASYNC_ASYNC_INPUT_AT_WAIT = 1U,    /**< SYNC: Wait for page 
+ 308:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****                                                                                ASYNC: Asynchronous 
+ 309:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_CONTROL_SYNC_WAIT_WITH_DATA_ASYNC_SYNC_INPUT_AT_WAIT = 2U, /**< SYNC: Wait for page 
+ 310:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****                                                                                ASYNC: Synchronous i
+ 311:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_WAIT_CONTROL_SYNC_ABORT_AND_RETRY_ACCESS = 3U                   /**< SYNC: Abort and retr
+ 312:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_WAIT_CONTROL_t;
+ 313:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 314:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 315:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU asynchronous address phase
+ 316:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 317:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_ASYNCHRONOUS_ADDRESS_PHASE
+ 318:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 319:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ASYNCHRONOUS_ADDRESS_PHASE_CLOCK_ENABLED_AT_BEGINNING_OF_ACCESS = 0U, /**< Enabled at beg
+ 320:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_ASYNCHRONOUS_ADDRESS_PHASE_CLOCK_ENABLED_AFTER_ADDRESS_PHASE    = 1U  /**< Enabled after 
+ 321:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_ASYNCHRONOUS_ADDRESS_PHASE_t;
+ 322:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 323:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 324:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU device type for region
+ 325:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 326:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_DEVICE_TYPE
+ 327:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 328:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_MUXED_ASYNCHRONOUS_TYPE   = 0U, /**< Device type muxed asynchronous */
+ 329:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_MUXED_BURST_TYPE          = 1U, /**< Device type muxed burst */
+ 330:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_NAND_FLASH                = 2U, /**< Device type NAND flash */
+ 331:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_MUXED_CELLULAR_RAM        = 3U, /**< Device type muxed cellular RAM  */
+ 332:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_DEMUXED_ASYNCHRONOUS_TYPE = 4U, /**< Device type de-muxed asynchronous */
+ 333:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_DEMUXED_BURST_TYPE        = 5U, /**< Device type de-muxed burst */
+ 334:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_DEMUXED_PAGE_MODE         = 6U, /**< Device type de-muxed page mode */
+ 335:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_DEMUXED_CELLULAR_RAM      = 7U, /**< Device type de-muxed cellular RAM  */
+ 336:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_DEVICE_TYPE_SDRAM                     = 8U  /**< Device type SDRAM  */
+ 337:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_DEVICE_TYPE_t;
+ 338:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 339:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 340:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU lock chip select
+ 341:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 342:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_LOCK_CHIP_SELECT
+ 343:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 344:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_LOCK_CHIP_SELECT_DISABLED = 0U, /**< Chip select cannot be locked */
+ 345:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_LOCK_CHIP_SELECT_ENABLED  = 1U  /**< Chip select automatically locked after a write opera
+ 346:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_LOCK_CHIP_SELECT_t;
+ 347:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 348:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 349:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU Frequency of external clock at pin BFCLKO
+ 350:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 351:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_FREQUENCY_EXT_CLK_PIN
+ 352:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 353:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FREQ_EXT_CLK_PIN_EQUAL_TO_INT_CLK   = 0U, /**< Equal to INT_CLK frequency */
+ 354:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FREQ_EXT_CLK_PIN_HALF_OF_INT_CLK    = 1U, /**< 1/2 of INT_CLK frequency */
+ 355:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FREQ_EXT_CLK_PIN_THIRD_OF_INT_CLK   = 2U, /**< 1/3 of INT_CLK frequency */
+ 356:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FREQ_EXT_CLK_PIN_QUARTER_OF_INT_CLK = 3U  /**< 1/4 of INT_CLK frequency */
+ 357:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_FREQ_EXT_CLK_PIN_t;
+ 358:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 359:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 360:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU extended data
+ 361:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 362:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_EXT_DATA
+ 363:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 364:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EXT_DATA_OUTPUT_EVERY_1_BFCLK_CYCLES = 0U, /**< External memory outputs data every BFCLK 
+ 365:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EXT_DATA_OUTPUT_EVERY_2_BFCLK_CYCLES = 1U, /**< External memory outputs data every two BF
+ 366:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EXT_DATA_OUTPUT_EVERY_4_BFCLK_CYCLES = 2U, /**< External memory outputs data every four B
+ 367:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_EXT_DATA_OUTPUT_EVERY_8_BFCLK_CYCLES = 3U  /**< External memory outputs data every eight 
+ 368:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_EXT_DATA_t;
+ 369:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 370:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 371:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU SDRAM clock mode select
+ 372:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 373:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_CLK_MODE
+ 374:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 375:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CLK_MODE_CONTINUOUSLY_RUNS         = 0U, /**< Clock continuously running */
+ 376:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CLK_MODE_DISABLED_BETWEEN_ACCESSES = 1U  /**< Clock disabled between accesses */
+ 377:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_CLK_MODE_t;
+ 378:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 379:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 380:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU power save mode used for gated clock mode
+ 381:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 382:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_PWR_MODE
+ 383:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 384:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_PWR_MODE_PRECHARGE_BEFORE_CLK_STOP      = 0U, /**< Precharge before clock stop */
+ 385:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_PWR_MODE_AUTO_PRECHARGE_BEFORE_CLK_STOP = 1U, /**< Auto-precharge before clock stop
+ 386:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_PWR_MODE_ACTIVE_PWR_DOWN                = 2U, /**< Active power down (stop clock wi
+ 387:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_PWR_MODE_CLK_STOP_PWR_DOWN              = 3U  /**< Clock stop power down */
+ 388:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_PWR_MODE_t;
+ 389:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 390:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 391:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU disable SDRAM clock output
+ 392:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 393:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_CLK_OUTPUT
+ 394:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 395:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CLK_OUTPUT_ENABLED  = 0U, /**< Clock output enabled */
+ 396:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CLK_OUTPUT_DISABLED = 1U  /**< Clock output disabled */
+ 397:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_CLK_OUTPUT_t;
+ 398:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 399:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 400:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *  EBU mask for bank tag
+ 401:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 402:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_MASK_FOR_BANKM_TAG
+ 403:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 404:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_21_to_20 = 1U, /**< Mask for bank tag addresses 21 to 20 
+ 405:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_22_to_21 = 2U, /**< Mask for bank tag addresses 22 to 21 
+ 406:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_23_to_22 = 3U, /**< Mask for bank tag addresses 23 to 22 
+ 407:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_24_to_23 = 4U, /**< Mask for bank tag addresses 24 to 23 
+ 408:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_25_to_24 = 5U, /**< Mask for bank tag addresses 25 to 24 
+ 409:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_26_to_25 = 6U, /**< Mask for bank tag addresses 26 to 25 
+ 410:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_ADDRESS_26       = 7U  /**< Mask for bank tag addresses 26 */
+ 411:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_MASK_FOR_BANK_TAG_t;
+ 412:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 413:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 414:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU Mask for row tag
+ 415:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 416:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_MASK_FOR_ROW_TAG
+ 417:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 418:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_ADDRESS_26_to_9  = 1U, /**< Mask for row tag addresses 26 to 9 */
+ 419:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_ADDRESS_26_to_10 = 2U, /**< Mask for row tag addresses 26 to 10 */
+ 420:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_ADDRESS_26_to_11 = 3U, /**< Mask for row tag addresses 26 to 11 */
+ 421:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_ADDRESS_26_to_12 = 4U, /**< Mask for row tag addresses 26 to 12 */
+ 422:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_ADDRESS_26_to_13 = 5U  /**< Mask for row tag addresses 26 to 13 */
+ 423:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_MASK_FOR_ROW_TAG_t;
+ 424:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 425:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 426:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Number of address bits from bit 0 to be used for column address
+ 427:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 428:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_WIDTH_OF_COLUMN_ADDRESS
+ 429:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 430:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_WIDTH_OF_COLUMN_ADDRESS_8_to_0  = 1U, /**< Address [8:0] */
+ 431:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_WIDTH_OF_COLUMN_ADDRESS_9_to_0  = 2U, /**< Address [9:0] */
+ 432:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_WIDTH_OF_COLUMN_ADDRESS_10_to_0 = 3U  /**< Address [10:0] */
+ 433:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_WIDTH_OF_COLUMN_ADDRESS_t;
+ 434:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 435:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 436:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Number of clocks between a READ command and the availability of data
+ 437:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 438:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_CAS_LATENCY
+ 439:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 440:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CAS_LATENCY_2_CLKS = 2U, /**< 2 clocks between a READ command and the availability 
+ 441:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_CAS_LATENCY_3_CLKS = 3U  /**< 3 clocks between a READ command and the availability 
+ 442:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_CAS_LATENCY_t;
+ 443:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 444:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 445:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Number of locations can be accessed with a single command
+ 446:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 447:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_BURST_LENGTH
+ 448:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 449:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_BURST_LENGTH_1_LOCATION  = 0U, /**< One location accessed with a single command */
+ 450:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_BURST_LENGTH_2_LOCATION  = 1U, /**< Two location accessed with a single command */
+ 451:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_BURST_LENGTH_4_LOCATION  = 2U, /**< Four location accessed with a single command */
+ 452:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_BURST_LENGTH_8_LOCATION  = 3U, /**< Eight location accessed with a single command *
+ 453:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_BURST_LENGTH_16_LOCATION = 4U  /**< Sixteen location accessed with a single command
+ 454:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_BURST_LENGTH_t;
+ 455:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 456:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 457:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU SDRAM status
+ 458:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 459:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_STATUS
+ 460:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 461:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_STATUS_RX_ERROR = EBU_SDRSTAT_SDERR_Msk, /**< Detected an error when returning read
+ 462:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_STATUS_BUSY = EBU_SDRSTAT_SDRMBUSY_Msk, /**< The status of power-up initialization 
+ 463:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_STATUS_REFRESH_ERROR = EBU_SDRSTAT_REFERR_Msk /**< Failed previous refresh req coll
+ 464:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_STATUS_t;
+ 465:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 466:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 467:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * SDRAM refresh status
+ 468:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 469:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef enum XMC_EBU_SDRAM_RFRSH_STATUS
+ 470:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 471:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_RFRSH_STATUS_SELF_REFRESH_ENTRY_STATUS = EBU_SDRMREF_SELFRENST_Msk, /**< Self refre
+ 472:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_SDRAM_RFRSH_STATUS_SELF_REFRESH_EXIT_STATUS = EBU_SDRMREF_SELFREXST_Msk   /**< Self refre
+ 473:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_RFRSH_STATUS_t;
+ 474:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 475:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 476:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**************************************************************************************************
+ 477:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * DATA STRUCTURES
+ 478:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  **************************************************************************************************
+ 479:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+ 480:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /* Anonymous structure/union guard start */
+ 481:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #if defined(__CC_ARM)
+ 482:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   #pragma push
+ 483:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   #pragma anon_unions
+ 484:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #elif defined (__TASKING__)
+ 485:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   #pragma warning 586
+ 486:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #endif
+ 487:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 488:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 489:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Clock configuration values of EBU  <br>
+ 490:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 491:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the clock configuration
+ 492:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * values for clock mode, div2 clock mode and clock divide ratio of EBU.
+ 493:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The XMC_EBU_Init() can be used to populate the structure with the clock
+ 494:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * configuration values of the EBU module.
+ 495:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 496:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_CLK_CONFIG
+ 497:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 498:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 499:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   { 
+ 500:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 501:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 502:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****     {
+ 503:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                        : 16;
+ 504:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_clk_mode           : 1; /**< Clocking mode */
+ 505:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_div2_clk_mode      : 1; /**< DIV2 clocking mode */
+ 506:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_clock_divide_ratio : 2; /**< Clock divide ratio */
+ 507:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                        : 12;
+ 508:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****     };
+ 509:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 510:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_CLK_CONFIG_t;
+ 511:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 512:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 513:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Mode configuration values for EBU <br>
+ 514:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 515:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the mode configuration,
+ 516:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * SDRAM tristate, external clock, arbitration, timeout control and ALE mode for
+ 517:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU. The XMC_EBU_Init() can be used to populate the structure with the
+ 518:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * clock configuration values of the EBU module.
+ 519:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 520:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_MODE_CONFIG
+ 521:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** { 
+ 522:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 523:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 524:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 525:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 526:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  {
+ 527:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                      : 2;
+ 528:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_sdram_tristate   : 1; /**< 0 - SDRAM cannot be shared; 1 - SDRAM can be shared *
+ 529:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                      : 1;
+ 530:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_extlock          : 1; /**< 0 - ext bus is not locked after the EBU gains ownersh
+ 531:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_arbsync          : 1; /**< 0 - arbitration inputs are sync; 1 - arbitration inpu
+ 532:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_arbitration_mode : 2; /**< Arbitration mode */
+ 533:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****                                          /**< Determines num of inactive cycles leading to a bus ti
+ 534:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        00H: Timeout is disabled <br>
+ 535:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        01H: Timeout is generated after 1 x 8 clock cycles <br>
+ 536:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        FFH: Timeout is generated after 255 x 8 clock cycles */
+ 537:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t bus_timeout_control  : 8; /**< Determines num of inactive cycles leading to a bus ti
+ 538:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        00H: Timeout is disabled <br>
+ 539:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        01H: Timeout is generated after 1 x 8 clock cycles <br>
+ 540:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 											                        FFH: Timeout is generated after 255 x 8 clock cycles <br> */
+ 541:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                      : 15;
+ 542:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t ebu_ale_mode         : 1; /**< ALE mode */
+ 543:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  };
+ 544:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 545:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_MODE_CONFIG_t;
+ 546:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 547:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 548:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * GPIO mode configuration for the allocated EBU ports <br>
+ 549:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Configuring this structure frees the allocated EBU ports for GPIO
+ 550:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * functionality. The XMC_EBU_Init() is used to populate the structure
+ 551:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * with the GPIO mode for the allocated EBU ports.
+ 552:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 553:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_FREE_PINS_TO_GPIO
+ 554:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 555:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 556:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 557:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 558:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 559:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  {
+ 560:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                   : 16;
+ 561:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t address_pins_gpio : 9; /**< 0 - Address bit required for addressing memory; 1 - Addr
+ 562:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t adv_pin_gpio      : 1; /**< Adv pin to GPIO mode */
+ 563:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       uint32_t                   : 6;
+ 564:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  };
+ 565:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 566:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_FREE_PINS_TO_GPIO_t;
+ 567:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 568:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 569:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Read configuration for a region of EBU <br>
+ 570:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 571:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the read and read timing
+ 572:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * configuration for a region for EBU. The XMC_EBU_ConfigureRegion() can be
+ 573:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * used to populate the structure with the read configuration values for EBU.
+ 574:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 575:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_BUS_READ_CONFIG
+ 576:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 577:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU read configuration parameters */
+ 578:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 579:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 580:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 581:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 582:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  {
+ 583:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_length_sync                         : 3; /**< Burst length for synchronous 
+ 584:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_buffer_sync_mode                    : 1; /**< Burst buffer mode */
+ 585:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_read_stages_synch                         : 1; /**< Read single stage synchroniza
+ 586:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_flash_clock_feedback                : 1; /**< Burst flash clock feedback en
+ 587:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_flash_clock_mode                    : 1; /**< Burst flash clock mode select
+ 588:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_flash_non_array_access                    : 1; /**< flash non-array access */
+ 589:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                                               : 8;
+ 590:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_early_chip_select_sync_burst              : 1; /**< Early chip select for sync bu
+ 591:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_signal_sync                         : 1; /**< Early burst signal enable for
+ 592:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_address_wrapping                    : 1; /**< Burst address wrapping */
+ 593:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_wait_signal_polarity                      : 1; /**< Reversed polarity at WAIT */
+ 594:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_byte_control                              : 2; /**< Byte control signal control *
+ 595:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_device_addressing_mode                    : 2; /**< Device addressing mode */
+ 596:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_wait_control                              : 2; /**< External wait control */
+ 597:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_asynchronous_address_phase                : 1; /**< Asynchronous address phase */
+ 598:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                                               : 1;
+ 599:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_device_type                               : 4; /**< Device type for region */
+ 600:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  };
+ 601:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };  
+ 602:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU read access parameters */
+ 603:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 604:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 605:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	uint32_t raw1;
+ 606:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	struct
+ 607:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	{
+ 608:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_recovery_cycles_between_different_regions : 4;
+ 609:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 610:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Recovery cycles after read accesses:           <br>
+ 611:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 000B: No recovery phase clock cycles available <br>
+ 612:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 001B: 1 clock cycle selected                   <br>
+ 613:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * ...                                            <br>
+ 614:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 110B: 6 clock cycles selected                  <br>
+ 615:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 111B: 7 clock cycles selected                  <br>
+ 616:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 617:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_recovery_cycles_after_read_accesses       : 3;
+ 618:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 619:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Programmed wait states for read accesses: <br>
+ 620:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 00000B:  1 wait state                     <br>
+ 621:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 00001B:  1 wait state                     <br>
+ 622:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 00010B:  2 wait state                     <br>
+ 623:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * ...                                       <br>
+ 624:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 11110B:  30 wait states                   <br>
+ 625:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 11111B:  31 wait states                   <br>
+ 626:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 627:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_programmed_wait_states_for_read_accesses  : 5;
+ 628:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t                                               : 4;
+ 629:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 630:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Frequency of external clock at pin BFCLKO
+ 631:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 632:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_freq_ext_clk_pin                          : 2;
+ 633:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 634:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * EBU Extended data
+ 635:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 636:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_ext_data                                  : 2;
+ 637:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 638:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Command delay cycles:            <br>
+ 639:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 0000B: 0 clock cycle selected    <br>
+ 640:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 0001B: 1 clock cycle selected    <br>
+ 641:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * ...                              <br>
+ 642:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 1110B: 14 clock cycles selected  <br>
+ 643:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * 1111B: 15 clock cycles selected  <br>
+ 644:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 645:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   uint32_t command_delay_lines                          : 4;
+ 646:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   /**
+ 647:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****         * Address hold cycles:            <br>
+ 648:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    * 0000B: 0 clock cycle selected   <br>
+ 649:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    * 0001B: 1 clock cycle selected   <br>
+ 650:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    * ...                             <br>
+ 651:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    * 1110B: 14 clock cycles selected <br>
+ 652:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    * 1111B: 15 clock cycles selected <br>
+ 653:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****         */
+ 654:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   uint32_t address_hold_cycles                          : 4;
+ 655:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	    /**
+ 656:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****          * Address Cycles:
+ 657:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	     * 0000B: 1 clock cycle selected   <br>
+ 658:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	     * 0001B: 1 clock cycle selected   <br>
+ 659:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	     * ...                             <br>
+ 660:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	     * 1110B: 14 clock cycles selected <br>
+ 661:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	     * 1111B: 15 clock cycles selected <br>
+ 662:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****          */
+ 663:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   uint32_t address_cycles                               : 4;
+ 664:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	};
+ 665:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 666:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_BUS_READ_CONFIG_t;
+ 667:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 668:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 669:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Write configuration for a region of EBU <br>
+ 670:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 671:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the write and write timing
+ 672:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * configurations for a region of EBU. The XMC_EBU_ConfigureRegion() can be used
+ 673:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * to populate the structure with the write configuration values of EBU.
+ 674:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */ 
+ 675:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_BUS_WRITE_CONFIG
+ 676:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 677:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU write configuration parameters */
+ 678:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 679:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 680:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 681:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 682:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  {
+ 683:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_length_sync                         : 3;  /**< Burst length for synchronous
+ 684:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_buffer_sync_mode                    : 1;  /**< Burst buffer mode */
+ 685:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                                               : 12;
+ 686:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_early_chip_select_sync_burst              : 1;  /**< Early chip select for sync b
+ 687:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_burst_signal_sync                         : 1;  /**< Early burst signal enable fo
+ 688:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                                               : 1;
+ 689:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_wait_signal_polarity                      : 1;  /**< Reversed polarity at WAIT */
+ 690:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_byte_control                              : 2;  /**< Byte control signal control 
+ 691:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t                                               : 2;
+ 692:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_wait_control                              : 2;  /**< External wait control */
+ 693:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_asynchronous_address_phase                : 1;  /**< Asynchronous address phase *
+ 694:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_lock_chip_select                          : 1;  /**< Lock chip select */
+ 695:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_device_type                               : 4;  /**< Device type for region */
+ 696:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  };
+ 697:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 698:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU write access parameters */
+ 699:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 700:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 701:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  uint32_t raw1;
+ 702:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  struct
+ 703:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****     {
+ 704:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 705:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Recovery cycles between different regions:       <br>
+ 706:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0000B: No recovery phase clock cycles available  <br>
+ 707:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0001B: 1 clock cycle selected                    <br>
+ 708:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                                              <br>
+ 709:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1110B: 14 clock cycles selected                  <br>
+ 710:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1111B: 15 clock cycles selected                  <br>
+ 711:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 712:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_recovery_cycles_between_different_regions : 4;
+ 713:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 714:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 715:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Recovery cycles after write accesses:          <br>
+ 716:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 000B: No recovery phase clock cycles available <br>
+ 717:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 001B: 1 clock cycle selected                   <br> 
+ 718:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                                            <br>
+ 719:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 110B: 6 clock cycles selected                  <br>
+ 720:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 111B: 7 clock cycles selected                  <br>
+ 721:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 722:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_recovery_cycles_after_write_accesses      : 3;
+ 723:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 724:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 725:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Programmed wait states for write accesses: <br>
+ 726:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 00000B:  1 wait state                      <br>
+ 727:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 00001B:  1 wait state                      <br>
+ 728:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 00010B:  2 wait state                      <br>
+ 729:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                                        <br>
+ 730:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 11110B:  30 wait states                    <br>
+ 731:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 11111B:  31 wait states                    <br>
+ 732:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****       */
+ 733:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_programmed_wait_states_for_write_accesses : 5;
+ 734:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t                                               : 4;
+ 735:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**<
+ 736:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Frequency of external clock at pin BFCLKO
+ 737:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 738:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_freq_ext_clk_pin                          : 2;
+ 739:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 740:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * EBU extended data
+ 741:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 742:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_ext_data                                  : 2;
+ 743:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 744:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Command delay cycles:           <br>
+ 745:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0000B: 0 clock cycle selected   <br>
+ 746:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0001B: 1 clock cycle selected   <br>
+ 747:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                             <br>
+ 748:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1110B: 14 clock cycles selected <br>
+ 749:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1111B: 15 clock cycles selected <br>
+ 750:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 751:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t command_delay_lines                           : 4;
+ 752:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /** Address hold cycles:           <br>
+ 753:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0000B: 0 clock cycle selected   <br>
+ 754:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0001B: 1 clock cycle selected   <br>
+ 755:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                             <br>
+ 756:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1110B: 14 clock cycles selected <br>
+ 757:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1111B: 15 clock cycles selected <br>
+ 758:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 759:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t address_hold_cycles                           : 4;
+ 760:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 761:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Address cycles:                 <br>
+ 762:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0000B: 1 clock cycle selected   <br>
+ 763:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 0001B: 1 clock cycle selected   <br>
+ 764:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * ...                             <br>
+ 765:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1110B: 14 clock cycles selected <br>
+ 766:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	     * 1111B: 15 clock cycles selected <br>
+ 767:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 768:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	   uint32_t address_cycles                                 : 4;
+ 769:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  };
+ 770:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 771:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** }XMC_EBU_BUS_WRITE_CONFIG_t;
+ 772:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 773:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 774:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * SDRAM configuration structure <br>
+ 775:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 776:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure is a placeholder for setting (and obtaining) the SDRAM configuration,
+ 777:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * operation mode configuration and the right refresh parameters. The XMC_EBU_ConfigureSdram()
+ 778:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * can be used to populate the structure with the SDRAM operation mode and
+ 779:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * refresh parameters configuration.
+ 780:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+ 781:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_SDRAM_CONFIG
+ 782:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 783:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU SDRAM control parameters */
+ 784:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 785:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 786:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  uint32_t raw0;
+ 787:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  struct
+ 788:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  {
+ 789:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 790:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of clock cycles between row activate command and a precharge
+ 791:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * command 
+ 792:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 793:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_row_precharge_delay_counter            : 4;
+ 794:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /** 
+ 795:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * (CRFSH) Number of refresh commands issued during powerup init sequence:
+ 796:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Perform CRFSH + 1 refresh cycles
+ 797:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 798:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_init_refresh_commands_counter          : 4;
+ 799:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 800:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * (CRSC) Number of NOP cycles after a mode register set command:
+ 801:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Insert CRSC + 1 NOP cycles 
+ 802:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 803:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_mode_register_set_up_time              : 2;
+ 804:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 805:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * (CRP) Number of NOP cycles inserted after a precharge command:
+ 806:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Insert CRP + 1 NOP cycles 
+ 807:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 808:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_row_precharge_time_counter             : 2;
+ 809:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 810:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of address bits from bit 0 to be used for column address
+ 811:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 812:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_width_of_column_address          : 2;
+ 813:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 814:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * (CRCD) Number of NOP cycles between a row address and a column
+ 815:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * address: Insert CRCD + 1 NOP cycles
+ 816:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 817:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_row_to_column_delay_counter      : 2;
+ 818:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 819:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Row cycle time counter: Insert (CRCE * 8) + CRC + 1 NOP cycles
+ 820:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 821:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_row_cycle_time_counter           : 3;
+ 822:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 823:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Mask for row tag
+ 824:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 825:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_mask_for_row_tag                 : 3;
+ 826:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 827:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Mask for bank tag
+ 828:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 829:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_mask_for_bank_tag                : 3;
+ 830:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 831:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Extension to the Row cycle time counter (CRCE)
+ 832:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 833:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_row_cycle_time_counter_extension : 3;
+ 834:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 835:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Disable SDRAM clock output
+ 836:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 837:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_clk_output                       : 1;
+ 838:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 839:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Power Save Mode used for gated clock mode
+ 840:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 841:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_pwr_mode                         : 2;
+ 842:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    /**
+ 843:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * SDRAM clock mode select
+ 844:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 845:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	    uint32_t ebu_sdram_clk_mode                         : 1;
+ 846:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 	  };
+ 847:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 848:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU SDRAM mode parameters */
+ 849:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 850:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+ 851:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  uint32_t raw1;
+ 852:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  struct
+ 853:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  {
+ 854:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 855:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of locations can be accessed with a single command
+ 856:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 857:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_sdram_burst_length                     : 3;
+ 858:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t                                            : 1;
+ 859:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 860:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of clocks between a READ command and the availability
+ 861:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * of data
+ 862:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 863:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_sdram_casclk_mode                      : 3;
+ 864:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t                                            : 8;
+ 865:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 866:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Cold start
+ 867:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 868:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_sdram_cold_start: 1;
+ 869:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 870:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Value to be written to the extended mode register of a mobile
+ 871:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * SDRAM device
+ 872:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 873:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_sdram_extended_operation_mode          : 12;
+ 874:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    /**
+ 875:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Value to be written to the bank select pins of a mobile SDRAM
+ 876:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * device during an extended mode register write operation
+ 877:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 878:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	    uint32_t ebu_sdram_extended_operation_bank_select   : 4;
+ 879:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  };
+ 880:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 881:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   /* EBU SDRAM refresh parameters */
+ 882:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   union
+ 883:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****     {
+ 884:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	uint32_t raw2;
+ 885:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	struct
+ 886:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	{
+ 887:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 888:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of refresh counter period:
+ 889:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * Refresh period is 'num_refresh_counter_period' x 64 clock cycles
+ 890:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 891:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_num_refresh_counter_period       : 6;
+ 892:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 893:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of refresh commands
+ 894:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 895:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_num_refresh_cmnds                : 3;
+ 896:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t                                            : 1;
+ 897:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 898:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * If 1, the self refresh exit command is issued to all SDRAM devices
+ 899:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * regardless of their attachment to type 0 or type 1
+ 900:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   */
+ 901:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_self_refresh_exit                : 1;
+ 902:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t                                            : 1;
+ 903:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 904:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * If "1", the self refresh entry command is issued to all SDRAM devices,
+ 905:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   * regardless regardless of their attachment to type 0 or type 1
+ 906:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   */
+ 907:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_self_refresh_entry               : 1;
+ 908:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 909:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * If 1, memory controller will automatically issue the "self refresh
+ 910:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * entry" command to all SDRAM devices when it gives up control of the
+ 911:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * external bus. It will also automatically issue "self refresh exit"
+ 912:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * when it regains control of the bus
+ 913:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	   */
+ 914:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_auto_self_refresh                : 1;
+ 915:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 916:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Extended number of refresh counter period
+ 917:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 918:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_extended_refresh_counter_period  : 2;
+ 919:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 920:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of NOP cycles inserted after a self refresh exit before a
+ 921:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * command is permitted to the SDRAM/DDRAM
+ 922:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 923:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_self_refresh_exit_delay          : 8;
+ 924:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 925:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * If 1, an auto refresh cycle will be performed; If 0, no refresh will
+ 926:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * be performed
+ 927:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 928:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_auto_refresh                     : 1;
+ 929:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  /**
+ 930:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * Number of NOPs after the SDRAM controller exits power down before an
+ 931:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        * active command is permitted
+ 932:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****        */
+ 933:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t ebu_sdram_delay_on_power_down_exit         : 3;
+ 934:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	  uint32_t : 4;
+ 935:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   	};
+ 936:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   };
+ 937:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_SDRAM_CONFIG_t;
+ 938:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 939:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /* Anonymous structure/union guard end */
+ 940:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #if defined (__CC_ARM)
+ 941:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   #pragma pop
+ 942:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #elif defined (__TASKING__)
+ 943:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   #pragma warning restore
+ 944:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #endif
+ 945:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 946:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 947:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU region initialization with read configurations <br>
+ 948:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 949:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the read and read timing
+ 950:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * configurations for a region of EBU. The XMC_EBU_ConfigureRegion() can be
+ 951:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * used to populate the structure with the read configuration values of EBU  
+ 952:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */  
+ 953:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_REGION_READ_CONFIG
+ 954:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 955:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   const uint32_t ebu_region_no;                  /**< Number of region*/
+ 956:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BUS_READ_CONFIG_t ebu_bus_read_config; /**< Read configuration and access parameters stru
+ 957:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_REGION_READ_CONFIG_t;
+ 958:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 959:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 960:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU region initialization with write configurations <br>
+ 961:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 962:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the write and write
+ 963:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * timing configurations for a region of EBU. The XMC_EBU_ConfigureRegion()
+ 964:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * can be used to populate the structure with the write configuration
+ 965:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * values of EBU.
+ 966:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */  
+ 967:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_REGION_WRITE_CONFIG
+ 968:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 969:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   const uint32_t ebu_region_no;                    /**< Number of refresh counter period */
+ 970:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_BUS_WRITE_CONFIG_t ebu_bus_write_config; /**< Write configuration and access parameters s
+ 971:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_REGION_WRITE_CONFIG_t;
+ 972:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 973:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 974:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU region initialization with read and write configurations <br>
+ 975:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 976:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the read, read timing,
+ 977:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * write and write timing configurations for a region of EBU. The
+ 978:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * XMC_EBU_ConfigureRegion() can be used to populate the structure with the
+ 979:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * region read and write configuration values of EBU.
+ 980:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */  
+ 981:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_REGION
+ 982:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 983:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_REGION_READ_CONFIG_t read_config;
+ 984:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_REGION_WRITE_CONFIG_t write_config;
+ 985:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_REGION_t;
+ 986:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+ 987:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+ 988:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * EBU global configurations <br>
+ 989:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+ 990:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure presents a convenient way to set/obtain the global configurations
+ 991:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * of the EBU like clock, mode and GPIO mode. The XMC_EBU_Init() can be
+ 992:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * used to populate the structure with the region read and write configuration
+ 993:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * values of EBU.
+ 994:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */  
+ 995:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct XMC_EBU_CONFIG
+ 996:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+ 997:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_CLK_CONFIG_t ebu_clk_config;               /**< Clock configuration structure */
+ 998:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_MODE_CONFIG_t ebu_mode_config;             /**< Mode configuration structure */
+ 999:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_EBU_FREE_PINS_TO_GPIO_t ebu_free_pins_to_gpio; /**< Free allocated EBU ports for GPIO */
+1000:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_CONFIG_t;
+1001:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   
+1002:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+1003:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * External Bus Unit (EBU) device structure <br>
+1004:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1005:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The structure represents a collection of all hardware registers
+1006:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * used to configure the EBU peripheral on the XMC4500 microcontroller.
+1007:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The registers can be accessed with ::XMC_EBU.
+1008:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+1009:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** typedef struct
+1010:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+1011:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  CLC;
+1012:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  MODCON;
+1013:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __I  uint32_t  ID;
+1014:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  USERCON;
+1015:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __I  uint32_t  RESERVED0[2];
+1016:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  ADDRSEL[4];
+1017:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   struct
+1018:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   {
+1019:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  __IO uint32_t  RDCON;
+1020:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  __IO uint32_t  RDAPR;
+1021:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  __IO uint32_t  WRCON;
+1022:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  	  __IO uint32_t  WRAPR;
+1023:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   } BUS[4];
+1024:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  SDRMCON;
+1025:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  SDRMOD;
+1026:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __IO uint32_t  SDRMREF;
+1027:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   __I  uint32_t  SDRSTAT;
+1028:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** } XMC_EBU_t;
+1029:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+1030:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**************************************************************************************************
+1031:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * API PROTOTYPES
+1032:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** ***************************************************************************************************
+1033:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  
+1034:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #ifdef __cplusplus
+1035:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** extern "C" {
+1036:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** #endif
+1037:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+1038:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+1039:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param ebu Constant pointer to ::XMC_EBU_t, pointing to the EBU base address
+1040:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param config Constant pointer to a constant ::XMC_EBU_CONFIG_t structure containing the
+1041:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *               clock mode and clock configuration.
+1042:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @return XMC_EBU_STATUS_t Always returns XMC_EBU_STATUS_OK (Only register assignment statements)
+1043:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1044:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par<b>Description: </b><br>
+1045:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Initialize the EBU peripheral <br>
+1046:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1047:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par
+1048:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The function enables the EBU peripheral, configures time values for clock mode, div2
+1049:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * clock mode, mode configuration, SDRAM tristate, external clock, arbitration, timeout
+1050:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * control, ALE mode and configuration to free up the allocated EBU ports for GPIO
+1051:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * functionality (if required).
+1052:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+1053:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** XMC_EBU_STATUS_t XMC_EBU_Init(XMC_EBU_t *const ebu, const XMC_EBU_CONFIG_t *const config);
+1054:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+1055:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+1056:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param ebu Constant pointer to ::XMC_EBU_t, pointing to the EBU base address
+1057:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param config Constant pointer to a constant ::XMC_EBU_SDRAM_CONFIG_t structure containing
+1058:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *               the SDRAM configuration, operation mode configuration and right refresh
+1059:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *               parameters
+1060:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @return None
+1061:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1062:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par<b>Description: </b><br>
+1063:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Configures the SDRAM <br>
+1064:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1065:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par
+1066:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The function enables the SDRAM, sets SDRAM configuration parameters such as operation
+1067:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * mode and refresh parameters. Please see  ::XMC_EBU_SDRAM_CONFIG_t for more information.
+1068:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+1069:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** void XMC_EBU_ConfigureSdram(XMC_EBU_t *const ebu, const XMC_EBU_SDRAM_CONFIG_t *const config);
+1070:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+1071:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+1072:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param ebu Constant pointer to ::XMC_EBU_t, pointing to the EBU base address
+1073:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param region Constant pointer to a constant ::XMC_EBU_REGION_t structure containing the
+1074:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *               read, read timing, write and write timing configurations for a region of
+1075:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *               EBU
+1076:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @return None
+1077:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1078:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par<b>Description: </b><br>
+1079:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Configures the SDRAM <br>
+1080:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1081:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par
+1082:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The function configures the EBU region read, read timing, write and write timing parameter
+1083:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * configuration. It also configures the region registers for read and write accesses. Please
+1084:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * see ::XMC_EBU_REGION_t for more information.
+1085:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1086:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+1087:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** void XMC_EBU_ConfigureRegion(XMC_EBU_t *const ebu, const XMC_EBU_REGION_t *const region);
+1088:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** 
+1089:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** /**
+1090:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @param ebu Constant pointer to ::XMC_EBU_t, pointing to the EBU base address
+1091:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * @return None
+1092:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1093:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par<b>Description: </b><br>
+1094:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * Enable EBU peripheral <br>
+1095:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1096:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par
+1097:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * The function de-asserts the peripheral reset. The peripheral needs to be initialized.
+1098:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * It also enables the control of the EBU.
+1099:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  *
+1100:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * \par<b>Related APIs:</b><br>
+1101:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  * XMC_EBU_Disable(), XMC_SCU_RESET_AssertPeripheralReset()
+1102:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****  */
+1103:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** __STATIC_INLINE void XMC_EBU_Enable(XMC_EBU_t *const ebu)
+1104:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** {
+  27              	 .loc 1 1104 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31 0000 80B5     	 push {r7,lr}
+  32              	.LCFI0:
+  33              	 .cfi_def_cfa_offset 8
+  34              	 .cfi_offset 7,-8
+  35              	 .cfi_offset 14,-4
+  36 0002 82B0     	 sub sp,sp,#8
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+1105:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_ASSERT("XMC_EBU_Enable: Invalid module pointer", XMC_EBU_CHECK_MODULE_PTR(ebu));
+1106:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_EBU);
+  43              	 .loc 1 1106 0
+  44 0008 0548     	 ldr r0,.L2
+  45 000a FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+1107:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h ****   ebu->CLC &= ~EBU_CLC_DISR_Msk;
+  46              	 .loc 1 1107 0
+  47 000e 7B68     	 ldr r3,[r7,#4]
+  48 0010 1B68     	 ldr r3,[r3]
+  49 0012 23F00102 	 bic r2,r3,#1
+  50 0016 7B68     	 ldr r3,[r7,#4]
+  51 0018 1A60     	 str r2,[r3]
+1108:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_ebu.h **** }
+  52              	 .loc 1 1108 0
+  53 001a 0837     	 adds r7,r7,#8
+  54              	.LCFI3:
+  55              	 .cfi_def_cfa_offset 8
+  56 001c BD46     	 mov sp,r7
+  57              	.LCFI4:
+  58              	 .cfi_def_cfa_register 13
+  59              	 
+  60 001e 80BD     	 pop {r7,pc}
+  61              	.L3:
+  62              	 .align 2
+  63              	.L2:
+  64 0020 04000030 	 .word 805306372
+  65              	 .cfi_endproc
+  66              	.LFE153:
+  68              	 .section .text.XMC_EBU_Init,"ax",%progbits
+  69              	 .align 2
+  70              	 .global XMC_EBU_Init
+  71              	 .thumb
+  72              	 .thumb_func
+  74              	XMC_EBU_Init:
+  75              	.LFB171:
+  76              	 .file 2 "../Libraries/XMCLib/src/xmc_ebu.c"
+   1:../Libraries/XMCLib/src/xmc_ebu.c **** /**
+   2:../Libraries/XMCLib/src/xmc_ebu.c ****  * @file xmc_ebu.c
+   3:../Libraries/XMCLib/src/xmc_ebu.c ****  * @date 2016-01-12
+   4:../Libraries/XMCLib/src/xmc_ebu.c ****  *
+   5:../Libraries/XMCLib/src/xmc_ebu.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_ebu.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc_ebu.c ****  * XMClib v2.1.6 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_ebu.c ****  *
+   9:../Libraries/XMCLib/src/xmc_ebu.c ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_ebu.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_ebu.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_ebu.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc_ebu.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_ebu.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_ebu.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc_ebu.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_ebu.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_ebu.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc_ebu.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc_ebu.c ****  * 
+  21:../Libraries/XMCLib/src/xmc_ebu.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc_ebu.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc_ebu.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc_ebu.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc_ebu.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc_ebu.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc_ebu.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc_ebu.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc_ebu.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc_ebu.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc_ebu.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc_ebu.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc_ebu.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc_ebu.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc_ebu.c ****  *
+  36:../Libraries/XMCLib/src/xmc_ebu.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc_ebu.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc_ebu.c ****  *
+  39:../Libraries/XMCLib/src/xmc_ebu.c ****  * 2015-02-20:
+  40:../Libraries/XMCLib/src/xmc_ebu.c ****  *     - Initial <br>
+  41:../Libraries/XMCLib/src/xmc_ebu.c ****  *      
+  42:../Libraries/XMCLib/src/xmc_ebu.c ****  * 2015-06-20:
+  43:../Libraries/XMCLib/src/xmc_ebu.c ****  *     - Removed GetDriverVersion API
+  44:../Libraries/XMCLib/src/xmc_ebu.c ****  * @endcond 
+  45:../Libraries/XMCLib/src/xmc_ebu.c ****  *
+  46:../Libraries/XMCLib/src/xmc_ebu.c ****  */
+  47:../Libraries/XMCLib/src/xmc_ebu.c ****  
+  48:../Libraries/XMCLib/src/xmc_ebu.c **** /**************************************************************************************************
+  49:../Libraries/XMCLib/src/xmc_ebu.c ****  * HEADER FILES
+  50:../Libraries/XMCLib/src/xmc_ebu.c ****  **************************************************************************************************
+  51:../Libraries/XMCLib/src/xmc_ebu.c ****  
+  52:../Libraries/XMCLib/src/xmc_ebu.c **** #include <xmc_ebu.h>
+  53:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  54:../Libraries/XMCLib/src/xmc_ebu.c **** #if defined(EBU)
+  55:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  56:../Libraries/XMCLib/src/xmc_ebu.c **** /**************************************************************************************************
+  57:../Libraries/XMCLib/src/xmc_ebu.c ****  * API IMPLEMENTATION
+  58:../Libraries/XMCLib/src/xmc_ebu.c ****  **************************************************************************************************
+  59:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  60:../Libraries/XMCLib/src/xmc_ebu.c **** /*
+  61:../Libraries/XMCLib/src/xmc_ebu.c ****  * Initialize the EBU peripheral
+  62:../Libraries/XMCLib/src/xmc_ebu.c ****  */
+  63:../Libraries/XMCLib/src/xmc_ebu.c **** XMC_EBU_STATUS_t XMC_EBU_Init(XMC_EBU_t *const ebu,const XMC_EBU_CONFIG_t *const config)
+  64:../Libraries/XMCLib/src/xmc_ebu.c **** {
+  77              	 .loc 2 64 0
+  78              	 .cfi_startproc
+  79              	 
+  80              	 
+  81 0000 80B5     	 push {r7,lr}
+  82              	.LCFI5:
+  83              	 .cfi_def_cfa_offset 8
+  84              	 .cfi_offset 7,-8
+  85              	 .cfi_offset 14,-4
+  86 0002 82B0     	 sub sp,sp,#8
+  87              	.LCFI6:
+  88              	 .cfi_def_cfa_offset 16
+  89 0004 00AF     	 add r7,sp,#0
+  90              	.LCFI7:
+  91              	 .cfi_def_cfa_register 7
+  92 0006 7860     	 str r0,[r7,#4]
+  93 0008 3960     	 str r1,[r7]
+  65:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init: Invalid module pointer", XMC_EBU_CHECK_MODULE_PTR(ebu));
+  66:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init:Null Pointer", (config != (XMC_EBU_CONFIG_t *)NULL));
+  67:../Libraries/XMCLib/src/xmc_ebu.c ****   
+  68:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Enable EBU */
+  69:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_EBU_Enable(ebu);
+  94              	 .loc 2 69 0
+  95 000a 7868     	 ldr r0,[r7,#4]
+  96 000c FFF7FEFF 	 bl XMC_EBU_Enable
+  70:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  71:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Clock configuration */
+  72:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->CLC  =  config->ebu_clk_config.raw0;
+  97              	 .loc 2 72 0
+  98 0010 3B68     	 ldr r3,[r7]
+  99 0012 1A68     	 ldr r2,[r3]
+ 100 0014 7B68     	 ldr r3,[r7,#4]
+ 101 0016 1A60     	 str r2,[r3]
+  73:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  74:../Libraries/XMCLib/src/xmc_ebu.c ****   /*EBU Mode Configuration */
+  75:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->MODCON =   config->ebu_mode_config.raw0;
+ 102              	 .loc 2 75 0
+ 103 0018 3B68     	 ldr r3,[r7]
+ 104 001a 5A68     	 ldr r2,[r3,#4]
+ 105 001c 7B68     	 ldr r3,[r7,#4]
+ 106 001e 5A60     	 str r2,[r3,#4]
+  76:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  77:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Address Bits available for GPIO function */
+  78:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->USERCON = config->ebu_free_pins_to_gpio.raw0;
+ 107              	 .loc 2 78 0
+ 108 0020 3B68     	 ldr r3,[r7]
+ 109 0022 9A68     	 ldr r2,[r3,#8]
+ 110 0024 7B68     	 ldr r3,[r7,#4]
+ 111 0026 DA60     	 str r2,[r3,#12]
+  79:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  80:../Libraries/XMCLib/src/xmc_ebu.c ****   return XMC_EBU_STATUS_OK;
+ 112              	 .loc 2 80 0
+ 113 0028 0023     	 movs r3,#0
+  81:../Libraries/XMCLib/src/xmc_ebu.c **** }
+ 114              	 .loc 2 81 0
+ 115 002a 1846     	 mov r0,r3
+ 116 002c 0837     	 adds r7,r7,#8
+ 117              	.LCFI8:
+ 118              	 .cfi_def_cfa_offset 8
+ 119 002e BD46     	 mov sp,r7
+ 120              	.LCFI9:
+ 121              	 .cfi_def_cfa_register 13
+ 122              	 
+ 123 0030 80BD     	 pop {r7,pc}
+ 124              	 .cfi_endproc
+ 125              	.LFE171:
+ 127 0032 00BF     	 .section .text.XMC_EBU_ConfigureSdram,"ax",%progbits
+ 128              	 .align 2
+ 129              	 .global XMC_EBU_ConfigureSdram
+ 130              	 .thumb
+ 131              	 .thumb_func
+ 133              	XMC_EBU_ConfigureSdram:
+ 134              	.LFB172:
+  82:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  83:../Libraries/XMCLib/src/xmc_ebu.c **** /*
+  84:../Libraries/XMCLib/src/xmc_ebu.c ****  * Configures the SDRAM with operating modes and refresh parameters
+  85:../Libraries/XMCLib/src/xmc_ebu.c ****  */
+  86:../Libraries/XMCLib/src/xmc_ebu.c **** void XMC_EBU_ConfigureSdram(XMC_EBU_t *const ebu,const XMC_EBU_SDRAM_CONFIG_t *const config)
+  87:../Libraries/XMCLib/src/xmc_ebu.c **** {
+ 135              	 .loc 2 87 0
+ 136              	 .cfi_startproc
+ 137              	 
+ 138              	 
+ 139              	 
+ 140 0000 80B4     	 push {r7}
+ 141              	.LCFI10:
+ 142              	 .cfi_def_cfa_offset 4
+ 143              	 .cfi_offset 7,-4
+ 144 0002 83B0     	 sub sp,sp,#12
+ 145              	.LCFI11:
+ 146              	 .cfi_def_cfa_offset 16
+ 147 0004 00AF     	 add r7,sp,#0
+ 148              	.LCFI12:
+ 149              	 .cfi_def_cfa_register 7
+ 150 0006 7860     	 str r0,[r7,#4]
+ 151 0008 3960     	 str r1,[r7]
+  88:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init: Invalid module pointer", XMC_EBU_CHECK_MODULE_PTR(ebu));
+  89:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init:Null Pointer", (config != (XMC_EBU_SDRAM_CONFIG_t *)NULL));
+  90:../Libraries/XMCLib/src/xmc_ebu.c ****   
+  91:../Libraries/XMCLib/src/xmc_ebu.c ****   /* EBU SDRAM Refresh Configuration Parameters */
+  92:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->SDRMREF = config->raw2;
+ 152              	 .loc 2 92 0
+ 153 000a 3B68     	 ldr r3,[r7]
+ 154 000c 9A68     	 ldr r2,[r3,#8]
+ 155 000e 7B68     	 ldr r3,[r7,#4]
+ 156 0010 1A67     	 str r2,[r3,#112]
+  93:../Libraries/XMCLib/src/xmc_ebu.c ****   /* EBU SDRAM General Configuration Parameters */
+  94:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->SDRMCON = config->raw0;
+ 157              	 .loc 2 94 0
+ 158 0012 3B68     	 ldr r3,[r7]
+ 159 0014 1A68     	 ldr r2,[r3]
+ 160 0016 7B68     	 ldr r3,[r7,#4]
+ 161 0018 9A66     	 str r2,[r3,#104]
+  95:../Libraries/XMCLib/src/xmc_ebu.c ****   /* EBU SDRAM Operation Mode Configuration Parameters */
+  96:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->SDRMOD = config->raw1;
+ 162              	 .loc 2 96 0
+ 163 001a 3B68     	 ldr r3,[r7]
+ 164 001c 5A68     	 ldr r2,[r3,#4]
+ 165 001e 7B68     	 ldr r3,[r7,#4]
+ 166 0020 DA66     	 str r2,[r3,#108]
+  97:../Libraries/XMCLib/src/xmc_ebu.c **** }
+ 167              	 .loc 2 97 0
+ 168 0022 0C37     	 adds r7,r7,#12
+ 169              	.LCFI13:
+ 170              	 .cfi_def_cfa_offset 4
+ 171 0024 BD46     	 mov sp,r7
+ 172              	.LCFI14:
+ 173              	 .cfi_def_cfa_register 13
+ 174              	 
+ 175 0026 5DF8047B 	 ldr r7,[sp],#4
+ 176              	.LCFI15:
+ 177              	 .cfi_restore 7
+ 178              	 .cfi_def_cfa_offset 0
+ 179 002a 7047     	 bx lr
+ 180              	 .cfi_endproc
+ 181              	.LFE172:
+ 183              	 .section .text.XMC_EBU_ConfigureRegion,"ax",%progbits
+ 184              	 .align 2
+ 185              	 .global XMC_EBU_ConfigureRegion
+ 186              	 .thumb
+ 187              	 .thumb_func
+ 189              	XMC_EBU_ConfigureRegion:
+ 190              	.LFB173:
+  98:../Libraries/XMCLib/src/xmc_ebu.c **** 
+  99:../Libraries/XMCLib/src/xmc_ebu.c **** /*
+ 100:../Libraries/XMCLib/src/xmc_ebu.c ****  * Configures the SDRAM region for read and write operation
+ 101:../Libraries/XMCLib/src/xmc_ebu.c ****  */
+ 102:../Libraries/XMCLib/src/xmc_ebu.c **** void XMC_EBU_ConfigureRegion(XMC_EBU_t *const ebu,const XMC_EBU_REGION_t *const region)
+ 103:../Libraries/XMCLib/src/xmc_ebu.c **** {
+ 191              	 .loc 2 103 0
+ 192              	 .cfi_startproc
+ 193              	 
+ 194              	 
+ 195              	 
+ 196 0000 80B4     	 push {r7}
+ 197              	.LCFI16:
+ 198              	 .cfi_def_cfa_offset 4
+ 199              	 .cfi_offset 7,-4
+ 200 0002 83B0     	 sub sp,sp,#12
+ 201              	.LCFI17:
+ 202              	 .cfi_def_cfa_offset 16
+ 203 0004 00AF     	 add r7,sp,#0
+ 204              	.LCFI18:
+ 205              	 .cfi_def_cfa_register 7
+ 206 0006 7860     	 str r0,[r7,#4]
+ 207 0008 3960     	 str r1,[r7]
+ 104:../Libraries/XMCLib/src/xmc_ebu.c ****   
+ 105:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init: Invalid module pointer", XMC_EBU_CHECK_MODULE_PTR(ebu));
+ 106:../Libraries/XMCLib/src/xmc_ebu.c ****   XMC_ASSERT("XMC_EBU_Init:Null Pointer", (region != (XMC_EBU_REGION_t *)NULL));
+ 107:../Libraries/XMCLib/src/xmc_ebu.c ****   
+ 108:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Read configuration of the region*/
+ 109:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->BUS[region->read_config.ebu_region_no].RDCON = region->read_config.ebu_bus_read_config.raw0;
+ 208              	 .loc 2 109 0
+ 209 000a 3B68     	 ldr r3,[r7]
+ 210 000c 1B68     	 ldr r3,[r3]
+ 211 000e 3A68     	 ldr r2,[r7]
+ 212 0010 5268     	 ldr r2,[r2,#4]
+ 213 0012 7968     	 ldr r1,[r7,#4]
+ 214 0014 1B01     	 lsls r3,r3,#4
+ 215 0016 0B44     	 add r3,r3,r1
+ 216 0018 2833     	 adds r3,r3,#40
+ 217 001a 1A60     	 str r2,[r3]
+ 110:../Libraries/XMCLib/src/xmc_ebu.c **** 
+ 111:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Read parameters of the region*/
+ 112:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->BUS[region->read_config.ebu_region_no].RDAPR = region->read_config.ebu_bus_read_config.raw1;
+ 218              	 .loc 2 112 0
+ 219 001c 3B68     	 ldr r3,[r7]
+ 220 001e 1B68     	 ldr r3,[r3]
+ 221 0020 3A68     	 ldr r2,[r7]
+ 222 0022 9268     	 ldr r2,[r2,#8]
+ 223 0024 7968     	 ldr r1,[r7,#4]
+ 224 0026 1B01     	 lsls r3,r3,#4
+ 225 0028 0B44     	 add r3,r3,r1
+ 226 002a 2833     	 adds r3,r3,#40
+ 227 002c 5A60     	 str r2,[r3,#4]
+ 113:../Libraries/XMCLib/src/xmc_ebu.c **** 
+ 114:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Write configuration of the region*/
+ 115:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->BUS[region->write_config.ebu_region_no].WRCON = region->write_config.ebu_bus_write_config.ra
+ 228              	 .loc 2 115 0
+ 229 002e 3B68     	 ldr r3,[r7]
+ 230 0030 DB68     	 ldr r3,[r3,#12]
+ 231 0032 3A68     	 ldr r2,[r7]
+ 232 0034 1269     	 ldr r2,[r2,#16]
+ 233 0036 7968     	 ldr r1,[r7,#4]
+ 234 0038 0333     	 adds r3,r3,#3
+ 235 003a 1B01     	 lsls r3,r3,#4
+ 236 003c 0B44     	 add r3,r3,r1
+ 237 003e 1A60     	 str r2,[r3]
+ 116:../Libraries/XMCLib/src/xmc_ebu.c **** 
+ 117:../Libraries/XMCLib/src/xmc_ebu.c ****   /* Write parameters of the region*/
+ 118:../Libraries/XMCLib/src/xmc_ebu.c ****   ebu->BUS[region->write_config.ebu_region_no].WRAPR = region->write_config.ebu_bus_write_config.ra
+ 238              	 .loc 2 118 0
+ 239 0040 3B68     	 ldr r3,[r7]
+ 240 0042 DB68     	 ldr r3,[r3,#12]
+ 241 0044 3A68     	 ldr r2,[r7]
+ 242 0046 5269     	 ldr r2,[r2,#20]
+ 243 0048 7968     	 ldr r1,[r7,#4]
+ 244 004a 0333     	 adds r3,r3,#3
+ 245 004c 1B01     	 lsls r3,r3,#4
+ 246 004e 0B44     	 add r3,r3,r1
+ 247 0050 5A60     	 str r2,[r3,#4]
+ 119:../Libraries/XMCLib/src/xmc_ebu.c **** }
+ 248              	 .loc 2 119 0
+ 249 0052 0C37     	 adds r7,r7,#12
+ 250              	.LCFI19:
+ 251              	 .cfi_def_cfa_offset 4
+ 252 0054 BD46     	 mov sp,r7
+ 253              	.LCFI20:
+ 254              	 .cfi_def_cfa_register 13
+ 255              	 
+ 256 0056 5DF8047B 	 ldr r7,[sp],#4
+ 257              	.LCFI21:
+ 258              	 .cfi_restore 7
+ 259              	 .cfi_def_cfa_offset 0
+ 260 005a 7047     	 bx lr
+ 261              	 .cfi_endproc
+ 262              	.LFE173:
+ 264              	 .text
+ 265              	.Letext0:
+ 266              	 .file 3 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 267              	 .file 4 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 268              	 .file 5 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc4_scu.h"
+ 269              	 .file 6 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Include/core_cm4.h"
+ 270              	 .file 7 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_ebu.c
+    {standard input}:20     .text.XMC_EBU_Enable:00000000 $t
+    {standard input}:24     .text.XMC_EBU_Enable:00000000 XMC_EBU_Enable
+    {standard input}:64     .text.XMC_EBU_Enable:00000020 $d
+    {standard input}:69     .text.XMC_EBU_Init:00000000 $t
+    {standard input}:74     .text.XMC_EBU_Init:00000000 XMC_EBU_Init
+    {standard input}:128    .text.XMC_EBU_ConfigureSdram:00000000 $t
+    {standard input}:133    .text.XMC_EBU_ConfigureSdram:00000000 XMC_EBU_ConfigureSdram
+    {standard input}:184    .text.XMC_EBU_ConfigureRegion:00000000 $t
+    {standard input}:189    .text.XMC_EBU_ConfigureRegion:00000000 XMC_EBU_ConfigureRegion
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_RESET_DeassertPeripheralReset

@@ -1,0 +1,1871 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "system_XMC4700.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global SystemCoreClock
+  20              	 .section .no_init,"aw",%progbits
+  21              	 .align 2
+  24              	SystemCoreClock:
+  25 0000 00000000 	 .space 4
+  26              	 .global g_chipid
+  27              	 .align 2
+  30              	g_chipid:
+  31 0004 00000000 	 .space 16
+  31      00000000 
+  31      00000000 
+  31      00000000 
+  32              	 .section .text.delay,"ax",%progbits
+  33              	 .align 2
+  34              	 .thumb
+  35              	 .thumb_func
+  37              	delay:
+  38              	.LFB123:
+  39              	 .file 1 "../Startup/system_XMC4700.c"
+   1:../Startup/system_XMC4700.c **** /******************************************************************************
+   2:../Startup/system_XMC4700.c ****  * @file     system_XMC4700.c
+   3:../Startup/system_XMC4700.c ****  * @brief    CMSIS Cortex-M4 Device Peripheral Access Layer Header File
+   4:../Startup/system_XMC4700.c ****  *           for the Infineon XMC4700 Device Series
+   5:../Startup/system_XMC4700.c ****  * @version  V1.0.1
+   6:../Startup/system_XMC4700.c ****  * @date     26. Jan 2016
+   7:../Startup/system_XMC4700.c ****  *
+   8:../Startup/system_XMC4700.c ****  * Copyright (C) 2015-2016 Infineon Technologies AG. All rights reserved.
+   9:../Startup/system_XMC4700.c ****  *
+  10:../Startup/system_XMC4700.c ****  *
+  11:../Startup/system_XMC4700.c ****  * @par
+  12:../Startup/system_XMC4700.c ****  * Infineon Technologies AG (Infineon) is supplying this software for use with 
+  13:../Startup/system_XMC4700.c ****  * Infineon's microcontrollers.  This file can be freely distributed
+  14:../Startup/system_XMC4700.c ****  * within development tools that are supporting such microcontrollers.
+  15:../Startup/system_XMC4700.c ****  *
+  16:../Startup/system_XMC4700.c ****  * @par
+  17:../Startup/system_XMC4700.c ****  * THIS SOFTWARE IS PROVIDED AS IS.  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
+  18:../Startup/system_XMC4700.c ****  * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
+  19:../Startup/system_XMC4700.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
+  20:../Startup/system_XMC4700.c ****  * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
+  21:../Startup/system_XMC4700.c ****  * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
+  22:../Startup/system_XMC4700.c ****  *
+  23:../Startup/system_XMC4700.c ****  ******************************************************************************/
+  24:../Startup/system_XMC4700.c **** 
+  25:../Startup/system_XMC4700.c **** /********************** Version History ***************************************
+  26:../Startup/system_XMC4700.c ****  * V1.0.0, 03. Sep 2015, Initial version
+  27:../Startup/system_XMC4700.c ****  * V1.0.1, 26. Jan 2016, Disable trap generation from clock unit
+  28:../Startup/system_XMC4700.c ****  ******************************************************************************/
+  29:../Startup/system_XMC4700.c **** 
+  30:../Startup/system_XMC4700.c **** /*******************************************************************************
+  31:../Startup/system_XMC4700.c ****  * Default clock initialization
+  32:../Startup/system_XMC4700.c ****  * fPLL = 288MHz => fSYS = 288MHz => fCPU = 144MHz
+  33:../Startup/system_XMC4700.c ****  *                                => fPB  = 144MHz
+  34:../Startup/system_XMC4700.c ****  *                                => fCCU = 144MHz
+  35:../Startup/system_XMC4700.c ****  *                                => fETH = 72MHz
+  36:../Startup/system_XMC4700.c ****  *               => fUSB = 48MHz
+  37:../Startup/system_XMC4700.c ****  *               => fEBU = 72MHz
+  38:../Startup/system_XMC4700.c ****  *
+  39:../Startup/system_XMC4700.c ****  * fUSBPLL Disabled, only enabled if SCU_CLK_USBCLKCR_USBSEL_USBPLL is selected
+  40:../Startup/system_XMC4700.c ****  *
+  41:../Startup/system_XMC4700.c ****  * fOFI = 24MHz => fWDT = 24MHz
+  42:../Startup/system_XMC4700.c ****  *******************************************************************************/
+  43:../Startup/system_XMC4700.c **** 
+  44:../Startup/system_XMC4700.c **** /*******************************************************************************
+  45:../Startup/system_XMC4700.c ****  * HEADER FILES
+  46:../Startup/system_XMC4700.c ****  *******************************************************************************/
+  47:../Startup/system_XMC4700.c **** #include <string.h>
+  48:../Startup/system_XMC4700.c **** 
+  49:../Startup/system_XMC4700.c **** #include <XMC4700.h>
+  50:../Startup/system_XMC4700.c **** #include "system_XMC4700.h"
+  51:../Startup/system_XMC4700.c **** 
+  52:../Startup/system_XMC4700.c **** /*******************************************************************************
+  53:../Startup/system_XMC4700.c ****  * MACROS
+  54:../Startup/system_XMC4700.c ****  *******************************************************************************/
+  55:../Startup/system_XMC4700.c **** 
+  56:../Startup/system_XMC4700.c **** #define CHIPID_LOC ((uint8_t *)0x20000000UL)
+  57:../Startup/system_XMC4700.c **** 
+  58:../Startup/system_XMC4700.c **** /* Define WEAK attribute */
+  59:../Startup/system_XMC4700.c **** #if !defined(__WEAK)
+  60:../Startup/system_XMC4700.c **** #if defined ( __CC_ARM )
+  61:../Startup/system_XMC4700.c **** #define __WEAK __attribute__ ((weak))
+  62:../Startup/system_XMC4700.c **** #elif defined ( __ICCARM__ )
+  63:../Startup/system_XMC4700.c **** #define __WEAK __weak
+  64:../Startup/system_XMC4700.c **** #elif defined ( __GNUC__ )
+  65:../Startup/system_XMC4700.c **** #define __WEAK __attribute__ ((weak))
+  66:../Startup/system_XMC4700.c **** #elif defined ( __TASKING__ )
+  67:../Startup/system_XMC4700.c **** #define __WEAK __attribute__ ((weak))
+  68:../Startup/system_XMC4700.c **** #endif
+  69:../Startup/system_XMC4700.c **** #endif
+  70:../Startup/system_XMC4700.c **** 
+  71:../Startup/system_XMC4700.c **** #define PMU_FLASH_WS          (0x4U)
+  72:../Startup/system_XMC4700.c **** 
+  73:../Startup/system_XMC4700.c **** #define FOSCREF               (2500000U)
+  74:../Startup/system_XMC4700.c **** 
+  75:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_50MHZ  (2500UL)
+  76:../Startup/system_XMC4700.c **** #define DELAY_CNT_150US_50MHZ (7500UL)
+  77:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_48MHZ  (2400UL)
+  78:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_72MHZ  (3600UL)
+  79:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_96MHZ  (4800UL)
+  80:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_120MHZ (6000UL)
+  81:../Startup/system_XMC4700.c **** #define DELAY_CNT_50US_144MHZ (7200UL)
+  82:../Startup/system_XMC4700.c **** 
+  83:../Startup/system_XMC4700.c **** #define SCU_PLL_PLLSTAT_OSC_USABLE  (SCU_PLL_PLLSTAT_PLLHV_Msk | \
+  84:../Startup/system_XMC4700.c ****                                      SCU_PLL_PLLSTAT_PLLLV_Msk | \
+  85:../Startup/system_XMC4700.c ****                                      SCU_PLL_PLLSTAT_PLLSP_Msk)
+  86:../Startup/system_XMC4700.c **** 
+  87:../Startup/system_XMC4700.c **** /*
+  88:../Startup/system_XMC4700.c **** //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  89:../Startup/system_XMC4700.c **** */
+  90:../Startup/system_XMC4700.c **** 
+  91:../Startup/system_XMC4700.c **** /*
+  92:../Startup/system_XMC4700.c **** // <h> Clock configuration
+  93:../Startup/system_XMC4700.c **** */
+  94:../Startup/system_XMC4700.c **** 
+  95:../Startup/system_XMC4700.c **** /*
+  96:../Startup/system_XMC4700.c **** //    <o> External crystal frequency [Hz]
+  97:../Startup/system_XMC4700.c **** //       <8000000=> 8MHz
+  98:../Startup/system_XMC4700.c **** //       <12000000=> 12MHz
+  99:../Startup/system_XMC4700.c **** //       <16000000=> 16MHz
+ 100:../Startup/system_XMC4700.c **** //    <i> Defines external crystal frequency
+ 101:../Startup/system_XMC4700.c **** //    <i> Default: 8MHz
+ 102:../Startup/system_XMC4700.c **** */
+ 103:../Startup/system_XMC4700.c **** #define OSCHP_FREQUENCY (12000000U)
+ 104:../Startup/system_XMC4700.c **** 
+ 105:../Startup/system_XMC4700.c **** /* USB PLL settings, fUSBPLL = 48MHz and fUSBPLLVCO = 384 MHz */
+ 106:../Startup/system_XMC4700.c **** /* Note: Implicit divider of 2 and fUSBPLLVCO >= 260 MHz and fUSBPLLVCO <= 520 MHz*/
+ 107:../Startup/system_XMC4700.c **** #if OSCHP_FREQUENCY == 8000000U
+ 108:../Startup/system_XMC4700.c **** #define USB_PDIV (1U)
+ 109:../Startup/system_XMC4700.c **** #define USB_NDIV (95U)
+ 110:../Startup/system_XMC4700.c **** 
+ 111:../Startup/system_XMC4700.c **** #elif OSCHP_FREQUENCY == 12000000U
+ 112:../Startup/system_XMC4700.c **** #define USB_PDIV (1U)
+ 113:../Startup/system_XMC4700.c **** #define USB_NDIV (63U)
+ 114:../Startup/system_XMC4700.c **** 
+ 115:../Startup/system_XMC4700.c **** #elif OSCHP_FREQUENCY == 16000000U
+ 116:../Startup/system_XMC4700.c **** #define USB_PDIV (1U)
+ 117:../Startup/system_XMC4700.c **** #define USB_NDIV (47U)
+ 118:../Startup/system_XMC4700.c **** 
+ 119:../Startup/system_XMC4700.c **** #else
+ 120:../Startup/system_XMC4700.c **** #error "External crystal frequency not supported"
+ 121:../Startup/system_XMC4700.c **** 
+ 122:../Startup/system_XMC4700.c **** #endif
+ 123:../Startup/system_XMC4700.c **** 
+ 124:../Startup/system_XMC4700.c **** /*
+ 125:../Startup/system_XMC4700.c **** //    <o> Backup clock calibration mode
+ 126:../Startup/system_XMC4700.c **** //       <0=> Factory calibration
+ 127:../Startup/system_XMC4700.c **** //       <1=> Automatic calibration
+ 128:../Startup/system_XMC4700.c **** //    <i> Default: Automatic calibration
+ 129:../Startup/system_XMC4700.c **** */
+ 130:../Startup/system_XMC4700.c **** #define FOFI_CALIBRATION_MODE 1
+ 131:../Startup/system_XMC4700.c **** #define FOFI_CALIBRATION_MODE_FACTORY 0
+ 132:../Startup/system_XMC4700.c **** #define FOFI_CALIBRATION_MODE_AUTOMATIC 1
+ 133:../Startup/system_XMC4700.c **** 
+ 134:../Startup/system_XMC4700.c **** /*
+ 135:../Startup/system_XMC4700.c **** //    <o> Standby clock (fSTDBY) source selection
+ 136:../Startup/system_XMC4700.c **** //       <0=> Internal slow oscillator (32768Hz)
+ 137:../Startup/system_XMC4700.c **** //       <1=> External crystal (32768Hz)
+ 138:../Startup/system_XMC4700.c **** //    <i> Default: Internal slow oscillator (32768Hz)
+ 139:../Startup/system_XMC4700.c **** */
+ 140:../Startup/system_XMC4700.c **** #define STDBY_CLOCK_SRC 0
+ 141:../Startup/system_XMC4700.c **** #define STDBY_CLOCK_SRC_OSI 0
+ 142:../Startup/system_XMC4700.c **** #define STDBY_CLOCK_SRC_OSCULP 1
+ 143:../Startup/system_XMC4700.c **** 
+ 144:../Startup/system_XMC4700.c **** /*
+ 145:../Startup/system_XMC4700.c **** //    <o> PLL clock source selection
+ 146:../Startup/system_XMC4700.c **** //       <0=> External crystal
+ 147:../Startup/system_XMC4700.c **** //       <1=> Internal fast oscillator
+ 148:../Startup/system_XMC4700.c **** //    <i> Default: External crystal
+ 149:../Startup/system_XMC4700.c **** */
+ 150:../Startup/system_XMC4700.c **** #define PLL_CLOCK_SRC 0
+ 151:../Startup/system_XMC4700.c **** #define PLL_CLOCK_SRC_EXT_XTAL 0
+ 152:../Startup/system_XMC4700.c **** #define PLL_CLOCK_SRC_OFI 1
+ 153:../Startup/system_XMC4700.c **** 
+ 154:../Startup/system_XMC4700.c **** /* PLL settings, fPLL = 288MHz */
+ 155:../Startup/system_XMC4700.c **** #if PLL_CLOCK_SRC == PLL_CLOCK_SRC_EXT_XTAL
+ 156:../Startup/system_XMC4700.c **** #if OSCHP_FREQUENCY == 8000000U
+ 157:../Startup/system_XMC4700.c **** #define PLL_PDIV (1U)
+ 158:../Startup/system_XMC4700.c **** #define PLL_NDIV (71U)
+ 159:../Startup/system_XMC4700.c **** #define PLL_K2DIV (0U)
+ 160:../Startup/system_XMC4700.c **** 
+ 161:../Startup/system_XMC4700.c **** #elif OSCHP_FREQUENCY == 12000000U
+ 162:../Startup/system_XMC4700.c **** #define PLL_PDIV (1U)
+ 163:../Startup/system_XMC4700.c **** #define PLL_NDIV (47U)
+ 164:../Startup/system_XMC4700.c **** #define PLL_K2DIV (0U)
+ 165:../Startup/system_XMC4700.c **** 
+ 166:../Startup/system_XMC4700.c **** #elif OSCHP_FREQUENCY == 16000000U
+ 167:../Startup/system_XMC4700.c **** #define PLL_PDIV (1U)
+ 168:../Startup/system_XMC4700.c **** #define PLL_NDIV (35U)
+ 169:../Startup/system_XMC4700.c **** #define PLL_K2DIV (0U)
+ 170:../Startup/system_XMC4700.c **** 
+ 171:../Startup/system_XMC4700.c **** #else
+ 172:../Startup/system_XMC4700.c **** #error "External crystal frequency not supported"
+ 173:../Startup/system_XMC4700.c **** 
+ 174:../Startup/system_XMC4700.c **** #endif
+ 175:../Startup/system_XMC4700.c **** 
+ 176:../Startup/system_XMC4700.c **** #define VCO ((OSCHP_FREQUENCY / (PLL_PDIV + 1UL)) * (PLL_NDIV + 1UL))
+ 177:../Startup/system_XMC4700.c **** 
+ 178:../Startup/system_XMC4700.c **** #else /* PLL_CLOCK_SRC == PLL_CLOCK_SRC_EXT_XTAL */
+ 179:../Startup/system_XMC4700.c **** #define PLL_PDIV (1U)
+ 180:../Startup/system_XMC4700.c **** #define PLL_NDIV (23U)
+ 181:../Startup/system_XMC4700.c **** #define PLL_K2DIV (0U)
+ 182:../Startup/system_XMC4700.c **** 
+ 183:../Startup/system_XMC4700.c **** #define VCO ((OFI_FREQUENCY / (PLL_PDIV + 1UL)) * (PLL_NDIV + 1UL))
+ 184:../Startup/system_XMC4700.c **** 
+ 185:../Startup/system_XMC4700.c **** #endif /* PLL_CLOCK_SRC == PLL_CLOCK_SRC_OFI */
+ 186:../Startup/system_XMC4700.c **** 
+ 187:../Startup/system_XMC4700.c **** #define PLL_K2DIV_24MHZ  ((VCO / OFI_FREQUENCY) - 1UL)
+ 188:../Startup/system_XMC4700.c **** #define PLL_K2DIV_48MHZ  ((VCO / 48000000U) - 1UL)
+ 189:../Startup/system_XMC4700.c **** #define PLL_K2DIV_72MHZ  ((VCO / 72000000U) - 1UL)
+ 190:../Startup/system_XMC4700.c **** #define PLL_K2DIV_96MHZ  ((VCO / 96000000U) - 1UL)
+ 191:../Startup/system_XMC4700.c **** #define PLL_K2DIV_120MHZ ((VCO / 120000000U) - 1UL)
+ 192:../Startup/system_XMC4700.c **** 
+ 193:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_USBCLK SCU_CLK_CLKCLR_USBCDI_Msk
+ 194:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_MMCCLK SCU_CLK_CLKCLR_MMCCDI_Msk
+ 195:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_ETHCLK SCU_CLK_CLKCLR_ETH0CDI_Msk
+ 196:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_EBUCLK SCU_CLK_CLKCLR_EBUCDI_Msk
+ 197:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_CCUCLK SCU_CLK_CLKCLR_CCUCDI_Msk
+ 198:../Startup/system_XMC4700.c **** #define SCU_CLK_CLKCLR_ENABLE_WDTCLK SCU_CLK_CLKCLR_WDTCDI_Msk
+ 199:../Startup/system_XMC4700.c **** 
+ 200:../Startup/system_XMC4700.c **** #define SCU_CLK_SYSCLKCR_SYSSEL_OFI      (0U << SCU_CLK_SYSCLKCR_SYSSEL_Pos)
+ 201:../Startup/system_XMC4700.c **** #define SCU_CLK_SYSCLKCR_SYSSEL_PLL      (1U << SCU_CLK_SYSCLKCR_SYSSEL_Pos)
+ 202:../Startup/system_XMC4700.c **** 
+ 203:../Startup/system_XMC4700.c **** #define SCU_CLK_USBCLKCR_USBSEL_USBPLL   (0U << SCU_CLK_USBCLKCR_USBSEL_Pos)
+ 204:../Startup/system_XMC4700.c **** #define SCU_CLK_USBCLKCR_USBSEL_PLL      (1U << SCU_CLK_USBCLKCR_USBSEL_Pos)
+ 205:../Startup/system_XMC4700.c **** 
+ 206:../Startup/system_XMC4700.c **** #define SCU_CLK_WDTCLKCR_WDTSEL_OFI      (0U << SCU_CLK_WDTCLKCR_WDTSEL_Pos)
+ 207:../Startup/system_XMC4700.c **** #define SCU_CLK_WDTCLKCR_WDTSEL_STANDBY  (1U << SCU_CLK_WDTCLKCR_WDTSEL_Pos)
+ 208:../Startup/system_XMC4700.c **** #define SCU_CLK_WDTCLKCR_WDTSEL_PLL      (2U << SCU_CLK_WDTCLKCR_WDTSEL_Pos)
+ 209:../Startup/system_XMC4700.c **** 
+ 210:../Startup/system_XMC4700.c **** #define SCU_CLK_EXTCLKCR_ECKSEL_SYS      (0U << SCU_CLK_EXTCLKCR_ECKSEL_Pos)
+ 211:../Startup/system_XMC4700.c **** #define SCU_CLK_EXTCLKCR_ECKSEL_USBPLL   (2U << SCU_CLK_EXTCLKCR_ECKSEL_Pos)
+ 212:../Startup/system_XMC4700.c **** #define SCU_CLK_EXTCLKCR_ECKSEL_PLL      (3U << SCU_CLK_EXTCLKCR_ECKSEL_Pos)
+ 213:../Startup/system_XMC4700.c **** 
+ 214:../Startup/system_XMC4700.c **** #define EXTCLK_PIN_P0_8  (1)
+ 215:../Startup/system_XMC4700.c **** #define EXTCLK_PIN_P1_15 (2)
+ 216:../Startup/system_XMC4700.c **** 
+ 217:../Startup/system_XMC4700.c **** /*
+ 218:../Startup/system_XMC4700.c **** //    <h> Clock tree
+ 219:../Startup/system_XMC4700.c **** //        <o1.16> System clock source selection
+ 220:../Startup/system_XMC4700.c **** //                      <0=> fOFI
+ 221:../Startup/system_XMC4700.c **** //                      <1=> fPLL
+ 222:../Startup/system_XMC4700.c **** //                      <i> Default: fPLL
+ 223:../Startup/system_XMC4700.c **** //        <o1.0..7> System clock divider <1-256><#-1>
+ 224:../Startup/system_XMC4700.c **** //                      <i> Default: 2
+ 225:../Startup/system_XMC4700.c **** //        <o2.0> CPU clock divider
+ 226:../Startup/system_XMC4700.c **** //                      <0=> fCPU = fSYS
+ 227:../Startup/system_XMC4700.c **** //                      <1=> fCPU = fSYS / 2
+ 228:../Startup/system_XMC4700.c **** //                      <i> Default: fCPU = fSYS
+ 229:../Startup/system_XMC4700.c **** //        <o3.0>  Peripheral clock divider
+ 230:../Startup/system_XMC4700.c **** //                      <0=> fPB = fCPU
+ 231:../Startup/system_XMC4700.c **** //                      <1=> fPB = fCPU / 2
+ 232:../Startup/system_XMC4700.c **** //                      <i> Default: fPB = fCPU
+ 233:../Startup/system_XMC4700.c **** //        <o4.0>  CCU clock divider
+ 234:../Startup/system_XMC4700.c **** //                      <0=> fCCU = fCPU
+ 235:../Startup/system_XMC4700.c **** //                      <1=> fCCU = fCPU / 2
+ 236:../Startup/system_XMC4700.c **** //                      <i> Default: fCCU = fCPU
+ 237:../Startup/system_XMC4700.c **** //        <e.5> Enable WDT clock
+ 238:../Startup/system_XMC4700.c **** //             <o5.16..17> WDT clock source <0=> fOFI
+ 239:../Startup/system_XMC4700.c **** //                                          <1=> fSTDBY
+ 240:../Startup/system_XMC4700.c **** //                                          <2=> fPLL
+ 241:../Startup/system_XMC4700.c **** //                      <i> Default: fOFI
+ 242:../Startup/system_XMC4700.c **** //             <o5.0..7> WDT clock divider <1-256><#-1>
+ 243:../Startup/system_XMC4700.c **** //                      <i> Default: 1
+ 244:../Startup/system_XMC4700.c **** //        </e>
+ 245:../Startup/system_XMC4700.c **** //        <e.3> Enable EBU clock
+ 246:../Startup/system_XMC4700.c **** //             <o6.0..5>  EBU clock divider  <1-64><#-1>
+ 247:../Startup/system_XMC4700.c **** //             <i> Default: 4
+ 248:../Startup/system_XMC4700.c **** //        </e>
+ 249:../Startup/system_XMC4700.c **** //        <e.2> Enable ETH clock
+ 250:../Startup/system_XMC4700.c **** //        </e>
+ 251:../Startup/system_XMC4700.c **** //        <e.1> Enable MMC clock
+ 252:../Startup/system_XMC4700.c **** //        </e>
+ 253:../Startup/system_XMC4700.c **** //        <e.0> Enable USB clock
+ 254:../Startup/system_XMC4700.c **** //             <o7.16> USB clock source <0=> fUSBPLL
+ 255:../Startup/system_XMC4700.c **** //                                      <1=> fPLL
+ 256:../Startup/system_XMC4700.c **** //             <i> Default: fPLL
+ 257:../Startup/system_XMC4700.c **** //        </e>
+ 258:../Startup/system_XMC4700.c **** //        <e8> Enable external clock
+ 259:../Startup/system_XMC4700.c **** //             <o8.0..1> External Clock Source Selection
+ 260:../Startup/system_XMC4700.c **** //                  <0=> fSYS
+ 261:../Startup/system_XMC4700.c **** //                  <2=> fUSB
+ 262:../Startup/system_XMC4700.c **** //                  <3=> fPLL
+ 263:../Startup/system_XMC4700.c **** //                  <i> Default: fPLL
+ 264:../Startup/system_XMC4700.c **** //             <o8.16..24> External Clock divider <1-512><#-1>
+ 265:../Startup/system_XMC4700.c **** //                  <i> Default: 288
+ 266:../Startup/system_XMC4700.c **** //                  <i> Only valid for USB PLL and PLL clocks
+ 267:../Startup/system_XMC4700.c **** //             <o9.0> External Clock Pin Selection
+ 268:../Startup/system_XMC4700.c **** //                  <0=> Disabled
+ 269:../Startup/system_XMC4700.c **** //                  <1=> P0.8
+ 270:../Startup/system_XMC4700.c **** //                  <2=> P1.15
+ 271:../Startup/system_XMC4700.c **** //                  <i> Default: Disabled
+ 272:../Startup/system_XMC4700.c **** //        </e>
+ 273:../Startup/system_XMC4700.c **** //    </h>
+ 274:../Startup/system_XMC4700.c **** */
+ 275:../Startup/system_XMC4700.c **** #define __CLKSET    (0x00000000UL)
+ 276:../Startup/system_XMC4700.c **** #define __SYSCLKCR  (0x00010001UL)
+ 277:../Startup/system_XMC4700.c **** #define __CPUCLKCR  (0x00000000UL)
+ 278:../Startup/system_XMC4700.c **** #define __PBCLKCR   (0x00000000UL)
+ 279:../Startup/system_XMC4700.c **** #define __CCUCLKCR  (0x00000000UL)
+ 280:../Startup/system_XMC4700.c **** #define __WDTCLKCR  (0x00000000UL)
+ 281:../Startup/system_XMC4700.c **** #define __EBUCLKCR  (0x00000003UL)
+ 282:../Startup/system_XMC4700.c **** #define __USBCLKCR  (0x00010000UL)
+ 283:../Startup/system_XMC4700.c **** 
+ 284:../Startup/system_XMC4700.c **** #define __EXTCLKCR (0x01200003UL)
+ 285:../Startup/system_XMC4700.c **** #define __EXTCLKPIN (0U)
+ 286:../Startup/system_XMC4700.c **** 
+ 287:../Startup/system_XMC4700.c **** /*
+ 288:../Startup/system_XMC4700.c **** // </h>
+ 289:../Startup/system_XMC4700.c **** */
+ 290:../Startup/system_XMC4700.c **** 
+ 291:../Startup/system_XMC4700.c **** /*
+ 292:../Startup/system_XMC4700.c **** //-------- <<< end of configuration section >>> ------------------
+ 293:../Startup/system_XMC4700.c **** */
+ 294:../Startup/system_XMC4700.c **** 
+ 295:../Startup/system_XMC4700.c **** #define ENABLE_PLL \
+ 296:../Startup/system_XMC4700.c ****     (((__SYSCLKCR & SCU_CLK_SYSCLKCR_SYSSEL_Msk) == SCU_CLK_SYSCLKCR_SYSSEL_PLL) || \
+ 297:../Startup/system_XMC4700.c ****      ((__CLKSET & SCU_CLK_CLKSET_EBUCEN_Msk) != 0) || \
+ 298:../Startup/system_XMC4700.c ****      (((__CLKSET & SCU_CLK_CLKSET_USBCEN_Msk) != 0) && ((__USBCLKCR & SCU_CLK_USBCLKCR_USBSEL_Msk) 
+ 299:../Startup/system_XMC4700.c ****      (((__CLKSET & SCU_CLK_CLKSET_WDTCEN_Msk) != 0) && ((__WDTCLKCR & SCU_CLK_WDTCLKCR_WDTSEL_Msk) 
+ 300:../Startup/system_XMC4700.c **** 
+ 301:../Startup/system_XMC4700.c **** #define ENABLE_USBPLL \
+ 302:../Startup/system_XMC4700.c ****      (((__CLKSET & SCU_CLK_CLKSET_USBCEN_Msk) != 0) && ((__USBCLKCR & SCU_CLK_USBCLKCR_USBSEL_Msk) 
+ 303:../Startup/system_XMC4700.c ****                      
+ 304:../Startup/system_XMC4700.c **** #if ((__USBCLKCR & SCU_CLK_USBCLKCR_USBSEL_Msk) == SCU_CLK_USBCLKCR_USBSEL_USBPLL)
+ 305:../Startup/system_XMC4700.c **** #define USB_DIV (3U)
+ 306:../Startup/system_XMC4700.c **** #else
+ 307:../Startup/system_XMC4700.c **** #define USB_DIV (5U)
+ 308:../Startup/system_XMC4700.c **** #endif
+ 309:../Startup/system_XMC4700.c ****     
+ 310:../Startup/system_XMC4700.c **** /*******************************************************************************
+ 311:../Startup/system_XMC4700.c ****  * GLOBAL VARIABLES
+ 312:../Startup/system_XMC4700.c ****  *******************************************************************************/
+ 313:../Startup/system_XMC4700.c **** #if defined ( __CC_ARM )
+ 314:../Startup/system_XMC4700.c **** #if defined(XMC4700_E196x2048) || defined(XMC4700_F144x2048) || defined(XMC4700_F100x2048)
+ 315:../Startup/system_XMC4700.c **** uint32_t SystemCoreClock __attribute__((at(0x2003FFC0)));
+ 316:../Startup/system_XMC4700.c **** uint8_t g_chipid[16] __attribute__((at(0x2003FFC4)));
+ 317:../Startup/system_XMC4700.c **** #elif defined(XMC4700_E196x1536) || defined(XMC4700_F144x1536) || defined(XMC4700_F100x1536)
+ 318:../Startup/system_XMC4700.c **** uint32_t SystemCoreClock __attribute__((at(0x2002CFC0)));
+ 319:../Startup/system_XMC4700.c **** uint8_t g_chipid[16] __attribute__((at(0x2002CFC4)));
+ 320:../Startup/system_XMC4700.c **** #else
+ 321:../Startup/system_XMC4700.c **** #error "system_XMC4700.c: device not supported" 
+ 322:../Startup/system_XMC4700.c **** #endif    
+ 323:../Startup/system_XMC4700.c **** #elif defined ( __ICCARM__ )
+ 324:../Startup/system_XMC4700.c **** #if defined(XMC4700_E196x2048) || defined(XMC4700_F144x2048) || defined(XMC4700_F100x2048) || \
+ 325:../Startup/system_XMC4700.c ****     defined(XMC4700_E196x1536) || defined(XMC4700_F144x1536) || defined(XMC4700_F100x1536)
+ 326:../Startup/system_XMC4700.c **** __no_init uint32_t SystemCoreClock;
+ 327:../Startup/system_XMC4700.c **** __no_init uint8_t g_chipid[16];
+ 328:../Startup/system_XMC4700.c **** #else
+ 329:../Startup/system_XMC4700.c **** #error "system_XMC4700.c: device not supported" 
+ 330:../Startup/system_XMC4700.c **** #endif    
+ 331:../Startup/system_XMC4700.c **** #elif defined ( __GNUC__ )
+ 332:../Startup/system_XMC4700.c **** #if defined(XMC4700_E196x2048) || defined(XMC4700_F144x2048) || defined(XMC4700_F100x2048) || \
+ 333:../Startup/system_XMC4700.c ****     defined(XMC4700_E196x1536) || defined(XMC4700_F144x1536) || defined(XMC4700_F100x1536)
+ 334:../Startup/system_XMC4700.c **** uint32_t SystemCoreClock __attribute__((section(".no_init")));
+ 335:../Startup/system_XMC4700.c **** uint8_t g_chipid[16] __attribute__((section(".no_init")));
+ 336:../Startup/system_XMC4700.c **** #else
+ 337:../Startup/system_XMC4700.c **** #error "system_XMC4700.c: device not supported" 
+ 338:../Startup/system_XMC4700.c **** #endif    
+ 339:../Startup/system_XMC4700.c **** #elif defined ( __TASKING__ )
+ 340:../Startup/system_XMC4700.c **** #if defined(XMC4700_E196x2048) || defined(XMC4700_F144x2048) || defined(XMC4700_F100x2048)
+ 341:../Startup/system_XMC4700.c **** uint32_t SystemCoreClock __at( 0x2003FFC0 );
+ 342:../Startup/system_XMC4700.c **** uint8_t g_chipid[16] __at( 0x2003FFC4 );
+ 343:../Startup/system_XMC4700.c **** #elif defined(XMC4700_E196x1536) || defined(XMC4700_F144x1536) || defined(XMC4700_F100x1536)
+ 344:../Startup/system_XMC4700.c **** uint32_t SystemCoreClock __at( 0x2002CFC0 );
+ 345:../Startup/system_XMC4700.c **** uint8_t g_chipid[16] __at( 0x2002CFC4 );
+ 346:../Startup/system_XMC4700.c **** #else
+ 347:../Startup/system_XMC4700.c **** #error "system_XMC4700.c: device not supported" 
+ 348:../Startup/system_XMC4700.c **** #endif    
+ 349:../Startup/system_XMC4700.c **** #else
+ 350:../Startup/system_XMC4700.c **** #error "system_XMC4700.c: compiler not supported" 
+ 351:../Startup/system_XMC4700.c **** #endif    
+ 352:../Startup/system_XMC4700.c **** 
+ 353:../Startup/system_XMC4700.c **** extern uint32_t __Vectors;
+ 354:../Startup/system_XMC4700.c **** 
+ 355:../Startup/system_XMC4700.c **** /*******************************************************************************
+ 356:../Startup/system_XMC4700.c ****  * LOCAL FUNCTIONS
+ 357:../Startup/system_XMC4700.c ****  *******************************************************************************/
+ 358:../Startup/system_XMC4700.c **** static void delay(uint32_t cycles)
+ 359:../Startup/system_XMC4700.c **** {
+  40              	 .loc 1 359 0
+  41              	 .cfi_startproc
+  42              	 
+  43              	 
+  44              	 
+  45 0000 80B4     	 push {r7}
+  46              	.LCFI0:
+  47              	 .cfi_def_cfa_offset 4
+  48              	 .cfi_offset 7,-4
+  49 0002 85B0     	 sub sp,sp,#20
+  50              	.LCFI1:
+  51              	 .cfi_def_cfa_offset 24
+  52 0004 00AF     	 add r7,sp,#0
+  53              	.LCFI2:
+  54              	 .cfi_def_cfa_register 7
+  55 0006 7860     	 str r0,[r7,#4]
+ 360:../Startup/system_XMC4700.c ****   volatile uint32_t i;
+ 361:../Startup/system_XMC4700.c **** 
+ 362:../Startup/system_XMC4700.c ****   for(i = 0UL; i < cycles ;++i)
+  56              	 .loc 1 362 0
+  57 0008 0023     	 movs r3,#0
+  58 000a FB60     	 str r3,[r7,#12]
+  59 000c 03E0     	 b .L2
+  60              	.L3:
+  61              	.LBB10:
+  62              	.LBB11:
+  63              	 .file 2 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Include/cmsis_gcc.h"
+   1:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**************************************************************************//**
+   2:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @file     cmsis_gcc.h
+   3:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @brief    CMSIS Cortex-M Core Function/Instruction Header File
+   4:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @version  V4.30
+   5:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * @date     20. October 2015
+   6:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  ******************************************************************************/
+   7:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Copyright (c) 2009 - 2015 ARM LIMITED
+   8:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+   9:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    All rights reserved.
+  10:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    Redistribution and use in source and binary forms, with or without
+  11:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    modification, are permitted provided that the following conditions are met:
+  12:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    - Redistributions of source code must retain the above copyright
+  13:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer.
+  14:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    - Redistributions in binary form must reproduce the above copyright
+  15:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****      notice, this list of conditions and the following disclaimer in the
+  16:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****      documentation and/or other materials provided with the distribution.
+  17:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    - Neither the name of ARM nor the names of its contributors may be used
+  18:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****      to endorse or promote products derived from this software without
+  19:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****      specific prior written permission.
+  20:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    *
+  21:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+  25:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    POSSIBILITY OF SUCH DAMAGE.
+  32:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    ---------------------------------------------------------------------------*/
+  33:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  34:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  35:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #ifndef __CMSIS_GCC_H
+  36:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_H
+  37:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  38:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ignore some GCC warnings */
+  39:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if defined ( __GNUC__ )
+  40:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic push
+  41:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wsign-conversion"
+  42:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wconversion"
+  43:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #pragma GCC diagnostic ignored "-Wunused-parameter"
+  44:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+  45:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  46:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  47:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ###########################  Core Function Access  ########################### */
+  48:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+  49:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+  50:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+  51:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  52:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  53:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+  54:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
+  55:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
+  56:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+  57:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  58:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_irq(void)
+  59:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+  60:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie i" : : : "memory");
+  61:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+  62:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  63:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  64:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+  65:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable IRQ Interrupts
+  66:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables IRQ interrupts by setting the I-bit in the CPSR.
+  67:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   Can only be executed in Privileged modes.
+  68:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  69:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_irq(void)
+  70:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+  71:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
+  72:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+  73:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  74:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  75:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+  76:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Control Register
+  77:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the Control Register.
+  78:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Control Register value
+  79:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  80:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_CONTROL(void)
+  81:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+  82:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+  83:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  84:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, control" : "=r" (result) );
+  85:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+  86:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+  87:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  88:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  89:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+  90:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Control Register
+  91:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Writes the given value to the Control Register.
+  92:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    control  Control Register value to set
+  93:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+  94:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_CONTROL(uint32_t control)
+  95:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+  96:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
+  97:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+  98:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+  99:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 100:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 101:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get IPSR Register
+ 102:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the IPSR Register.
+ 103:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               IPSR Register value
+ 104:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 105:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_IPSR(void)
+ 106:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 107:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 108:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 109:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
+ 110:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 111:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 112:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 113:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 114:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 115:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get APSR Register
+ 116:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the APSR Register.
+ 117:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               APSR Register value
+ 118:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 119:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_APSR(void)
+ 120:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 121:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 122:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 123:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, apsr" : "=r" (result) );
+ 124:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 125:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 126:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 127:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 128:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 129:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get xPSR Register
+ 130:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the content of the xPSR Register.
+ 131:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 132:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****     \return               xPSR Register value
+ 133:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 134:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_xPSR(void)
+ 135:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 136:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 137:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 138:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, xpsr" : "=r" (result) );
+ 139:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 140:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 141:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 142:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 143:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 144:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Process Stack Pointer
+ 145:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Process Stack Pointer (PSP).
+ 146:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               PSP Register value
+ 147:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 148:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PSP(void)
+ 149:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 150:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   register uint32_t result;
+ 151:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 152:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, psp\n"  : "=r" (result) );
+ 153:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 154:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 155:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 156:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 157:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 158:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Process Stack Pointer
+ 159:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Process Stack Pointer (PSP).
+ 160:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    topOfProcStack  Process Stack Pointer value to set
+ 161:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 162:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PSP(uint32_t topOfProcStack)
+ 163:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 164:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR psp, %0\n" : : "r" (topOfProcStack) : "sp");
+ 165:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 166:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 167:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 168:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 169:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Main Stack Pointer
+ 170:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
+ 171:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               MSP Register value
+ 172:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 173:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_MSP(void)
+ 174:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 175:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   register uint32_t result;
+ 176:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 177:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, msp\n" : "=r" (result) );
+ 178:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 179:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 180:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 181:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 182:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 183:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Main Stack Pointer
+ 184:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Main Stack Pointer (MSP).
+ 185:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 186:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****     \param [in]    topOfMainStack  Main Stack Pointer value to set
+ 187:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 188:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_MSP(uint32_t topOfMainStack)
+ 189:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 190:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR msp, %0\n" : : "r" (topOfMainStack) : "sp");
+ 191:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 192:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 193:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 194:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 195:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Priority Mask
+ 196:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current state of the priority mask bit from the Priority Mask Register.
+ 197:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Priority Mask value
+ 198:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 199:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_PRIMASK(void)
+ 200:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 201:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 202:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 203:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, primask" : "=r" (result) );
+ 204:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 205:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 206:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 207:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 208:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 209:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Priority Mask
+ 210:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Priority Mask Register.
+ 211:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
+ 212:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 213:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
+ 214:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 215:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+ 216:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 217:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 218:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 219:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if       (__CORTEX_M >= 0x03U)
+ 220:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 221:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 222:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Enable FIQ
+ 223:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Enables FIQ interrupts by clearing the F-bit in the CPSR.
+ 224:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 225:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 226:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __enable_fault_irq(void)
+ 227:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 228:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsie f" : : : "memory");
+ 229:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 230:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 231:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 232:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 233:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Disable FIQ
+ 234:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Disables FIQ interrupts by setting the F-bit in the CPSR.
+ 235:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            Can only be executed in Privileged modes.
+ 236:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 237:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_fault_irq(void)
+ 238:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 239:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("cpsid f" : : : "memory");
+ 240:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 241:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 242:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 243:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 244:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Base Priority
+ 245:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Base Priority register.
+ 246:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Base Priority register value
+ 247:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 248:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_BASEPRI(void)
+ 249:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 250:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 251:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 252:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, basepri" : "=r" (result) );
+ 253:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 254:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 255:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 256:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 257:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 258:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority
+ 259:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register.
+ 260:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 261:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 262:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI(uint32_t value)
+ 263:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 264:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri, %0" : : "r" (value) : "memory");
+ 265:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 266:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 267:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 268:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 269:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Base Priority with condition
+ 270:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Base Priority register only if BASEPRI masking is disable
+ 271:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            or the new value increases the BASEPRI priority level.
+ 272:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    basePri  Base Priority value to set
+ 273:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 274:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_BASEPRI_MAX(uint32_t value)
+ 275:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 276:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR basepri_max, %0" : : "r" (value) : "memory");
+ 277:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 278:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 279:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 280:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 281:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get Fault Mask
+ 282:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
+ 283:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Fault Mask register value
+ 284:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 285:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FAULTMASK(void)
+ 286:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 287:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 288:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 289:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MRS %0, faultmask" : "=r" (result) );
+ 290:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 291:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 292:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 293:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 294:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 295:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set Fault Mask
+ 296:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Fault Mask register.
+ 297:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    faultMask  Fault Mask value to set
+ 298:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 299:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FAULTMASK(uint32_t faultMask)
+ 300:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 301:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("MSR faultmask, %0" : : "r" (faultMask) : "memory");
+ 302:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 303:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 304:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* (__CORTEX_M >= 0x03U) */
+ 305:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 306:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 307:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if       (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U)
+ 308:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 309:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 310:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Get FPSCR
+ 311:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Returns the current value of the Floating Point Status/Control register.
+ 312:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \return               Floating Point Status/Control register value
+ 313:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 314:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __get_FPSCR(void)
+ 315:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 316:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 317:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   uint32_t result;
+ 318:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 319:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 320:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("");
+ 321:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMRS %0, fpscr" : "=r" (result) );
+ 322:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("");
+ 323:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   return(result);
+ 324:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 325:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****    return(0);
+ 326:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 327:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 328:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 329:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 330:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 331:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Set FPSCR
+ 332:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Assigns the given value to the Floating Point Status/Control register.
+ 333:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \param [in]    fpscr  Floating Point Status/Control value to set
+ 334:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 335:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__( ( always_inline ) ) __STATIC_INLINE void __set_FPSCR(uint32_t fpscr)
+ 336:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 337:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if (__FPU_PRESENT == 1U) && (__FPU_USED == 1U)
+ 338:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   /* Empty asm statement works as a scheduling barrier */
+ 339:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("");
+ 340:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("VMSR fpscr, %0" : : "r" (fpscr) : "vfpcc");
+ 341:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("");
+ 342:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 343:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 344:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 345:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif /* (__CORTEX_M == 0x04U) || (__CORTEX_M == 0x07U) */
+ 346:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 347:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 348:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 349:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
+ 350:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 351:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 352:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /* ##########################  Core Instruction Access  ######################### */
+ 353:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+ 354:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   Access to dedicated instructions
+ 355:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   @{
+ 356:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** */
+ 357:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 358:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /* Define macros for porting to both thumb1 and thumb2.
+ 359:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * For thumb1, use low register (r0-r7), specified by constraint "l"
+ 360:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  * Otherwise, use general registers, specified by constraint "r" */
+ 361:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #if defined (__thumb__) && !defined (__thumb2__)
+ 362:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=l" (r)
+ 363:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "l" (r)
+ 364:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #else
+ 365:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_OUT_REG(r) "=r" (r)
+ 366:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #define __CMSIS_GCC_USE_REG(r) "r" (r)
+ 367:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** #endif
+ 368:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 369:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 370:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   No Operation
+ 371:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details No Operation does nothing. This instruction can be used for code alignment purposes.
+ 372:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 373:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
+ 374:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 375:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("nop");
+  64              	 .loc 2 375 0 discriminator 3
+  65              	
+  66 000e 00BF     	 nop
+  67              	
+  68              	 .thumb
+  69              	.LBE11:
+  70              	.LBE10:
+  71              	 .loc 1 362 0 discriminator 3
+  72 0010 FB68     	 ldr r3,[r7,#12]
+  73 0012 0133     	 adds r3,r3,#1
+  74 0014 FB60     	 str r3,[r7,#12]
+  75              	.L2:
+  76              	 .loc 1 362 0 is_stmt 0 discriminator 1
+  77 0016 FA68     	 ldr r2,[r7,#12]
+  78 0018 7B68     	 ldr r3,[r7,#4]
+  79 001a 9A42     	 cmp r2,r3
+  80 001c F7D3     	 bcc .L3
+ 363:../Startup/system_XMC4700.c ****   {
+ 364:../Startup/system_XMC4700.c ****     __NOP();
+ 365:../Startup/system_XMC4700.c ****   }
+ 366:../Startup/system_XMC4700.c **** }
+  81              	 .loc 1 366 0 is_stmt 1
+  82 001e 1437     	 adds r7,r7,#20
+  83              	.LCFI3:
+  84              	 .cfi_def_cfa_offset 4
+  85 0020 BD46     	 mov sp,r7
+  86              	.LCFI4:
+  87              	 .cfi_def_cfa_register 13
+  88              	 
+  89 0022 5DF8047B 	 ldr r7,[sp],#4
+  90              	.LCFI5:
+  91              	 .cfi_restore 7
+  92              	 .cfi_def_cfa_offset 0
+  93 0026 7047     	 bx lr
+  94              	 .cfi_endproc
+  95              	.LFE123:
+  97              	 .section .text.SystemInit,"ax",%progbits
+  98              	 .align 2
+  99              	 .weak SystemInit
+ 100              	 .thumb
+ 101              	 .thumb_func
+ 103              	SystemInit:
+ 104              	.LFB124:
+ 367:../Startup/system_XMC4700.c **** 
+ 368:../Startup/system_XMC4700.c **** /*******************************************************************************
+ 369:../Startup/system_XMC4700.c ****  * API IMPLEMENTATION
+ 370:../Startup/system_XMC4700.c ****  *******************************************************************************/
+ 371:../Startup/system_XMC4700.c **** 
+ 372:../Startup/system_XMC4700.c **** __WEAK void SystemInit(void)
+ 373:../Startup/system_XMC4700.c **** {
+ 105              	 .loc 1 373 0
+ 106              	 .cfi_startproc
+ 107              	 
+ 108              	 
+ 109 0000 98B5     	 push {r3,r4,r7,lr}
+ 110              	.LCFI6:
+ 111              	 .cfi_def_cfa_offset 16
+ 112              	 .cfi_offset 3,-16
+ 113              	 .cfi_offset 4,-12
+ 114              	 .cfi_offset 7,-8
+ 115              	 .cfi_offset 14,-4
+ 116 0002 00AF     	 add r7,sp,#0
+ 117              	.LCFI7:
+ 118              	 .cfi_def_cfa_register 7
+ 374:../Startup/system_XMC4700.c ****   memcpy(g_chipid, CHIPID_LOC, 16);
+ 119              	 .loc 1 374 0
+ 120 0004 054A     	 ldr r2,.L5
+ 121 0006 4FF00053 	 mov r3,#536870912
+ 122 000a 1446     	 mov r4,r2
+ 123 000c 0FCB     	 ldmia r3,{r0,r1,r2,r3}
+ 124 000e 84E80F00 	 stmia r4,{r0,r1,r2,r3}
+ 375:../Startup/system_XMC4700.c ****   
+ 376:../Startup/system_XMC4700.c ****   SystemCoreSetup();
+ 125              	 .loc 1 376 0
+ 126 0012 FFF7FEFF 	 bl SystemCoreSetup
+ 377:../Startup/system_XMC4700.c ****   SystemCoreClockSetup(); 
+ 127              	 .loc 1 377 0
+ 128 0016 FFF7FEFF 	 bl SystemCoreClockSetup
+ 378:../Startup/system_XMC4700.c **** }
+ 129              	 .loc 1 378 0
+ 130 001a 98BD     	 pop {r3,r4,r7,pc}
+ 131              	.L6:
+ 132              	 .align 2
+ 133              	.L5:
+ 134 001c 00000000 	 .word g_chipid
+ 135              	 .cfi_endproc
+ 136              	.LFE124:
+ 138              	 .section .text.SystemCoreSetup,"ax",%progbits
+ 139              	 .align 2
+ 140              	 .weak SystemCoreSetup
+ 141              	 .thumb
+ 142              	 .thumb_func
+ 144              	SystemCoreSetup:
+ 145              	.LFB125:
+ 379:../Startup/system_XMC4700.c **** 
+ 380:../Startup/system_XMC4700.c **** __WEAK void SystemCoreSetup(void)
+ 381:../Startup/system_XMC4700.c **** {
+ 146              	 .loc 1 381 0
+ 147              	 .cfi_startproc
+ 148              	 
+ 149              	 
+ 150              	 
+ 151 0000 80B4     	 push {r7}
+ 152              	.LCFI8:
+ 153              	 .cfi_def_cfa_offset 4
+ 154              	 .cfi_offset 7,-4
+ 155 0002 83B0     	 sub sp,sp,#12
+ 156              	.LCFI9:
+ 157              	 .cfi_def_cfa_offset 16
+ 158 0004 00AF     	 add r7,sp,#0
+ 159              	.LCFI10:
+ 160              	 .cfi_def_cfa_register 7
+ 161              	.LBB12:
+ 162              	.LBB13:
+  71:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 163              	 .loc 2 71 0
+ 164              	
+ 165 0006 72B6     	 cpsid i
+ 166              	
+ 167              	 .thumb
+ 168              	.LBE13:
+ 169              	.LBE12:
+ 382:../Startup/system_XMC4700.c ****   uint32_t temp;
+ 383:../Startup/system_XMC4700.c **** 	
+ 384:../Startup/system_XMC4700.c ****   /* relocate vector table */
+ 385:../Startup/system_XMC4700.c ****   __disable_irq();
+ 386:../Startup/system_XMC4700.c ****   SCB->VTOR = (uint32_t)(&__Vectors);
+ 170              	 .loc 1 386 0
+ 171 0008 164B     	 ldr r3,.L8
+ 172 000a 174A     	 ldr r2,.L8+4
+ 173 000c 9A60     	 str r2,[r3,#8]
+ 174              	.LBB14:
+ 175              	.LBB15:
+ 376:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 377:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 378:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 379:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 380:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Interrupt
+ 381:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Interrupt is a hint instruction that suspends execution until one of a number o
+ 382:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 383:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __WFI(void)
+ 384:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 385:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("wfi");
+ 386:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 387:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 388:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 389:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 390:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Wait For Event
+ 391:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Wait For Event is a hint instruction that permits the processor to enter
+ 392:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****     a low-power state until one of a number of events occurs.
+ 393:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 394:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __WFE(void)
+ 395:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 396:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("wfe");
+ 397:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 398:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 399:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 400:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 401:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Send Event
+ 402:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
+ 403:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 404:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __SEV(void)
+ 405:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 406:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("sev");
+ 407:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 408:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 409:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 410:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 411:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Instruction Synchronization Barrier
+ 412:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Instruction Synchronization Barrier flushes the pipeline in the processor,
+ 413:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            so that all instructions following the ISB are fetched from cache or memory,
+ 414:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            after the instruction has been completed.
+ 415:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 416:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __ISB(void)
+ 417:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 418:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
+ 419:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 420:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 421:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** 
+ 422:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** /**
+ 423:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \brief   Data Synchronization Barrier
+ 424:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   \details Acts as a special kind of Data Memory Barrier.
+ 425:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****            It completes when all explicit memory accesses before this instruction complete.
+ 426:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****  */
+ 427:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** __attribute__((always_inline)) __STATIC_INLINE void __DSB(void)
+ 428:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** {
+ 429:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h ****   __ASM volatile ("dsb 0xF":::"memory");
+ 176              	 .loc 2 429 0
+ 177              	
+ 178 000e BFF34F8F 	 dsb 0xF
+ 179              	
+ 180              	 .thumb
+ 181              	.LBE15:
+ 182              	.LBE14:
+ 183              	.LBB16:
+ 184              	.LBB17:
+  60:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode/Libraries/CMSIS/Include\cmsis_gcc.h **** }
+ 185              	 .loc 2 60 0
+ 186              	
+ 187 0012 62B6     	 cpsie i
+ 188              	
+ 189              	 .thumb
+ 190              	.LBE17:
+ 191              	.LBE16:
+ 387:../Startup/system_XMC4700.c ****   __DSB();
+ 388:../Startup/system_XMC4700.c ****   __enable_irq();
+ 389:../Startup/system_XMC4700.c ****     
+ 390:../Startup/system_XMC4700.c **** #if ((__FPU_PRESENT == 1) && (__FPU_USED == 1))
+ 391:../Startup/system_XMC4700.c ****   SCB->CPACR |= ((3UL << 10*2) |                 /* set CP10 Full Access */
+ 192              	 .loc 1 391 0
+ 193 0014 134A     	 ldr r2,.L8
+ 194 0016 134B     	 ldr r3,.L8
+ 195 0018 D3F88830 	 ldr r3,[r3,#136]
+ 196 001c 43F47003 	 orr r3,r3,#15728640
+ 197 0020 C2F88830 	 str r3,[r2,#136]
+ 392:../Startup/system_XMC4700.c ****                  (3UL << 11*2)  );               /* set CP11 Full Access */
+ 393:../Startup/system_XMC4700.c **** #endif
+ 394:../Startup/system_XMC4700.c **** 
+ 395:../Startup/system_XMC4700.c ****   /* Enable unaligned memory access - SCB_CCR.UNALIGN_TRP = 0 */
+ 396:../Startup/system_XMC4700.c ****   SCB->CCR &= ~(SCB_CCR_UNALIGN_TRP_Msk);
+ 198              	 .loc 1 396 0
+ 199 0024 0F4A     	 ldr r2,.L8
+ 200 0026 0F4B     	 ldr r3,.L8
+ 201 0028 5B69     	 ldr r3,[r3,#20]
+ 202 002a 23F00803 	 bic r3,r3,#8
+ 203 002e 5361     	 str r3,[r2,#20]
+ 397:../Startup/system_XMC4700.c **** 
+ 398:../Startup/system_XMC4700.c ****   temp = FLASH0->FCON;
+ 204              	 .loc 1 398 0
+ 205 0030 0E4B     	 ldr r3,.L8+8
+ 206 0032 03F58053 	 add r3,r3,#4096
+ 207 0036 1433     	 adds r3,r3,#20
+ 208 0038 1B68     	 ldr r3,[r3]
+ 209 003a 7B60     	 str r3,[r7,#4]
+ 399:../Startup/system_XMC4700.c ****   temp &= ~FLASH_FCON_WSPFLASH_Msk;
+ 210              	 .loc 1 399 0
+ 211 003c 7B68     	 ldr r3,[r7,#4]
+ 212 003e 23F00F03 	 bic r3,r3,#15
+ 213 0042 7B60     	 str r3,[r7,#4]
+ 400:../Startup/system_XMC4700.c ****   temp |= PMU_FLASH_WS;
+ 214              	 .loc 1 400 0
+ 215 0044 7B68     	 ldr r3,[r7,#4]
+ 216 0046 43F00403 	 orr r3,r3,#4
+ 217 004a 7B60     	 str r3,[r7,#4]
+ 401:../Startup/system_XMC4700.c ****   FLASH0->FCON = temp;
+ 218              	 .loc 1 401 0
+ 219 004c 074B     	 ldr r3,.L8+8
+ 220 004e 03F58053 	 add r3,r3,#4096
+ 221 0052 1433     	 adds r3,r3,#20
+ 222 0054 7A68     	 ldr r2,[r7,#4]
+ 223 0056 1A60     	 str r2,[r3]
+ 402:../Startup/system_XMC4700.c **** }
+ 224              	 .loc 1 402 0
+ 225 0058 0C37     	 adds r7,r7,#12
+ 226              	.LCFI11:
+ 227              	 .cfi_def_cfa_offset 4
+ 228 005a BD46     	 mov sp,r7
+ 229              	.LCFI12:
+ 230              	 .cfi_def_cfa_register 13
+ 231              	 
+ 232 005c 5DF8047B 	 ldr r7,[sp],#4
+ 233              	.LCFI13:
+ 234              	 .cfi_restore 7
+ 235              	 .cfi_def_cfa_offset 0
+ 236 0060 7047     	 bx lr
+ 237              	.L9:
+ 238 0062 00BF     	 .align 2
+ 239              	.L8:
+ 240 0064 00ED00E0 	 .word -536810240
+ 241 0068 00000000 	 .word __Vectors
+ 242 006c 00100058 	 .word 1476399104
+ 243              	 .cfi_endproc
+ 244              	.LFE125:
+ 246              	 .section .text.SystemCoreClockSetup,"ax",%progbits
+ 247              	 .align 2
+ 248              	 .weak SystemCoreClockSetup
+ 249              	 .thumb
+ 250              	 .thumb_func
+ 252              	SystemCoreClockSetup:
+ 253              	.LFB126:
+ 403:../Startup/system_XMC4700.c **** 
+ 404:../Startup/system_XMC4700.c **** __WEAK void SystemCoreClockSetup(void)
+ 405:../Startup/system_XMC4700.c **** {
+ 254              	 .loc 1 405 0
+ 255              	 .cfi_startproc
+ 256              	 
+ 257              	 
+ 258 0000 80B5     	 push {r7,lr}
+ 259              	.LCFI14:
+ 260              	 .cfi_def_cfa_offset 8
+ 261              	 .cfi_offset 7,-8
+ 262              	 .cfi_offset 14,-4
+ 263 0002 00AF     	 add r7,sp,#0
+ 264              	.LCFI15:
+ 265              	 .cfi_def_cfa_register 7
+ 406:../Startup/system_XMC4700.c **** #if FOFI_CALIBRATION_MODE == FOFI_CALIBRATION_MODE_FACTORY
+ 407:../Startup/system_XMC4700.c ****   /* Enable factory calibration */
+ 408:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_FOTR_Msk;
+ 409:../Startup/system_XMC4700.c **** #else
+ 410:../Startup/system_XMC4700.c ****   /* Automatic calibration uses the fSTDBY */
+ 411:../Startup/system_XMC4700.c **** 
+ 412:../Startup/system_XMC4700.c ****   /* Enable HIB domain */
+ 413:../Startup/system_XMC4700.c ****   /* Power up HIB domain if and only if it is currently powered down */
+ 414:../Startup/system_XMC4700.c ****   if((SCU_POWER->PWRSTAT & SCU_POWER_PWRSTAT_HIBEN_Msk) == 0)
+ 266              	 .loc 1 414 0
+ 267 0004 6F4B     	 ldr r3,.L18
+ 268 0006 1B68     	 ldr r3,[r3]
+ 269 0008 03F00103 	 and r3,r3,#1
+ 270 000c 002B     	 cmp r3,#0
+ 271 000e 0CD1     	 bne .L11
+ 415:../Startup/system_XMC4700.c ****   {
+ 416:../Startup/system_XMC4700.c ****     SCU_POWER->PWRSET |= SCU_POWER_PWRSET_HIB_Msk;
+ 272              	 .loc 1 416 0
+ 273 0010 6C4A     	 ldr r2,.L18
+ 274 0012 6C4B     	 ldr r3,.L18
+ 275 0014 5B68     	 ldr r3,[r3,#4]
+ 276 0016 43F00103 	 orr r3,r3,#1
+ 277 001a 5360     	 str r3,[r2,#4]
+ 417:../Startup/system_XMC4700.c **** 
+ 418:../Startup/system_XMC4700.c ****     while((SCU_POWER->PWRSTAT & SCU_POWER_PWRSTAT_HIBEN_Msk) == 0)
+ 278              	 .loc 1 418 0
+ 279 001c 00BF     	 nop
+ 280              	.L12:
+ 281              	 .loc 1 418 0 is_stmt 0 discriminator 1
+ 282 001e 694B     	 ldr r3,.L18
+ 283 0020 1B68     	 ldr r3,[r3]
+ 284 0022 03F00103 	 and r3,r3,#1
+ 285 0026 002B     	 cmp r3,#0
+ 286 0028 F9D0     	 beq .L12
+ 287              	.L11:
+ 419:../Startup/system_XMC4700.c ****     {
+ 420:../Startup/system_XMC4700.c ****       /* wait until HIB domain is enabled */
+ 421:../Startup/system_XMC4700.c ****     }
+ 422:../Startup/system_XMC4700.c ****   }
+ 423:../Startup/system_XMC4700.c **** 
+ 424:../Startup/system_XMC4700.c ****   /* Remove the reset only if HIB domain were in a state of reset */
+ 425:../Startup/system_XMC4700.c ****   if((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_HIBRS_Msk)
+ 288              	 .loc 1 425 0 is_stmt 1
+ 289 002a 674B     	 ldr r3,.L18+4
+ 290 002c 1B68     	 ldr r3,[r3]
+ 291 002e 03F40073 	 and r3,r3,#512
+ 292 0032 002B     	 cmp r3,#0
+ 293 0034 09D0     	 beq .L13
+ 426:../Startup/system_XMC4700.c ****   {
+ 427:../Startup/system_XMC4700.c ****     SCU_RESET->RSTCLR |= SCU_RESET_RSTCLR_HIBRS_Msk;
+ 294              	 .loc 1 427 0
+ 295 0036 644A     	 ldr r2,.L18+4
+ 296 0038 634B     	 ldr r3,.L18+4
+ 297 003a 9B68     	 ldr r3,[r3,#8]
+ 298 003c 43F40073 	 orr r3,r3,#512
+ 299 0040 9360     	 str r3,[r2,#8]
+ 428:../Startup/system_XMC4700.c ****     delay(DELAY_CNT_150US_50MHZ);
+ 300              	 .loc 1 428 0
+ 301 0042 41F64C50 	 movw r0,#7500
+ 302 0046 FFF7FEFF 	 bl delay
+ 303              	.L13:
+ 429:../Startup/system_XMC4700.c ****   }
+ 430:../Startup/system_XMC4700.c ****   
+ 431:../Startup/system_XMC4700.c **** #if STDBY_CLOCK_SRC == STDBY_CLOCK_SRC_OSCULP
+ 432:../Startup/system_XMC4700.c ****   /* Enable OSC_ULP */
+ 433:../Startup/system_XMC4700.c ****   if ((SCU_HIBERNATE->OSCULCTRL & SCU_HIBERNATE_OSCULCTRL_MODE_Msk) != 0UL)
+ 434:../Startup/system_XMC4700.c ****   {
+ 435:../Startup/system_XMC4700.c ****     /*enable OSC_ULP*/
+ 436:../Startup/system_XMC4700.c ****     while (SCU_GENERAL->MIRRSTS & SCU_GENERAL_MIRRSTS_OSCULCTRL_Msk)
+ 437:../Startup/system_XMC4700.c ****     {
+ 438:../Startup/system_XMC4700.c ****       /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+ 439:../Startup/system_XMC4700.c ****     }
+ 440:../Startup/system_XMC4700.c ****     SCU_HIBERNATE->OSCULCTRL &= ~SCU_HIBERNATE_OSCULCTRL_MODE_Msk;
+ 441:../Startup/system_XMC4700.c **** 
+ 442:../Startup/system_XMC4700.c ****     /* Check if the clock is OK using OSCULP Oscillator Watchdog*/
+ 443:../Startup/system_XMC4700.c ****     while (SCU_GENERAL->MIRRSTS & SCU_GENERAL_MIRRSTS_HDCR_Msk)
+ 444:../Startup/system_XMC4700.c ****     {
+ 445:../Startup/system_XMC4700.c ****       /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+ 446:../Startup/system_XMC4700.c ****     }
+ 447:../Startup/system_XMC4700.c ****     SCU_HIBERNATE->HDCR |= SCU_HIBERNATE_HDCR_ULPWDGEN_Msk;
+ 448:../Startup/system_XMC4700.c **** 
+ 449:../Startup/system_XMC4700.c ****     /* wait till clock is stable */
+ 450:../Startup/system_XMC4700.c ****     do
+ 451:../Startup/system_XMC4700.c ****     {
+ 452:../Startup/system_XMC4700.c ****       while (SCU_GENERAL->MIRRSTS & SCU_GENERAL_MIRRSTS_HDCLR_Msk)
+ 453:../Startup/system_XMC4700.c ****       {
+ 454:../Startup/system_XMC4700.c ****         /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+ 455:../Startup/system_XMC4700.c ****       }
+ 456:../Startup/system_XMC4700.c ****       SCU_HIBERNATE->HDCLR |= SCU_HIBERNATE_HDCLR_ULPWDG_Msk;
+ 457:../Startup/system_XMC4700.c **** 
+ 458:../Startup/system_XMC4700.c ****       delay(DELAY_CNT_50US_50MHZ);
+ 459:../Startup/system_XMC4700.c **** 
+ 460:../Startup/system_XMC4700.c ****     } while ((SCU_HIBERNATE->HDSTAT & SCU_HIBERNATE_HDSTAT_ULPWDG_Msk) != 0UL);
+ 461:../Startup/system_XMC4700.c **** 
+ 462:../Startup/system_XMC4700.c ****   }
+ 463:../Startup/system_XMC4700.c **** 
+ 464:../Startup/system_XMC4700.c ****   /* now OSC_ULP is running and can be used*/
+ 465:../Startup/system_XMC4700.c ****   /* Select OSC_ULP as the clock source for RTC and STDBY*/
+ 466:../Startup/system_XMC4700.c ****   while (SCU_GENERAL->MIRRSTS & SCU_GENERAL_MIRRSTS_HDCR_Msk)
+ 467:../Startup/system_XMC4700.c ****   {
+ 468:../Startup/system_XMC4700.c ****     /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+ 469:../Startup/system_XMC4700.c ****   }
+ 470:../Startup/system_XMC4700.c ****   SCU_HIBERNATE->HDCR |= SCU_HIBERNATE_HDCR_RCS_Msk | SCU_HIBERNATE_HDCR_STDBYSEL_Msk;
+ 471:../Startup/system_XMC4700.c **** #endif /* STDBY_CLOCK_SRC == STDBY_CLOCK_SRC_OSCULP */
+ 472:../Startup/system_XMC4700.c **** 
+ 473:../Startup/system_XMC4700.c ****   /* Enable automatic calibration of internal fast oscillator */
+ 474:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_AOTREN_Msk;
+ 304              	 .loc 1 474 0
+ 305 004a 604A     	 ldr r2,.L18+8
+ 306 004c 5F4B     	 ldr r3,.L18+8
+ 307 004e 5B68     	 ldr r3,[r3,#4]
+ 308 0050 43F40023 	 orr r3,r3,#524288
+ 309 0054 5360     	 str r3,[r2,#4]
+ 475:../Startup/system_XMC4700.c **** #endif /* FOFI_CALIBRATION_MODE == FOFI_CALIBRATION_MODE_AUTOMATIC */
+ 476:../Startup/system_XMC4700.c **** 
+ 477:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_50MHZ);
+ 310              	 .loc 1 477 0
+ 311 0056 40F6C410 	 movw r0,#2500
+ 312 005a FFF7FEFF 	 bl delay
+ 478:../Startup/system_XMC4700.c **** 
+ 479:../Startup/system_XMC4700.c **** #if ENABLE_PLL
+ 480:../Startup/system_XMC4700.c **** 
+ 481:../Startup/system_XMC4700.c ****   /* enable PLL */
+ 482:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 &= ~(SCU_PLL_PLLCON0_VCOPWD_Msk | SCU_PLL_PLLCON0_PLLPWD_Msk);
+ 313              	 .loc 1 482 0
+ 314 005e 5B4A     	 ldr r2,.L18+8
+ 315 0060 5A4B     	 ldr r3,.L18+8
+ 316 0062 5B68     	 ldr r3,[r3,#4]
+ 317 0064 23F48033 	 bic r3,r3,#65536
+ 318 0068 23F00203 	 bic r3,r3,#2
+ 319 006c 5360     	 str r3,[r2,#4]
+ 483:../Startup/system_XMC4700.c **** 
+ 484:../Startup/system_XMC4700.c **** #if PLL_CLOCK_SRC != PLL_CLOCK_SRC_OFI
+ 485:../Startup/system_XMC4700.c ****   /* enable OSC_HP */
+ 486:../Startup/system_XMC4700.c ****   if ((SCU_OSC->OSCHPCTRL & SCU_OSC_OSCHPCTRL_MODE_Msk) != 0U)
+ 320              	 .loc 1 486 0
+ 321 006e 584B     	 ldr r3,.L18+12
+ 322 0070 5B68     	 ldr r3,[r3,#4]
+ 323 0072 03F03003 	 and r3,r3,#48
+ 324 0076 002B     	 cmp r3,#0
+ 325 0078 27D0     	 beq .L14
+ 487:../Startup/system_XMC4700.c ****   {
+ 488:../Startup/system_XMC4700.c ****     SCU_OSC->OSCHPCTRL &= ~(SCU_OSC_OSCHPCTRL_MODE_Msk | SCU_OSC_OSCHPCTRL_OSCVAL_Pos);
+ 326              	 .loc 1 488 0
+ 327 007a 554A     	 ldr r2,.L18+12
+ 328 007c 544B     	 ldr r3,.L18+12
+ 329 007e 5B68     	 ldr r3,[r3,#4]
+ 330 0080 23F03003 	 bic r3,r3,#48
+ 331 0084 5360     	 str r3,[r2,#4]
+ 489:../Startup/system_XMC4700.c ****     SCU_OSC->OSCHPCTRL |= ((OSCHP_GetFrequency() / FOSCREF) - 1UL) << SCU_OSC_OSCHPCTRL_OSCVAL_Pos;
+ 332              	 .loc 1 489 0
+ 333 0086 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 334 008a 0246     	 mov r2,r0
+ 335 008c 514B     	 ldr r3,.L18+16
+ 336 008e A3FB0223 	 umull r2,r3,r3,r2
+ 337 0092 1B0D     	 lsrs r3,r3,#20
+ 338 0094 013B     	 subs r3,r3,#1
+ 339 0096 1B04     	 lsls r3,r3,#16
+ 340 0098 4D49     	 ldr r1,.L18+12
+ 341 009a 4D4A     	 ldr r2,.L18+12
+ 342 009c 5268     	 ldr r2,[r2,#4]
+ 343 009e 1343     	 orrs r3,r3,r2
+ 344 00a0 4B60     	 str r3,[r1,#4]
+ 490:../Startup/system_XMC4700.c **** 
+ 491:../Startup/system_XMC4700.c ****     /* select OSC_HP clock as PLL input */
+ 492:../Startup/system_XMC4700.c ****     SCU_PLL->PLLCON2 &= ~SCU_PLL_PLLCON2_PINSEL_Msk;
+ 345              	 .loc 1 492 0
+ 346 00a2 4A4A     	 ldr r2,.L18+8
+ 347 00a4 494B     	 ldr r3,.L18+8
+ 348 00a6 DB68     	 ldr r3,[r3,#12]
+ 349 00a8 23F00103 	 bic r3,r3,#1
+ 350 00ac D360     	 str r3,[r2,#12]
+ 493:../Startup/system_XMC4700.c **** 
+ 494:../Startup/system_XMC4700.c ****     /* restart OSC Watchdog */
+ 495:../Startup/system_XMC4700.c ****     SCU_PLL->PLLCON0 &= ~SCU_PLL_PLLCON0_OSCRES_Msk;
+ 351              	 .loc 1 495 0
+ 352 00ae 474A     	 ldr r2,.L18+8
+ 353 00b0 464B     	 ldr r3,.L18+8
+ 354 00b2 5B68     	 ldr r3,[r3,#4]
+ 355 00b4 23F40033 	 bic r3,r3,#131072
+ 356 00b8 5360     	 str r3,[r2,#4]
+ 496:../Startup/system_XMC4700.c **** 
+ 497:../Startup/system_XMC4700.c ****     while ((SCU_PLL->PLLSTAT & SCU_PLL_PLLSTAT_OSC_USABLE) != SCU_PLL_PLLSTAT_OSC_USABLE)
+ 357              	 .loc 1 497 0
+ 358 00ba 00BF     	 nop
+ 359              	.L15:
+ 360              	 .loc 1 497 0 is_stmt 0 discriminator 1
+ 361 00bc 434B     	 ldr r3,.L18+8
+ 362 00be 1B68     	 ldr r3,[r3]
+ 363 00c0 03F46073 	 and r3,r3,#896
+ 364 00c4 B3F5607F 	 cmp r3,#896
+ 365 00c8 F8D1     	 bne .L15
+ 366              	.L14:
+ 498:../Startup/system_XMC4700.c ****     {
+ 499:../Startup/system_XMC4700.c ****       /* wait till OSC_HP output frequency is usable */
+ 500:../Startup/system_XMC4700.c ****     }   
+ 501:../Startup/system_XMC4700.c ****   }
+ 502:../Startup/system_XMC4700.c **** #else /* PLL_CLOCK_SRC != PLL_CLOCK_SRC_OFI */
+ 503:../Startup/system_XMC4700.c **** 
+ 504:../Startup/system_XMC4700.c ****   /* select backup clock as PLL input */
+ 505:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON2 |= SCU_PLL_PLLCON2_PINSEL_Msk;
+ 506:../Startup/system_XMC4700.c **** #endif
+ 507:../Startup/system_XMC4700.c **** 
+ 508:../Startup/system_XMC4700.c ****   /* Go to bypass the Main PLL */
+ 509:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_VCOBYP_Msk;
+ 367              	 .loc 1 509 0 is_stmt 1
+ 368 00ca 404A     	 ldr r2,.L18+8
+ 369 00cc 3F4B     	 ldr r3,.L18+8
+ 370 00ce 5B68     	 ldr r3,[r3,#4]
+ 371 00d0 43F00103 	 orr r3,r3,#1
+ 372 00d4 5360     	 str r3,[r2,#4]
+ 510:../Startup/system_XMC4700.c **** 
+ 511:../Startup/system_XMC4700.c ****   /* disconnect Oscillator from PLL */
+ 512:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_FINDIS_Msk;
+ 373              	 .loc 1 512 0
+ 374 00d6 3D4A     	 ldr r2,.L18+8
+ 375 00d8 3C4B     	 ldr r3,.L18+8
+ 376 00da 5B68     	 ldr r3,[r3,#4]
+ 377 00dc 43F01003 	 orr r3,r3,#16
+ 378 00e0 5360     	 str r3,[r2,#4]
+ 513:../Startup/system_XMC4700.c **** 
+ 514:../Startup/system_XMC4700.c ****   /* Setup divider settings for main PLL */
+ 515:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 379              	 .loc 1 515 0
+ 380 00e2 3A4B     	 ldr r3,.L18+8
+ 381 00e4 3C4A     	 ldr r2,.L18+20
+ 382 00e6 9A60     	 str r2,[r3,#8]
+ 516:../Startup/system_XMC4700.c ****                       (PLL_K2DIV_24MHZ << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 517:../Startup/system_XMC4700.c ****                       (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 518:../Startup/system_XMC4700.c **** 
+ 519:../Startup/system_XMC4700.c ****   /* Set OSCDISCDIS */
+ 520:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_OSCDISCDIS_Msk;
+ 383              	 .loc 1 520 0
+ 384 00e8 384A     	 ldr r2,.L18+8
+ 385 00ea 384B     	 ldr r3,.L18+8
+ 386 00ec 5B68     	 ldr r3,[r3,#4]
+ 387 00ee 43F04003 	 orr r3,r3,#64
+ 388 00f2 5360     	 str r3,[r2,#4]
+ 521:../Startup/system_XMC4700.c **** 
+ 522:../Startup/system_XMC4700.c ****   /* connect Oscillator to PLL */
+ 523:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 &= ~SCU_PLL_PLLCON0_FINDIS_Msk;
+ 389              	 .loc 1 523 0
+ 390 00f4 354A     	 ldr r2,.L18+8
+ 391 00f6 354B     	 ldr r3,.L18+8
+ 392 00f8 5B68     	 ldr r3,[r3,#4]
+ 393 00fa 23F01003 	 bic r3,r3,#16
+ 394 00fe 5360     	 str r3,[r2,#4]
+ 524:../Startup/system_XMC4700.c **** 
+ 525:../Startup/system_XMC4700.c ****   /* restart PLL Lock detection */
+ 526:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 |= SCU_PLL_PLLCON0_RESLD_Msk;
+ 395              	 .loc 1 526 0
+ 396 0100 324A     	 ldr r2,.L18+8
+ 397 0102 324B     	 ldr r3,.L18+8
+ 398 0104 5B68     	 ldr r3,[r3,#4]
+ 399 0106 43F48023 	 orr r3,r3,#262144
+ 400 010a 5360     	 str r3,[r2,#4]
+ 527:../Startup/system_XMC4700.c **** 
+ 528:../Startup/system_XMC4700.c ****   while ((SCU_PLL->PLLSTAT & SCU_PLL_PLLSTAT_VCOLOCK_Msk) == 0U)
+ 401              	 .loc 1 528 0
+ 402 010c 00BF     	 nop
+ 403              	.L16:
+ 404              	 .loc 1 528 0 is_stmt 0 discriminator 1
+ 405 010e 2F4B     	 ldr r3,.L18+8
+ 406 0110 1B68     	 ldr r3,[r3]
+ 407 0112 03F00403 	 and r3,r3,#4
+ 408 0116 002B     	 cmp r3,#0
+ 409 0118 F9D0     	 beq .L16
+ 529:../Startup/system_XMC4700.c ****   {
+ 530:../Startup/system_XMC4700.c ****     /* wait for PLL Lock at 24MHz*/
+ 531:../Startup/system_XMC4700.c ****   }
+ 532:../Startup/system_XMC4700.c **** 
+ 533:../Startup/system_XMC4700.c ****   /* Disable bypass- put PLL clock back */
+ 534:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 &= ~SCU_PLL_PLLCON0_VCOBYP_Msk;
+ 410              	 .loc 1 534 0 is_stmt 1
+ 411 011a 2C4A     	 ldr r2,.L18+8
+ 412 011c 2B4B     	 ldr r3,.L18+8
+ 413 011e 5B68     	 ldr r3,[r3,#4]
+ 414 0120 23F00103 	 bic r3,r3,#1
+ 415 0124 5360     	 str r3,[r2,#4]
+ 535:../Startup/system_XMC4700.c ****   while ((SCU_PLL->PLLSTAT & SCU_PLL_PLLSTAT_VCOBYST_Msk) != 0U)
+ 416              	 .loc 1 535 0
+ 417 0126 00BF     	 nop
+ 418              	.L17:
+ 419              	 .loc 1 535 0 is_stmt 0 discriminator 1
+ 420 0128 284B     	 ldr r3,.L18+8
+ 421 012a 1B68     	 ldr r3,[r3]
+ 422 012c 03F00103 	 and r3,r3,#1
+ 423 0130 002B     	 cmp r3,#0
+ 424 0132 F9D1     	 bne .L17
+ 536:../Startup/system_XMC4700.c ****   {
+ 537:../Startup/system_XMC4700.c ****     /* wait for normal mode */
+ 538:../Startup/system_XMC4700.c ****   } 
+ 539:../Startup/system_XMC4700.c **** #endif /* ENABLE_PLL */
+ 540:../Startup/system_XMC4700.c **** 
+ 541:../Startup/system_XMC4700.c ****   /* Before scaling to final frequency we need to setup the clock dividers */
+ 542:../Startup/system_XMC4700.c ****   SCU_CLK->SYSCLKCR = __SYSCLKCR;
+ 425              	 .loc 1 542 0 is_stmt 1
+ 426 0134 294B     	 ldr r3,.L18+24
+ 427 0136 4FF00112 	 mov r2,#65537
+ 428 013a DA60     	 str r2,[r3,#12]
+ 543:../Startup/system_XMC4700.c ****   SCU_CLK->PBCLKCR = __PBCLKCR;
+ 429              	 .loc 1 543 0
+ 430 013c 274B     	 ldr r3,.L18+24
+ 431 013e 0022     	 movs r2,#0
+ 432 0140 5A61     	 str r2,[r3,#20]
+ 544:../Startup/system_XMC4700.c ****   SCU_CLK->CPUCLKCR = __CPUCLKCR;
+ 433              	 .loc 1 544 0
+ 434 0142 264B     	 ldr r3,.L18+24
+ 435 0144 0022     	 movs r2,#0
+ 436 0146 1A61     	 str r2,[r3,#16]
+ 545:../Startup/system_XMC4700.c ****   SCU_CLK->CCUCLKCR = __CCUCLKCR;
+ 437              	 .loc 1 545 0
+ 438 0148 244B     	 ldr r3,.L18+24
+ 439 014a 0022     	 movs r2,#0
+ 440 014c 1A62     	 str r2,[r3,#32]
+ 546:../Startup/system_XMC4700.c ****   SCU_CLK->WDTCLKCR = __WDTCLKCR;
+ 441              	 .loc 1 546 0
+ 442 014e 234B     	 ldr r3,.L18+24
+ 443 0150 0022     	 movs r2,#0
+ 444 0152 5A62     	 str r2,[r3,#36]
+ 547:../Startup/system_XMC4700.c ****   SCU_CLK->EBUCLKCR = __EBUCLKCR;
+ 445              	 .loc 1 547 0
+ 446 0154 214B     	 ldr r3,.L18+24
+ 447 0156 0322     	 movs r2,#3
+ 448 0158 DA61     	 str r2,[r3,#28]
+ 548:../Startup/system_XMC4700.c ****   SCU_CLK->USBCLKCR = __USBCLKCR | USB_DIV;
+ 449              	 .loc 1 548 0
+ 450 015a 204B     	 ldr r3,.L18+24
+ 451 015c 204A     	 ldr r2,.L18+28
+ 452 015e 9A61     	 str r2,[r3,#24]
+ 549:../Startup/system_XMC4700.c ****   SCU_CLK->EXTCLKCR = __EXTCLKCR;
+ 453              	 .loc 1 549 0
+ 454 0160 1E4B     	 ldr r3,.L18+24
+ 455 0162 204A     	 ldr r2,.L18+32
+ 456 0164 9A62     	 str r2,[r3,#40]
+ 550:../Startup/system_XMC4700.c **** 
+ 551:../Startup/system_XMC4700.c **** #if ENABLE_PLL
+ 552:../Startup/system_XMC4700.c ****   /* PLL frequency stepping...*/
+ 553:../Startup/system_XMC4700.c ****   /* Reset OSCDISCDIS */
+ 554:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON0 &= ~SCU_PLL_PLLCON0_OSCDISCDIS_Msk;
+ 457              	 .loc 1 554 0
+ 458 0166 194A     	 ldr r2,.L18+8
+ 459 0168 184B     	 ldr r3,.L18+8
+ 460 016a 5B68     	 ldr r3,[r3,#4]
+ 461 016c 23F04003 	 bic r3,r3,#64
+ 462 0170 5360     	 str r3,[r2,#4]
+ 555:../Startup/system_XMC4700.c ****   
+ 556:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 463              	 .loc 1 556 0
+ 464 0172 164B     	 ldr r3,.L18+8
+ 465 0174 1C4A     	 ldr r2,.L18+36
+ 466 0176 9A60     	 str r2,[r3,#8]
+ 557:../Startup/system_XMC4700.c **** 	                  (PLL_K2DIV_48MHZ << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 558:../Startup/system_XMC4700.c **** 	                  (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 559:../Startup/system_XMC4700.c **** 
+ 560:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_48MHZ);
+ 467              	 .loc 1 560 0
+ 468 0178 4FF41660 	 mov r0,#2400
+ 469 017c FFF7FEFF 	 bl delay
+ 561:../Startup/system_XMC4700.c **** 
+ 562:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 470              	 .loc 1 562 0
+ 471 0180 124B     	 ldr r3,.L18+8
+ 472 0182 1A4A     	 ldr r2,.L18+40
+ 473 0184 9A60     	 str r2,[r3,#8]
+ 563:../Startup/system_XMC4700.c **** 	                  (PLL_K2DIV_72MHZ << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 564:../Startup/system_XMC4700.c **** 	                  (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 565:../Startup/system_XMC4700.c **** 
+ 566:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_72MHZ);
+ 474              	 .loc 1 566 0
+ 475 0186 4FF46160 	 mov r0,#3600
+ 476 018a FFF7FEFF 	 bl delay
+ 567:../Startup/system_XMC4700.c **** 
+ 568:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 477              	 .loc 1 568 0
+ 478 018e 0F4B     	 ldr r3,.L18+8
+ 479 0190 174A     	 ldr r2,.L18+44
+ 480 0192 9A60     	 str r2,[r3,#8]
+ 569:../Startup/system_XMC4700.c **** 	                  (PLL_K2DIV_96MHZ << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 570:../Startup/system_XMC4700.c **** 	                  (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 571:../Startup/system_XMC4700.c **** 
+ 572:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_96MHZ);
+ 481              	 .loc 1 572 0
+ 482 0194 4FF49650 	 mov r0,#4800
+ 483 0198 FFF7FEFF 	 bl delay
+ 573:../Startup/system_XMC4700.c **** 
+ 574:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 484              	 .loc 1 574 0
+ 485 019c 0B4B     	 ldr r3,.L18+8
+ 486 019e 154A     	 ldr r2,.L18+48
+ 487 01a0 9A60     	 str r2,[r3,#8]
+ 575:../Startup/system_XMC4700.c **** 	                  (PLL_K2DIV_120MHZ << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 576:../Startup/system_XMC4700.c **** 	                  (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 577:../Startup/system_XMC4700.c **** 
+ 578:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_120MHZ);
+ 488              	 .loc 1 578 0
+ 489 01a2 41F27070 	 movw r0,#6000
+ 490 01a6 FFF7FEFF 	 bl delay
+ 579:../Startup/system_XMC4700.c **** 
+ 580:../Startup/system_XMC4700.c ****   SCU_PLL->PLLCON1 = ((PLL_NDIV << SCU_PLL_PLLCON1_NDIV_Pos) |
+ 491              	 .loc 1 580 0
+ 492 01aa 084B     	 ldr r3,.L18+8
+ 493 01ac 124A     	 ldr r2,.L18+52
+ 494 01ae 9A60     	 str r2,[r3,#8]
+ 581:../Startup/system_XMC4700.c **** 	                  (PLL_K2DIV << SCU_PLL_PLLCON1_K2DIV_Pos) |
+ 582:../Startup/system_XMC4700.c **** 	                  (PLL_PDIV << SCU_PLL_PLLCON1_PDIV_Pos));
+ 583:../Startup/system_XMC4700.c **** 
+ 584:../Startup/system_XMC4700.c ****   delay(DELAY_CNT_50US_144MHZ);
+ 495              	 .loc 1 584 0
+ 496 01b0 4FF4E150 	 mov r0,#7200
+ 497 01b4 FFF7FEFF 	 bl delay
+ 585:../Startup/system_XMC4700.c ****   
+ 586:../Startup/system_XMC4700.c **** #endif /* ENABLE_PLL */
+ 587:../Startup/system_XMC4700.c **** 
+ 588:../Startup/system_XMC4700.c **** #if ENABLE_USBPLL
+ 589:../Startup/system_XMC4700.c ****   /* enable USB PLL first */
+ 590:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON &= ~(SCU_PLL_USBPLLCON_VCOPWD_Msk | SCU_PLL_USBPLLCON_PLLPWD_Msk);
+ 591:../Startup/system_XMC4700.c **** 
+ 592:../Startup/system_XMC4700.c ****   /* USB PLL uses as clock input the OSC_HP */
+ 593:../Startup/system_XMC4700.c ****   /* check and if not already running enable OSC_HP */
+ 594:../Startup/system_XMC4700.c ****   if ((SCU_OSC->OSCHPCTRL & SCU_OSC_OSCHPCTRL_MODE_Msk) != 0U)
+ 595:../Startup/system_XMC4700.c ****   {
+ 596:../Startup/system_XMC4700.c ****     /* check if Main PLL is switched on for OSC WDG*/
+ 597:../Startup/system_XMC4700.c ****     if ((SCU_PLL->PLLCON0 &(SCU_PLL_PLLCON0_VCOPWD_Msk | SCU_PLL_PLLCON0_PLLPWD_Msk)) != 0UL)
+ 598:../Startup/system_XMC4700.c ****     {
+ 599:../Startup/system_XMC4700.c ****       /* enable PLL first */
+ 600:../Startup/system_XMC4700.c ****       SCU_PLL->PLLCON0 &= ~(SCU_PLL_PLLCON0_VCOPWD_Msk | SCU_PLL_PLLCON0_PLLPWD_Msk);
+ 601:../Startup/system_XMC4700.c ****     }
+ 602:../Startup/system_XMC4700.c **** 
+ 603:../Startup/system_XMC4700.c ****     SCU_OSC->OSCHPCTRL &= ~(SCU_OSC_OSCHPCTRL_MODE_Msk | SCU_OSC_OSCHPCTRL_OSCVAL_Pos);
+ 604:../Startup/system_XMC4700.c ****     SCU_OSC->OSCHPCTRL |= ((OSCHP_GetFrequency() / FOSCREF) - 1UL) << SCU_OSC_OSCHPCTRL_OSCVAL_Pos;
+ 605:../Startup/system_XMC4700.c **** 
+ 606:../Startup/system_XMC4700.c ****     /* restart OSC Watchdog */
+ 607:../Startup/system_XMC4700.c ****     SCU_PLL->PLLCON0 &= ~SCU_PLL_PLLCON0_OSCRES_Msk;
+ 608:../Startup/system_XMC4700.c **** 
+ 609:../Startup/system_XMC4700.c ****     while ((SCU_PLL->PLLSTAT & SCU_PLL_PLLSTAT_OSC_USABLE) != SCU_PLL_PLLSTAT_OSC_USABLE)
+ 610:../Startup/system_XMC4700.c ****     {
+ 611:../Startup/system_XMC4700.c ****       /* wait till OSC_HP output frequency is usable */
+ 612:../Startup/system_XMC4700.c ****     }
+ 613:../Startup/system_XMC4700.c ****   }
+ 614:../Startup/system_XMC4700.c **** 
+ 615:../Startup/system_XMC4700.c **** 
+ 616:../Startup/system_XMC4700.c ****   /* Setup USB PLL */
+ 617:../Startup/system_XMC4700.c ****   /* Go to bypass the USB PLL */
+ 618:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON |= SCU_PLL_USBPLLCON_VCOBYP_Msk;
+ 619:../Startup/system_XMC4700.c **** 
+ 620:../Startup/system_XMC4700.c ****   /* disconnect Oscillator from USB PLL */
+ 621:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON |= SCU_PLL_USBPLLCON_FINDIS_Msk;
+ 622:../Startup/system_XMC4700.c **** 
+ 623:../Startup/system_XMC4700.c ****   /* Setup Divider settings for USB PLL */
+ 624:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON = ((USB_NDIV << SCU_PLL_USBPLLCON_NDIV_Pos) |
+ 625:../Startup/system_XMC4700.c ****                         (USB_PDIV << SCU_PLL_USBPLLCON_PDIV_Pos));
+ 626:../Startup/system_XMC4700.c **** 
+ 627:../Startup/system_XMC4700.c ****   /* Set OSCDISCDIS */
+ 628:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON |= SCU_PLL_USBPLLCON_OSCDISCDIS_Msk;
+ 629:../Startup/system_XMC4700.c **** 
+ 630:../Startup/system_XMC4700.c ****   /* connect Oscillator to USB PLL */
+ 631:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON &= ~SCU_PLL_USBPLLCON_FINDIS_Msk;
+ 632:../Startup/system_XMC4700.c **** 
+ 633:../Startup/system_XMC4700.c ****   /* restart PLL Lock detection */
+ 634:../Startup/system_XMC4700.c ****   SCU_PLL->USBPLLCON |= SCU_PLL_USBPLLCON_RESLD_Msk;
+ 635:../Startup/system_XMC4700.c **** 
+ 636:../Startup/system_XMC4700.c ****   while ((SCU_PLL->USBPLLSTAT & SCU_PLL_USBPLLSTAT_VCOLOCK_Msk) == 0U)
+ 637:../Startup/system_XMC4700.c ****   {
+ 638:../Startup/system_XMC4700.c ****     /* wait for PLL Lock */
+ 639:../Startup/system_XMC4700.c ****   }  
+ 640:../Startup/system_XMC4700.c **** #endif
+ 641:../Startup/system_XMC4700.c **** 
+ 642:../Startup/system_XMC4700.c **** 
+ 643:../Startup/system_XMC4700.c ****   /* Enable selected clocks */
+ 644:../Startup/system_XMC4700.c ****   SCU_CLK->CLKSET = __CLKSET;
+ 498              	 .loc 1 644 0
+ 499 01b8 084B     	 ldr r3,.L18+24
+ 500 01ba 0022     	 movs r2,#0
+ 501 01bc 5A60     	 str r2,[r3,#4]
+ 645:../Startup/system_XMC4700.c **** 
+ 646:../Startup/system_XMC4700.c **** #if __EXTCLKPIN != 0
+ 647:../Startup/system_XMC4700.c **** #if __EXTCLKPIN == EXTCLK_PIN_P1_15
+ 648:../Startup/system_XMC4700.c ****   /* P1.15 */
+ 649:../Startup/system_XMC4700.c ****   PORT1->PDR1 &= ~PORT1_PDR1_PD15_Msk;
+ 650:../Startup/system_XMC4700.c ****   PORT1->IOCR12 = (PORT1->IOCR12 & ~PORT0_IOCR12_PC15_Msk) | (0x11U << PORT0_IOCR12_PC15_Pos);
+ 651:../Startup/system_XMC4700.c **** #else
+ 652:../Startup/system_XMC4700.c ****   /* P0.8 */
+ 653:../Startup/system_XMC4700.c ****   PORT0->HWSEL &= ~PORT0_HWSEL_HW8_Msk;
+ 654:../Startup/system_XMC4700.c ****   PORT0->PDR1 &= ~PORT0_PDR1_PD8_Msk;
+ 655:../Startup/system_XMC4700.c ****   PORT0->IOCR8 = (PORT0->IOCR8 & ~PORT0_IOCR8_PC8_Msk) | (0x11U << PORT0_IOCR8_PC8_Pos);
+ 656:../Startup/system_XMC4700.c **** #endif
+ 657:../Startup/system_XMC4700.c **** #endif  /* ENABLE_EXTCLK == 1  */
+ 658:../Startup/system_XMC4700.c **** 
+ 659:../Startup/system_XMC4700.c ****   SystemCoreClockUpdate();
+ 502              	 .loc 1 659 0
+ 503 01be FFF7FEFF 	 bl SystemCoreClockUpdate
+ 660:../Startup/system_XMC4700.c **** }
+ 504              	 .loc 1 660 0
+ 505 01c2 80BD     	 pop {r7,pc}
+ 506              	.L19:
+ 507              	 .align 2
+ 508              	.L18:
+ 509 01c4 00420050 	 .word 1342194176
+ 510 01c8 00440050 	 .word 1342194688
+ 511 01cc 10470050 	 .word 1342195472
+ 512 01d0 00470050 	 .word 1342195456
+ 513 01d4 6BCA5F6B 	 .word 1801439851
+ 514 01d8 002F0B01 	 .word 17510144
+ 515 01dc 00460050 	 .word 1342195200
+ 516 01e0 05000100 	 .word 65541
+ 517 01e4 03002001 	 .word 18874371
+ 518 01e8 002F0501 	 .word 17116928
+ 519 01ec 002F0301 	 .word 16985856
+ 520 01f0 002F0201 	 .word 16920320
+ 521 01f4 002F0101 	 .word 16854784
+ 522 01f8 002F0001 	 .word 16789248
+ 523              	 .cfi_endproc
+ 524              	.LFE126:
+ 526              	 .section .text.SystemCoreClockUpdate,"ax",%progbits
+ 527              	 .align 2
+ 528              	 .weak SystemCoreClockUpdate
+ 529              	 .thumb
+ 530              	 .thumb_func
+ 532              	SystemCoreClockUpdate:
+ 533              	.LFB127:
+ 661:../Startup/system_XMC4700.c **** 
+ 662:../Startup/system_XMC4700.c **** __WEAK void SystemCoreClockUpdate(void)
+ 663:../Startup/system_XMC4700.c **** {
+ 534              	 .loc 1 663 0
+ 535              	 .cfi_startproc
+ 536              	 
+ 537              	 
+ 538 0000 80B5     	 push {r7,lr}
+ 539              	.LCFI16:
+ 540              	 .cfi_def_cfa_offset 8
+ 541              	 .cfi_offset 7,-8
+ 542              	 .cfi_offset 14,-4
+ 543 0002 84B0     	 sub sp,sp,#16
+ 544              	.LCFI17:
+ 545              	 .cfi_def_cfa_offset 24
+ 546 0004 00AF     	 add r7,sp,#0
+ 547              	.LCFI18:
+ 548              	 .cfi_def_cfa_register 7
+ 664:../Startup/system_XMC4700.c ****   uint32_t pdiv;
+ 665:../Startup/system_XMC4700.c ****   uint32_t ndiv;
+ 666:../Startup/system_XMC4700.c ****   uint32_t kdiv;
+ 667:../Startup/system_XMC4700.c ****   uint32_t temp;
+ 668:../Startup/system_XMC4700.c **** 
+ 669:../Startup/system_XMC4700.c ****   if (SCU_CLK->SYSCLKCR & SCU_CLK_SYSCLKCR_SYSSEL_Msk)
+ 549              	 .loc 1 669 0
+ 550 0006 2F4B     	 ldr r3,.L27
+ 551 0008 DB68     	 ldr r3,[r3,#12]
+ 552 000a 03F48033 	 and r3,r3,#65536
+ 553 000e 002B     	 cmp r3,#0
+ 554 0010 3ED0     	 beq .L21
+ 670:../Startup/system_XMC4700.c ****   {
+ 671:../Startup/system_XMC4700.c ****     /* fPLL is clock source for fSYS */
+ 672:../Startup/system_XMC4700.c ****     if(SCU_PLL->PLLCON2 & SCU_PLL_PLLCON2_PINSEL_Msk)
+ 555              	 .loc 1 672 0
+ 556 0012 2D4B     	 ldr r3,.L27+4
+ 557 0014 DB68     	 ldr r3,[r3,#12]
+ 558 0016 03F00103 	 and r3,r3,#1
+ 559 001a 002B     	 cmp r3,#0
+ 560 001c 02D0     	 beq .L22
+ 673:../Startup/system_XMC4700.c ****     {
+ 674:../Startup/system_XMC4700.c ****       /* PLL input clock is the backup clock (fOFI) */
+ 675:../Startup/system_XMC4700.c ****       temp = OFI_FREQUENCY;
+ 561              	 .loc 1 675 0
+ 562 001e 2B4B     	 ldr r3,.L27+8
+ 563 0020 FB60     	 str r3,[r7,#12]
+ 564 0022 02E0     	 b .L23
+ 565              	.L22:
+ 676:../Startup/system_XMC4700.c ****     }
+ 677:../Startup/system_XMC4700.c ****     else
+ 678:../Startup/system_XMC4700.c ****     {
+ 679:../Startup/system_XMC4700.c ****       /* PLL input clock is the high performance osicllator (fOSCHP) */
+ 680:../Startup/system_XMC4700.c ****       temp = OSCHP_GetFrequency();
+ 566              	 .loc 1 680 0
+ 567 0024 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 568 0028 F860     	 str r0,[r7,#12]
+ 569              	.L23:
+ 681:../Startup/system_XMC4700.c ****     }
+ 682:../Startup/system_XMC4700.c **** 
+ 683:../Startup/system_XMC4700.c ****     /* check if PLL is locked */
+ 684:../Startup/system_XMC4700.c ****     if (SCU_PLL->PLLSTAT & SCU_PLL_PLLSTAT_VCOLOCK_Msk)
+ 570              	 .loc 1 684 0
+ 571 002a 274B     	 ldr r3,.L27+4
+ 572 002c 1B68     	 ldr r3,[r3]
+ 573 002e 03F00403 	 and r3,r3,#4
+ 574 0032 002B     	 cmp r3,#0
+ 575 0034 20D0     	 beq .L24
+ 685:../Startup/system_XMC4700.c ****     {
+ 686:../Startup/system_XMC4700.c ****       /* PLL normal mode */
+ 687:../Startup/system_XMC4700.c ****       /* read back divider settings */
+ 688:../Startup/system_XMC4700.c ****       pdiv = ((SCU_PLL->PLLCON1 & SCU_PLL_PLLCON1_PDIV_Msk) >> SCU_PLL_PLLCON1_PDIV_Pos) + 1;
+ 576              	 .loc 1 688 0
+ 577 0036 244B     	 ldr r3,.L27+4
+ 578 0038 9B68     	 ldr r3,[r3,#8]
+ 579 003a 03F07063 	 and r3,r3,#251658240
+ 580 003e 1B0E     	 lsrs r3,r3,#24
+ 581 0040 0133     	 adds r3,r3,#1
+ 582 0042 BB60     	 str r3,[r7,#8]
+ 689:../Startup/system_XMC4700.c ****       ndiv = ((SCU_PLL->PLLCON1 & SCU_PLL_PLLCON1_NDIV_Msk) >> SCU_PLL_PLLCON1_NDIV_Pos) + 1;
+ 583              	 .loc 1 689 0
+ 584 0044 204B     	 ldr r3,.L27+4
+ 585 0046 9B68     	 ldr r3,[r3,#8]
+ 586 0048 03F4FE43 	 and r3,r3,#32512
+ 587 004c 1B0A     	 lsrs r3,r3,#8
+ 588 004e 0133     	 adds r3,r3,#1
+ 589 0050 7B60     	 str r3,[r7,#4]
+ 690:../Startup/system_XMC4700.c ****       kdiv = ((SCU_PLL->PLLCON1 & SCU_PLL_PLLCON1_K2DIV_Msk) >> SCU_PLL_PLLCON1_K2DIV_Pos) + 1;
+ 590              	 .loc 1 690 0
+ 591 0052 1D4B     	 ldr r3,.L27+4
+ 592 0054 9B68     	 ldr r3,[r3,#8]
+ 593 0056 03F4FE03 	 and r3,r3,#8323072
+ 594 005a 1B0C     	 lsrs r3,r3,#16
+ 595 005c 0133     	 adds r3,r3,#1
+ 596 005e 3B60     	 str r3,[r7]
+ 691:../Startup/system_XMC4700.c **** 
+ 692:../Startup/system_XMC4700.c ****       temp = (temp / (pdiv * kdiv)) * ndiv;
+ 597              	 .loc 1 692 0
+ 598 0060 BB68     	 ldr r3,[r7,#8]
+ 599 0062 3A68     	 ldr r2,[r7]
+ 600 0064 02FB03F3 	 mul r3,r2,r3
+ 601 0068 FA68     	 ldr r2,[r7,#12]
+ 602 006a B2FBF3F3 	 udiv r3,r2,r3
+ 603 006e 7A68     	 ldr r2,[r7,#4]
+ 604 0070 02FB03F3 	 mul r3,r2,r3
+ 605 0074 FB60     	 str r3,[r7,#12]
+ 606 0076 0DE0     	 b .L26
+ 607              	.L24:
+ 693:../Startup/system_XMC4700.c ****     }
+ 694:../Startup/system_XMC4700.c ****     else
+ 695:../Startup/system_XMC4700.c ****     {
+ 696:../Startup/system_XMC4700.c ****       /* PLL prescalar mode */
+ 697:../Startup/system_XMC4700.c ****       /* read back divider settings */
+ 698:../Startup/system_XMC4700.c ****       kdiv  = ((SCU_PLL->PLLCON1 & SCU_PLL_PLLCON1_K1DIV_Msk) >> SCU_PLL_PLLCON1_K1DIV_Pos) + 1;
+ 608              	 .loc 1 698 0
+ 609 0078 134B     	 ldr r3,.L27+4
+ 610 007a 9B68     	 ldr r3,[r3,#8]
+ 611 007c 03F07F03 	 and r3,r3,#127
+ 612 0080 0133     	 adds r3,r3,#1
+ 613 0082 3B60     	 str r3,[r7]
+ 699:../Startup/system_XMC4700.c ****       
+ 700:../Startup/system_XMC4700.c ****       temp = (temp / kdiv);
+ 614              	 .loc 1 700 0
+ 615 0084 FA68     	 ldr r2,[r7,#12]
+ 616 0086 3B68     	 ldr r3,[r7]
+ 617 0088 B2FBF3F3 	 udiv r3,r2,r3
+ 618 008c FB60     	 str r3,[r7,#12]
+ 619 008e 01E0     	 b .L26
+ 620              	.L21:
+ 701:../Startup/system_XMC4700.c ****     }
+ 702:../Startup/system_XMC4700.c ****   }
+ 703:../Startup/system_XMC4700.c ****   else
+ 704:../Startup/system_XMC4700.c ****   {
+ 705:../Startup/system_XMC4700.c ****     /* fOFI is clock source for fSYS */    
+ 706:../Startup/system_XMC4700.c ****     temp = OFI_FREQUENCY;
+ 621              	 .loc 1 706 0
+ 622 0090 0E4B     	 ldr r3,.L27+8
+ 623 0092 FB60     	 str r3,[r7,#12]
+ 624              	.L26:
+ 707:../Startup/system_XMC4700.c ****   }
+ 708:../Startup/system_XMC4700.c **** 
+ 709:../Startup/system_XMC4700.c ****   temp = temp / ((SCU_CLK->SYSCLKCR & SCU_CLK_SYSCLKCR_SYSDIV_Msk) + 1);
+ 625              	 .loc 1 709 0
+ 626 0094 0B4B     	 ldr r3,.L27
+ 627 0096 DB68     	 ldr r3,[r3,#12]
+ 628 0098 DBB2     	 uxtb r3,r3
+ 629 009a 0133     	 adds r3,r3,#1
+ 630 009c FA68     	 ldr r2,[r7,#12]
+ 631 009e B2FBF3F3 	 udiv r3,r2,r3
+ 632 00a2 FB60     	 str r3,[r7,#12]
+ 710:../Startup/system_XMC4700.c ****   temp = temp / ((SCU_CLK->CPUCLKCR & SCU_CLK_CPUCLKCR_CPUDIV_Msk) + 1);
+ 633              	 .loc 1 710 0
+ 634 00a4 074B     	 ldr r3,.L27
+ 635 00a6 1B69     	 ldr r3,[r3,#16]
+ 636 00a8 03F00103 	 and r3,r3,#1
+ 637 00ac 0133     	 adds r3,r3,#1
+ 638 00ae FA68     	 ldr r2,[r7,#12]
+ 639 00b0 B2FBF3F3 	 udiv r3,r2,r3
+ 640 00b4 FB60     	 str r3,[r7,#12]
+ 711:../Startup/system_XMC4700.c **** 
+ 712:../Startup/system_XMC4700.c ****   SystemCoreClock = temp;
+ 641              	 .loc 1 712 0
+ 642 00b6 064A     	 ldr r2,.L27+12
+ 643 00b8 FB68     	 ldr r3,[r7,#12]
+ 644 00ba 1360     	 str r3,[r2]
+ 713:../Startup/system_XMC4700.c **** }
+ 645              	 .loc 1 713 0
+ 646 00bc 1037     	 adds r7,r7,#16
+ 647              	.LCFI19:
+ 648              	 .cfi_def_cfa_offset 8
+ 649 00be BD46     	 mov sp,r7
+ 650              	.LCFI20:
+ 651              	 .cfi_def_cfa_register 13
+ 652              	 
+ 653 00c0 80BD     	 pop {r7,pc}
+ 654              	.L28:
+ 655 00c2 00BF     	 .align 2
+ 656              	.L27:
+ 657 00c4 00460050 	 .word 1342195200
+ 658 00c8 10470050 	 .word 1342195472
+ 659 00cc 00366E01 	 .word 24000000
+ 660 00d0 00000000 	 .word SystemCoreClock
+ 661              	 .cfi_endproc
+ 662              	.LFE127:
+ 664              	 .section .text.OSCHP_GetFrequency,"ax",%progbits
+ 665              	 .align 2
+ 666              	 .weak OSCHP_GetFrequency
+ 667              	 .thumb
+ 668              	 .thumb_func
+ 670              	OSCHP_GetFrequency:
+ 671              	.LFB128:
+ 714:../Startup/system_XMC4700.c **** 
+ 715:../Startup/system_XMC4700.c **** __WEAK uint32_t OSCHP_GetFrequency(void)
+ 716:../Startup/system_XMC4700.c **** {
+ 672              	 .loc 1 716 0
+ 673              	 .cfi_startproc
+ 674              	 
+ 675              	 
+ 676              	 
+ 677 0000 80B4     	 push {r7}
+ 678              	.LCFI21:
+ 679              	 .cfi_def_cfa_offset 4
+ 680              	 .cfi_offset 7,-4
+ 681 0002 00AF     	 add r7,sp,#0
+ 682              	.LCFI22:
+ 683              	 .cfi_def_cfa_register 7
+ 717:../Startup/system_XMC4700.c ****   return OSCHP_FREQUENCY;
+ 684              	 .loc 1 717 0
+ 685 0004 024B     	 ldr r3,.L31
+ 718:../Startup/system_XMC4700.c **** }
+ 686              	 .loc 1 718 0
+ 687 0006 1846     	 mov r0,r3
+ 688 0008 BD46     	 mov sp,r7
+ 689              	.LCFI23:
+ 690              	 .cfi_def_cfa_register 13
+ 691              	 
+ 692 000a 5DF8047B 	 ldr r7,[sp],#4
+ 693              	.LCFI24:
+ 694              	 .cfi_restore 7
+ 695              	 .cfi_def_cfa_offset 0
+ 696 000e 7047     	 bx lr
+ 697              	.L32:
+ 698              	 .align 2
+ 699              	.L31:
+ 700 0010 001BB700 	 .word 12000000
+ 701              	 .cfi_endproc
+ 702              	.LFE128:
+ 704              	 .text
+ 705              	.Letext0:
+ 706              	 .file 3 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 707              	 .file 4 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 708              	 .file 5 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Include/core_cm4.h"
+ 709              	 .file 6 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 system_XMC4700.c
+    {standard input}:24     .no_init:00000000 SystemCoreClock
+    {standard input}:21     .no_init:00000000 $d
+    {standard input}:30     .no_init:00000004 g_chipid
+    {standard input}:33     .text.delay:00000000 $t
+    {standard input}:37     .text.delay:00000000 delay
+    {standard input}:98     .text.SystemInit:00000000 $t
+    {standard input}:103    .text.SystemInit:00000000 SystemInit
+    {standard input}:144    .text.SystemCoreSetup:00000000 SystemCoreSetup
+    {standard input}:252    .text.SystemCoreClockSetup:00000000 SystemCoreClockSetup
+    {standard input}:134    .text.SystemInit:0000001c $d
+    {standard input}:139    .text.SystemCoreSetup:00000000 $t
+    {standard input}:240    .text.SystemCoreSetup:00000064 $d
+    {standard input}:247    .text.SystemCoreClockSetup:00000000 $t
+    {standard input}:670    .text.OSCHP_GetFrequency:00000000 OSCHP_GetFrequency
+    {standard input}:532    .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
+    {standard input}:509    .text.SystemCoreClockSetup:000001c4 $d
+    {standard input}:527    .text.SystemCoreClockUpdate:00000000 $t
+    {standard input}:657    .text.SystemCoreClockUpdate:000000c4 $d
+    {standard input}:665    .text.OSCHP_GetFrequency:00000000 $t
+    {standard input}:700    .text.OSCHP_GetFrequency:00000010 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__Vectors

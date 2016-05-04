@@ -1,0 +1,1505 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "xmc_posif.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.XMC_POSIF_Stop,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	XMC_POSIF_Stop:
+  25              	.LFB155:
+  26              	 .file 1 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc_posif.h"
+   1:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+   2:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @file xmc_posif.h
+   3:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @date 2016-01-12
+   4:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+   5:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @cond
+   6:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **********************************************************************************
+   7:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMClib v2.1.6 - XMC Peripheral Driver Library 
+   8:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+   9:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * All rights reserved.                        
+  11:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *                                             
+  12:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Redistribution and use in source and binary forms, with or without           
+  13:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * modification,are permitted provided that the following conditions are met:   
+  14:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *                                                                              
+  15:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   Redistributions of source code must retain the above copyright notice,      
+  16:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   this list of conditions and the following disclaimer.                        
+  17:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 
+  18:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   Redistributions in binary form must reproduce the above copyright notice,   
+  19:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   this list of conditions and the following disclaimer in the documentation    
+  20:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   and/or other materials provided with the distribution.                       
+  21:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 
+  22:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   Neither the name of the copyright holders nor the names of its contributors 
+  23:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   may be used to endorse or promote products derived from this software without
+  24:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *   specific prior written permission.                                           
+  25:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *                                                                              
+  26:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  
+  27:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    
+  28:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   
+  29:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   
+  30:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         
+  31:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+  32:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    
+  33:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      
+  34:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       
+  35:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   
+  36:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * POSSIBILITY OF SUCH DAMAGE.                                                  
+  37:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *                                                                              
+  38:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * To improve the quality of the software, users are encouraged to share        
+  39:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * modifications, enhancements or bug fixes with Infineon Technologies AG       
+  40:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * dave@infineon.com).                                                          
+  41:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **********************************************************************************
+  42:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  43:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Change History
+  44:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * --------------
+  45:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  46:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 2015-02-18:
+  47:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *     - Initial version
+  48:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *      
+  49:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 2015-02-20:
+  50:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *     - Driver description added <BR>
+  51:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  52:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 2015-06-19:
+  53:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *     - Removed version macros and declaration of GetDriverVersion API <BR> 
+  54:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  55:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 2015-07-02:
+  56:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *     - Updated XMC_POSIF_QD_GetDirection API
+  57:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @endcond 
+  58:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  59:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+  60:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  61:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  62:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #ifndef XMC_POSIF_H
+  63:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_H
+  64:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  65:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**************************************************************************************************
+  66:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * HEADER FILES
+  67:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **************************************************************************************************
+  68:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #include <xmc_common.h>
+  69:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  70:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #if defined(POSIF0)
+  71:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #include <xmc_scu.h>
+  72:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  73:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+  74:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @addtogroup XMClib
+  75:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @{
+  76:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+  77:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+  78:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+  79:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @addtogroup POSIF
+  80:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @{
+  81:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @brief Position Interface Unit (POSIF) driver for the XMC microcontroller family <br>
+  82:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  83:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The POSIF unit is a flexible and powerful component for motor control systems that use
+  84:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * rotary encoders or hall sensors as feedback loop. It provides interface for motor position and v
+  85:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * POSIF unit works with CCU4 and CCU8 to enable position and velocity measurement and to control P
+  86:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  87:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Driver is divided in three POSIF functional blocks - Hall Sensor Control (POSIF_HSC), Quadrature
+  88:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * MultiChannel Mode (POSIF_MCM). <br>
+  89:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+  90:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * POSIF driver features:
+  91:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -#  Configuration structure XMC_POSIF_CONFIG_t and initialization function XMC_POSIF_Init() to c
+  92:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -# Allows to change the operating mode using XMC_POSIF_SetMode()
+  93:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -# Allows the selection of one of the four inputs (A, B, C or D) using XMC_POSIF_SelectInputSour
+  94:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * hall0, hall1 and hall2 signals. For quadrature decoder mode, inputs are phase A, phase B and ind
+  95:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -#  Hall Sensor Control (APIs prefixed with XMC_POSIF_HSC_) <br>
+  96:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_HSC_CONFIG_t and initialization function XMC_POSIF_HSC_Ini
+  97:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 	-  Update current and expected hall pattern in shadow register using XMC_POSIF_HSC_SetHallPatte
+  98:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 	- Allows immediate shadow transfer using XMC_POSIF_HSC_UpdateHallPattern()
+  99:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -#  Quadrature Decoder (APIs prefixed with XMC_POSIF_QD_) <br>
+ 100:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_QD_CONFIG_t and initialization function XMC_POSIF_QD_Init(
+ 101:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * 	-  Get direction of rotation using XMC_POSIF_QD_GetDirection()
+ 102:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -#  MultiChannel Mode (APIs prefixed with XMC_POSIF_MCM_) <br>
+ 103:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *	-  Configuration structure XMC_POSIF_MCM_CONFIG_t and initialization function XMC_POSIF_MCM_Init
+ 104:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *	-  Update multichannel pattern in shadow register using XMC_POSIF_MCM_SetMultiChannelPattern()
+ 105:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *	-  Allows immediate shadow transfer using XMC_POSIF_MCM_UpdateMultiChannelPattern()
+ 106:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -# User need to call respective init functions to configure POSIF operating mode. e.g to configu
+ 107:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * call both XMC_POSIF_HSC_Init() and XMC_POSIF_MCM_Init().
+ 108:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * -# Allows to enable and disable interrupt sources and assign to service request node using XMC_P
+ 109:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 110:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 111:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /* POSIF is not available on XMC11 and XMC12 devices */
+ 112:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 113:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**************************************************************************************************
+ 114:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * MACROS
+ 115:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **************************************************************************************************
+ 116:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_PCONF_INSEL_Msk        (0x3fUL << POSIF_PCONF_INSEL0_Pos) /*< Mask for input pins
+ 117:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_INSEL_MAX              (4U) /*< Maximum possible input selector */
+ 118:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_HALPS_HALLPAT_Msk      (0x3FUL)
+ 119:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 120:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #if ((UC_SERIES == XMC45) || (UC_SERIES == XMC44) || (UC_SERIES == XMC47) || (UC_SERIES == XMC48) |
+ 121:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0) || ((PTR)== POSIF1) ) /*< Check for val
+ 122:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #else
+ 123:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0))  /*< Check for valid module pointer */
+ 124:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #endif
+ 125:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 126:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**************************************************************************************************
+ 127:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * ENUMS
+ 128:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **************************************************************************************************
+ 129:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 130:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Defines the return status, to verify the POSIF related API calls. Use type @ref XMC_POSIF_STATU
+ 131:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 132:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_STATUS
+ 133:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 134:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_STATUS_OK = 0U,     /**< API fulfills request */
+ 135:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_STATUS_ERROR        /**< API cannot fulfill request */
+ 136:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_STATUS_t;
+ 137:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 138:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 139:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF configurable modes.Use type @ref XMC_POSIF_MODE_t for this enum.
+ 140:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The members defines the function selector(FSEL) bitfields of \a PCONF register.
+ 141:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 142:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_MODE
+ 143:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 144:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_MODE_HALL_SENSOR = 0U, /**< Hall sensor mode */
+ 145:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_MODE_QD              , /**< Quadrature Decoder mode */
+ 146:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_MODE_MCM             , /**< Standalone Multichannel mode */
+ 147:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_MODE_MCM_QD           /**< Quadrature Decoder + Standalone Multichannel mode */
+ 148:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_MODE_t;
+ 149:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 150:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 151:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF configurable input ports.Use type @ref XMC_POSIF_INPUT_PORT_t for this enum.
+ 152:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The member defines the respective input selector(INSELX) bitfields of \a PCONF register.
+ 153:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It selects, which input is used for the phase or Hall input function (depending on the module is
+ 154:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Quadrature Decoder or Hall Sensor Mode). Same enum can be used to configure pattern update signa
+ 155:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \a PCONF register's \a MSETS bit field.
+ 156:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 157:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_INPUT_PORT
+ 158:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 159:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_A = 0U, /**< INPUT-A */
+ 160:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_B     , /**< INPUT-B */
+ 161:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_C     , /**< INPUT-C */
+ 162:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_D     , /**< INPUT-D */
+ 163:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_E     , /**< INPUT-E */
+ 164:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_F     , /**< INPUT-F */
+ 165:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_G     , /**< INPUT-G */
+ 166:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_PORT_H       /**< INPUT-H */
+ 167:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_INPUT_PORT_t;
+ 168:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 169:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 170:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Defines active level of an input signal.Use type @ref XMC_POSIF_INPUT_ACTIVE_LEVEL_t for this e
+ 171:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 172:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_INPUT_ACTIVE_LEVEL
+ 173:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 174:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_HIGH  = 0U, /**< Input - Active High */
+ 175:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_LOW         /**< Input - Active Low */
+ 176:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_INPUT_ACTIVE_LEVEL_t;
+ 177:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 178:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 179:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF input debounce filter configuration.POSIF inputs are connected to low pass filter 
+ 180:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * this enum is used to configure low pass filters cut off frequency.
+ 181:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_FILTER_t for this enum.
+ 182:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The member defines the low pass filter configuration(LPC) bitfield of \a PCONF register.
+ 183:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 184:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_FILTER
+ 185:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 186:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_DISABLED     = 0U, /**< No filtering */
+ 187:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_1_CLOCK_CYCLE    , /**< Filter of 1 Clock Cycle */
+ 188:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_2_CLOCK_CYCLE    , /**< Filter of 2 Clock Cycles */
+ 189:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_4_CLOCK_CYCLE    , /**< Filter of 4 Clock Cycles */
+ 190:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_8_CLOCK_CYCLE    , /**< Filter of 8 Clock Cycles */
+ 191:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_16_CLOCK_CYCLE   , /**< Filter of 16 Clock Cycles */
+ 192:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_32_CLOCK_CYCLE   , /**< Filter of 32 Clock Cycles */
+ 193:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_FILTER_64_CLOCK_CYCLE     /**< Filter of 64 Clock Cycles */
+ 194:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_FILTER_t;
+ 195:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 196:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 197:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF events.Use type @ref XMC_POSIF_IRQ_EVENT_t for this enum.
+ 198:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The member defines available event sources.It is used to configure which event to be used for
+ 199:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * interrupt generation using \a PFLGE register. [ PFLG,SPFLG,RPFLG]
+ 200:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 201:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_IRQ_EVENT
+ 202:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 203:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CHE                  = 0U, /**< Hall Mode : Correct Hall Event */
+ 204:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_WHE                  = 1U, /**< Hall Mode : Wrong Hall Event */
+ 205:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_HALL_INPUT           = 2U, /**< Hall Mode : Hall Input update */
+ 206:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_MCP_SHADOW_TRANSFER  = 4U, /**< Hall Mode + MCM Mode : MC Pattern shadow tran
+ 207:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_INDX                 = 8U, /**< Quadrature Mode : Index event detection */
+ 208:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_ERR                  = 9U, /**< Quadrature Mode : Quadrature Phase Error */
+ 209:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CNT                  = 10U, /**< Quadrature Mode : Quadrature Clock event */
+ 210:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_DIR                  = 11U, /**< Quadrature Mode : Quadrature Direction chang
+ 211:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_PCLK                 = 12U  /**< Quadrature Mode : Quadrature period clock ge
+ 212:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_IRQ_EVENT_t;
+ 213:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 214:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 215:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF service request lines.Use type @ref XMC_POSIF_SR_ID_t for this enum.
+ 216:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It used to connect POSIF event to required service request line.
+ 217:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * in \a PFLGE register for interrupt generation.
+ 218:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 219:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_SR_ID
+ 220:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 221:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_SR_ID_0 = 0U, /**< SR-0 */
+ 222:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_SR_ID_1      /**< SR-1 */
+ 223:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_SR_ID_t;
+ 224:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 225:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 226:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines position decoder mode selection.Use type @ref XMC_POSIF_QD_MODE_t for this enum.
+ 227:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The member defines configuration for the operation of the quadrature decoder mode.
+ 228:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It used to configure \a QDC register.
+ 229:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 230:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_MODE
+ 231:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 232:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_QUADRATURE       = 0U, /**< Standard Quadrature Mode */
+ 233:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_DIRECTION_COUNT       /**< Direction Count Mode */
+ 234:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_QD_MODE_t;
+ 235:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 236:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 237:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines motor rotation direction.Use type @ref XMC_POSIF_QD_DIR_t for this enum.
+ 238:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * The member defines the direction in quadrature mode.
+ 239:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 240:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_DIR
+ 241:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 242:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_DIR_COUNTERCLOCKWISE  = 0U, /**< Counter Clockwise */
+ 243:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_DIR_CLOCKWISE              /**< Clockwise */
+ 244:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_QD_DIR_t;
+ 245:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 246:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 247:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines frequency of index signal generation.Use type @ref XMC_POSIF_QD_INDEX_GENERATION_t for t
+ 248:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Member represents available configuration for index marker generation using \a ICM  bit field in
+ 249:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 250:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_QD_INDEX_GENERATION
+ 251:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 252:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_NEVER  = 0U, /**< Never generate the index marker signal */
+ 253:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ONCE      , /**< Generate only once after the first revolution */
+ 254:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ALWAYS      /**< Index marker generated upon every revolution */
+ 255:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_QD_INDEX_GENERATION_t;
+ 256:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 257:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 258:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Defines trigger edge in hall sensor mode.Use type @ref XMC_POSIF_HSC_TRIGGER_EDGE_t for this en
+ 259:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  It can be used to configure \a PCONF register's \a SPES and \a MSES bit fields.
+ 260:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 261:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef enum XMC_POSIF_HSC_TRIGGER_EDGE
+ 262:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 263:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_RISING  = 0U, /**< Rising edge */
+ 264:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_FALLING      /**< Falling edge */
+ 265:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_HSC_TRIGGER_EDGE_t;
+ 266:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 267:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**************************************************************************************************
+ 268:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * DATA STRUCTURES
+ 269:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **************************************************************************************************
+ 270:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 271:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /*Anonymous structure/union guard start*/
+ 272:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #if defined(__CC_ARM)
+ 273:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   #pragma push
+ 274:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   #pragma anon_unions
+ 275:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #elif defined(__TASKING__)
+ 276:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   #pragma warning 586
+ 277:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #endif
+ 278:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 279:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 280:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 281:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF peripheral register structure.Use type @ref XMC_POSIF_t for this data structure.
+ 282:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 283:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef POSIF_GLOBAL_TypeDef XMC_POSIF_t;
+ 284:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 285:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 286:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Defines POSIF quadrature decoder initialization data structure.
+ 287:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Use type @ref XMC_POSIF_QD_CONFIG_t for this data structure.
+ 288:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  It used to configure Quadrature mode using \a QDC register.
+ 289:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 290:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef struct XMC_POSIF_QD_CONFIG
+ 291:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 292:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   XMC_POSIF_QD_MODE_t mode;      /**< Operational Mode of the quadrature encoder and decoder */
+ 293:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   union
+ 294:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   {
+ 295:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     struct
+ 296:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     {
+ 297:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t phase_a: 1;       /**< Phase-A active level configuration */
+ 298:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t phase_b: 1;       /**< Phase-B active level configuration */
+ 299:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t phase_leader: 1;  /**< Which of the two phase signals[Phase A or Phase B] leads the 
+ 300:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 1;
+ 301:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t index: 2;        /**< Index signal generation control. Use @ref XMC_POSIF_QD_INDEX_G
+ 302:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 26;
+ 303:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     };
+ 304:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     uint32_t qdc;
+ 305:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   };
+ 306:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_QD_CONFIG_t;
+ 307:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 308:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 309:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF hall sensor control initialization data structure.
+ 310:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_HSC_CONFIG_t for this data structure.
+ 311:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It used to initialize hall sensor mode configuration using \a PCONF register.
+ 312:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 313:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef struct XMC_POSIF_HSC_CONFIG
+ 314:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 315:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   union
+ 316:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   {
+ 317:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     struct
+ 318:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     {
+ 319:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 4;
+ 320:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t disable_idle_signal: 1;   /**< Should idle signal be disabled upon wrong hall event?
+ 321:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 11;
+ 322:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t sampling_trigger: 1;      /**< Of HSDA and HSDB, which one is to be used to trigger 
+ 323:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t sampling_trigger_edge: 1; /**< Which edge of the sampling trigger signal is to be co
+ 324:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 	  uint32_t : 6;
+ 325:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t external_error_port: 2;    /**< Of the 4 external error ports, which one is to be co
+ 326:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t external_error_enable: 1;  /**< Should external errors lead to Wrong Hall event? */
+ 327:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t external_error_level: 1;   /**< What should be the active level of external error si
+ 328:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t: 4;
+ 329:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     };
+ 330:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     uint32_t hall_config;
+ 331:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   };
+ 332:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_HSC_CONFIG_t;
+ 333:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 334:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 335:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Defines POSIF multi-channel mode initialization data structure.
+ 336:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Use type @ref XMC_POSIF_MCM_CONFIG_t for this data structure.
+ 337:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It used to initialize multi channel mode configuration using \a PCONF register.
+ 338:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 339:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef struct XMC_POSIF_MCM_CONFIG
+ 340:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 341:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   union
+ 342:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   {
+ 343:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     struct
+ 344:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     {
+ 345:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 5;
+ 346:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t pattern_sw_update: 1; /**< should multi channel pattern updated by SW ? */
+ 347:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 12;
+ 348:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 	  uint32_t pattern_update_trigger: 3; /**< Of the 8 update triggers, which one is to be considered
+ 349:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t pattern_trigger_edge: 1;  /**< Which edge of the pattern update trigger is to be con
+ 350:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t pwm_sync: 2;         /**< Of the 4 pwm sync inputs, which one is to be considered? *
+ 351:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t : 8;
+ 352:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     };
+ 353:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     uint32_t mcm_config;
+ 354:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   };
+ 355:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** }XMC_POSIF_MCM_CONFIG_t;
+ 356:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 357:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 358:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Defines POSIF module initialization data structure.
+ 359:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  Use type @ref XMC_POSIF_CONFIG_t for this data structure.
+ 360:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *  It is used to initialize POSIF module using \a PCONF register.
+ 361:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 362:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** typedef struct XMC_POSIF_CONFIG
+ 363:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 364:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   union
+ 365:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   {
+ 366:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     struct
+ 367:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     {
+ 368:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t mode: 2;    /**< POSIF Operational mode. Use @ref XMC_POSIF_MODE_t to configure */
+ 369:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t :6;
+ 370:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t input0: 2; /**< Choice of input for Input-1 */
+ 371:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t input1: 2; /**< Choice of input for Input-2 */
+ 372:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t input2: 2; /**< Choice of input for Input-3 */
+ 373:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t :14;
+ 374:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t filter: 3; /**< Input filter configuration */
+ 375:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****       uint32_t: 1;
+ 376:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     };
+ 377:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     uint32_t pconf;
+ 378:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   };
+ 379:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** } XMC_POSIF_CONFIG_t;
+ 380:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 381:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /*Anonymous structure/union guard end*/
+ 382:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #if defined(__CC_ARM)
+ 383:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   #pragma pop
+ 384:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #elif defined(__TASKING__)
+ 385:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   #pragma warning restore
+ 386:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #endif
+ 387:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 388:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**************************************************************************************************
+ 389:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * API Prototypes
+ 390:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  **************************************************************************************************
+ 391:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #ifdef __cplusplus
+ 392:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** extern "C" {
+ 393:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** #endif
+ 394:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 395:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 396:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 397:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 398:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 399:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 400:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * De-asserts the POSIF module from reset and enables the clock.\n
+ 401:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bit field depends upon \a peripheral.
+ 402:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * If running on other than XMC45 device then it will ungate the peripheral clock.
+ 403:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 404:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 405:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * This is the first API which application must invoke to configure POSIF.
+ 406:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It is internally called by XMC_POSIF_Init().
+ 407:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 408:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 409:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Disable(),XMC_POSIF_Init() \n\n\n
+ 410:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 411:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** void XMC_POSIF_Enable(XMC_POSIF_t *const peripheral);
+ 412:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 413:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 414:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 415:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 416:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 417:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 418:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Asserts the POSIF module into reset and disables the clock.\n
+ 419:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * If running on other than XMC45 device then in addition it will gate the peripheral clock.
+ 420:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bitfield depends upon \a peripheral.
+ 421:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 422:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 423:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Enable()\n\n\n
+ 424:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 425:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** void XMC_POSIF_Disable(XMC_POSIF_t *const peripheral);
+ 426:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 427:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 428:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 429:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param config Pointer to POSIF configuration data(operation mode,input selection and filter conf
+ 430:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 431:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 432:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 433:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Initialize POSIF module with \a config.\n
+ 434:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures POSIF global registers.This is the first API which application must invoke to configu
+ 435:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It sets up parameters common to all the POSIF modes - hall sensor,quadrature decoder and multi-c
+ 436:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register with mode of operation,input selection and filter configuration.
+ 437:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 438:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 439:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init(),XMC_POSIF_MCM_Init() \n\n\n
+ 440:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** */
+ 441:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** void XMC_POSIF_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_CONFIG_t * const config);
+ 442:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 443:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 444:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 445:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param config Pointer to hall sensor control initialization data of type @ref XMC_POSIF_HSC_CONF
+ 446:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t  Returns @ref XMC_POSIF_STATUS_OK if configured in Hall Sensor Mode
+ 447:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *                             else return @ref XMC_POSIF_STATUS_ERROR.
+ 448:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 449:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 450:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Initializes hall sensor control mode.\n
+ 451:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register with which POSIF input trigger to be used for
+ 452:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * sampling hall pattern.Configures \a PCONF register for idle signal generation for wrong hall eve
+ 453:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 454:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 455:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Hall sensor mode before invocation of t
+ 456:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 457:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 458:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 459:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 460:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_HSC_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_HSC_CONFIG_t *
+ 461:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 462:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 463:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 464:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 465:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns quadrature mode initialization status of type @ref XMC_POSIF_
+ 466:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 467:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 468:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Initializes quadrature decoder control mode.\n
+ 469:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register with quadrature mode using @ref XMC_POSIF_QD_MODE_t data structure.
+ 470:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Initializes \a QDC register with quadrature mode configuration using @ref XMC_POSIF_QD_CONFIG_t 
+ 471:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 472:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 473:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Quadrature decoder mode before invocati
+ 474:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 475:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 476:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 477:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 478:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_QD_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_QD_CONFIG_t * c
+ 479:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 480:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 481:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 482:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 483:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns multi channel pattern initialization status of type @ref XMC_
+ 484:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 485:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 486:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Initializes multi channel mode in Hall mode, standalone multi-channel mode and quadrature with m
+ 487:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register with multi channel mode using @ref XMC_POSIF_MCM_CONFIG_t data stru
+ 488:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 489:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 490:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * It is necessary to call XMC_POSIF_Init first before invocation of this API.
+ 491:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * For XMC_POSIF_MODE_HALL_SENSOR, it is necessary to have called XMC_POSIF_HSC_Init before invocat
+ 492:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * For XMC_POSIF_MODE_MCM_QD, it is necessary to have called XMC_POSIF_QD_Init before invocation of
+ 493:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 494:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 495:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Init(),XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init() \n\n\n
+ 496:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 497:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_MCM_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_MCM_CONFIG_t *
+ 498:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 499:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 500:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 501:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param mode POSIF operating mode of type @ref XMC_POSIF_MODE_t
+ 502:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 503:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 504:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 505:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures POSIF module for \a mode.\n
+ 506:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register's a\ FSEL bitfield with \a mode.
+ 507:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Refer @ref XMC_POSIF_MODE_t for available options.
+ 508:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 509:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 510:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * POSIF module should be in stopped state while changing the operating mode.
+ 511:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 512:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 513:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Stop() \n\n\n
+ 514:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 515:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_SetMode(XMC_POSIF_t *const peripheral, const XMC_POSIF_MODE_t mode)
+ 516:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 517:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   peripheral->PCONF = ((peripheral->PCONF & ~(uint32_t)(POSIF_PCONF_FSEL_Msk)) |
+ 518:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****                      (((uint32_t)mode << POSIF_PCONF_FSEL_Pos) & (uint32_t)POSIF_PCONF_FSEL_Msk));
+ 519:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** }
+ 520:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 521:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 522:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 523:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param input0 Choice of input for input 0 [0-3]
+ 524:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param input1 Choice of input for input 1 [0-3]
+ 525:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param input2 Choice of input for input 2 [0-3]
+ 526:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 527:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 528:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 529:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures which input to be connected to POSIF module. \n
+ 530:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PCONF register's INSEL0,INSEL1,INSEL2 bit fields with source for the input connect
+ 531:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \a input1, \a input2 respectively.
+ 532:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 533:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 534:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures which input is used for the Phase X or Hall input X function depending upon the modul
+ 535:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * set for Quadrature Decoder or Hall Sensor Mode.
+ 536:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 537:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 538:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 539:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 540:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** void XMC_POSIF_SelectInputSource(XMC_POSIF_t *const peripheral, const XMC_POSIF_INPUT_PORT_t input0
+ 541:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****     const XMC_POSIF_INPUT_PORT_t input1, const XMC_POSIF_INPUT_PORT_t input2);
+ 542:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 543:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 544:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 545:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 546:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 547:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 548:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 549:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Starts POSIF \a peripheral functional state machine.\n
+ 550:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Starts POSIF state machine for \a peripheral.Configures \a PRUNS register's \a SRB bit field wit
+ 551:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 552:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Note</b><br>
+ 553:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Global properties of POSIF along with mode specific properties should have been initialized befo
+ 554:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * FSM.
+ 555:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 556:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 557:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Stop(),XMC_POSIF_IsRunning() \n\n\n
+ 558:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 559:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Start(XMC_POSIF_t *const peripheral)
+ 560:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+ 561:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   peripheral->PRUNS |= (uint32_t)POSIF_PRUNS_SRB_Msk;
+ 562:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** }
+ 563:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** 
+ 564:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** /**
+ 565:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 566:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * @retval None
+ 567:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 568:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Description</b><br>
+ 569:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Stops POSIF \a peripheral functional state machine.\n
+ 570:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Stop POSIF functional state machine and clears current internal status of the \a peripheral.
+ 571:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * Configures \a PRUNC register's \a CRB bit field with 1.
+ 572:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  *
+ 573:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 574:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  * XMC_POSIF_Start(),XMC_POSIF_IsRunning() \n\n\n
+ 575:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****  */
+ 576:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Stop(XMC_POSIF_t *const peripheral)
+ 577:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** {
+  27              	 .loc 1 577 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 83B0     	 sub sp,sp,#12
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+ 578:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h ****   peripheral->PRUNC |= (uint32_t)(POSIF_PRUNC_CRB_Msk | POSIF_PRUNC_CSM_Msk);
+  43              	 .loc 1 578 0
+  44 0008 7B68     	 ldr r3,[r7,#4]
+  45 000a DB68     	 ldr r3,[r3,#12]
+  46 000c 43F00302 	 orr r2,r3,#3
+  47 0010 7B68     	 ldr r3,[r7,#4]
+  48 0012 DA60     	 str r2,[r3,#12]
+ 579:D:\dholler\Dokumente\uni\bus\xmc\usbCanNode\Libraries\XMCLib\inc\xmc_posif.h **** }
+  49              	 .loc 1 579 0
+  50 0014 0C37     	 adds r7,r7,#12
+  51              	.LCFI3:
+  52              	 .cfi_def_cfa_offset 4
+  53 0016 BD46     	 mov sp,r7
+  54              	.LCFI4:
+  55              	 .cfi_def_cfa_register 13
+  56              	 
+  57 0018 5DF8047B 	 ldr r7,[sp],#4
+  58              	.LCFI5:
+  59              	 .cfi_restore 7
+  60              	 .cfi_def_cfa_offset 0
+  61 001c 7047     	 bx lr
+  62              	 .cfi_endproc
+  63              	.LFE155:
+  65 001e 00BF     	 .section .text.XMC_POSIF_Enable,"ax",%progbits
+  66              	 .align 2
+  67              	 .global XMC_POSIF_Enable
+  68              	 .thumb
+  69              	 .thumb_func
+  71              	XMC_POSIF_Enable:
+  72              	.LFB178:
+  73              	 .file 2 "../Libraries/XMCLib/src/xmc_posif.c"
+   1:../Libraries/XMCLib/src/xmc_posif.c **** /**
+   2:../Libraries/XMCLib/src/xmc_posif.c ****  * @file xmc_posif.c
+   3:../Libraries/XMCLib/src/xmc_posif.c ****  * @date 2016-01-12
+   4:../Libraries/XMCLib/src/xmc_posif.c ****  *
+   5:../Libraries/XMCLib/src/xmc_posif.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_posif.c ****  **********************************************************************************
+   7:../Libraries/XMCLib/src/xmc_posif.c ****  * XMClib v2.1.6 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_posif.c ****  *
+   9:../Libraries/XMCLib/src/xmc_posif.c ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_posif.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_posif.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_posif.c ****  * Redistribution and use in source and binary forms, with or without           
+  13:../Libraries/XMCLib/src/xmc_posif.c ****  * modification,are permitted provided that the following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_posif.c ****  *   Redistributions of source code must retain the above copyright notice,      
+  16:../Libraries/XMCLib/src/xmc_posif.c ****  *   this list of conditions and the following disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_posif.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_posif.c ****  *   Redistributions in binary form must reproduce the above copyright notice,   
+  19:../Libraries/XMCLib/src/xmc_posif.c ****  *   this list of conditions and the following disclaimer in the documentation    
+  20:../Libraries/XMCLib/src/xmc_posif.c ****  *   and/or other materials provided with the distribution.                       
+  21:../Libraries/XMCLib/src/xmc_posif.c ****  * 
+  22:../Libraries/XMCLib/src/xmc_posif.c ****  *   Neither the name of the copyright holders nor the names of its contributors 
+  23:../Libraries/XMCLib/src/xmc_posif.c ****  *   may be used to endorse or promote products derived from this software without
+  24:../Libraries/XMCLib/src/xmc_posif.c ****  *   specific prior written permission.                                           
+  25:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  26:../Libraries/XMCLib/src/xmc_posif.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  
+  27:../Libraries/XMCLib/src/xmc_posif.c ****  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    
+  28:../Libraries/XMCLib/src/xmc_posif.c ****  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   
+  29:../Libraries/XMCLib/src/xmc_posif.c ****  * ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   
+  30:../Libraries/XMCLib/src/xmc_posif.c ****  * LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         
+  31:../Libraries/XMCLib/src/xmc_posif.c ****  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+  32:../Libraries/XMCLib/src/xmc_posif.c ****  * SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    
+  33:../Libraries/XMCLib/src/xmc_posif.c ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      
+  34:../Libraries/XMCLib/src/xmc_posif.c ****  * CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       
+  35:../Libraries/XMCLib/src/xmc_posif.c ****  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   
+  36:../Libraries/XMCLib/src/xmc_posif.c ****  * POSSIBILITY OF SUCH DAMAGE.                                                  
+  37:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  38:../Libraries/XMCLib/src/xmc_posif.c ****  * To improve the quality of the software, users are encouraged to share        
+  39:../Libraries/XMCLib/src/xmc_posif.c ****  * modifications, enhancements or bug fixes with Infineon Technologies AG       
+  40:../Libraries/XMCLib/src/xmc_posif.c ****  * dave@infineon.com).                                                          
+  41:../Libraries/XMCLib/src/xmc_posif.c ****  **********************************************************************************
+  42:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  43:../Libraries/XMCLib/src/xmc_posif.c ****  * Change History
+  44:../Libraries/XMCLib/src/xmc_posif.c ****  * --------------
+  45:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  46:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-02-18:
+  47:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Initial version
+  48:../Libraries/XMCLib/src/xmc_posif.c ****  *      
+  49:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-02-20:
+  50:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Driver description added <BR>
+  51:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  52:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-04-30:
+  53:../Libraries/XMCLib/src/xmc_posif.c ****  *     - XMC_POSIF_Enable and XMC_POSIF_Disable APIs updated for POSIF1 peripheral check <BR>
+  54:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  55:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-06-19:
+  56:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Removed GetDriverVersion API <BR> 
+  57:../Libraries/XMCLib/src/xmc_posif.c ****  * @endcond 
+  58:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  59:../Libraries/XMCLib/src/xmc_posif.c ****  */
+  60:../Libraries/XMCLib/src/xmc_posif.c **** 
+  61:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  62:../Libraries/XMCLib/src/xmc_posif.c ****  * HEADER FILES
+  63:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  64:../Libraries/XMCLib/src/xmc_posif.c **** #include <xmc_posif.h>
+  65:../Libraries/XMCLib/src/xmc_posif.c **** 
+  66:../Libraries/XMCLib/src/xmc_posif.c **** /* POSIF is not available on XMC1100 and XMC1200 */
+  67:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF0)
+  68:../Libraries/XMCLib/src/xmc_posif.c **** #include <xmc_scu.h>
+  69:../Libraries/XMCLib/src/xmc_posif.c **** 
+  70:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  71:../Libraries/XMCLib/src/xmc_posif.c ****  * MACROS
+  72:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  73:../Libraries/XMCLib/src/xmc_posif.c **** #define XMC_POSIF_PCONF_INSEL_Msk        (0x3fUL << POSIF_PCONF_INSEL0_Pos) /*< Mask for input pins
+  74:../Libraries/XMCLib/src/xmc_posif.c **** #define XMC_POSIF_INSEL_MAX              (4U) /*< Maximum possible input selector */
+  75:../Libraries/XMCLib/src/xmc_posif.c **** 
+  76:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  77:../Libraries/XMCLib/src/xmc_posif.c ****  * LOCAL ROUTINES
+  78:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  79:../Libraries/XMCLib/src/xmc_posif.c **** #ifdef XMC_ASSERT_ENABLE
+  80:../Libraries/XMCLib/src/xmc_posif.c **** __STATIC_INLINE bool XMC_POSIF_IsPeripheralValid(const XMC_POSIF_t *const peripheral)
+  81:../Libraries/XMCLib/src/xmc_posif.c **** {
+  82:../Libraries/XMCLib/src/xmc_posif.c ****   bool tmp;
+  83:../Libraries/XMCLib/src/xmc_posif.c **** 
+  84:../Libraries/XMCLib/src/xmc_posif.c ****   tmp = (peripheral == POSIF0);
+  85:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)  
+  86:../Libraries/XMCLib/src/xmc_posif.c ****   tmp |= (peripheral == POSIF1);
+  87:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+  88:../Libraries/XMCLib/src/xmc_posif.c **** 
+  89:../Libraries/XMCLib/src/xmc_posif.c ****   return tmp;  
+  90:../Libraries/XMCLib/src/xmc_posif.c **** }
+  91:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+  92:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  93:../Libraries/XMCLib/src/xmc_posif.c ****  * API IMPLEMENTATION
+  94:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  95:../Libraries/XMCLib/src/xmc_posif.c **** 
+  96:../Libraries/XMCLib/src/xmc_posif.c **** /* API to enable the POSIF module */
+  97:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Enable(XMC_POSIF_t *const peripheral)
+  98:../Libraries/XMCLib/src/xmc_posif.c **** {
+  74              	 .loc 2 98 0
+  75              	 .cfi_startproc
+  76              	 
+  77              	 
+  78 0000 80B5     	 push {r7,lr}
+  79              	.LCFI6:
+  80              	 .cfi_def_cfa_offset 8
+  81              	 .cfi_offset 7,-8
+  82              	 .cfi_offset 14,-4
+  83 0002 82B0     	 sub sp,sp,#8
+  84              	.LCFI7:
+  85              	 .cfi_def_cfa_offset 16
+  86 0004 00AF     	 add r7,sp,#0
+  87              	.LCFI8:
+  88              	 .cfi_def_cfa_register 7
+  89 0006 7860     	 str r0,[r7,#4]
+  99:../Libraries/XMCLib/src/xmc_posif.c **** #if UC_FAMILY == XMC4
+ 100:../Libraries/XMCLib/src/xmc_posif.c ****    XMC_SCU_CLOCK_EnableClock(XMC_SCU_CLOCK_CCU);
+  90              	 .loc 2 100 0
+  91 0008 1020     	 movs r0,#16
+  92 000a FFF7FEFF 	 bl XMC_SCU_CLOCK_EnableClock
+ 101:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 102:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 103:../Libraries/XMCLib/src/xmc_posif.c ****   switch ((uint32_t)peripheral)
+  93              	 .loc 2 103 0
+  94 000e 7B68     	 ldr r3,[r7,#4]
+  95 0010 0D4A     	 ldr r2,.L7
+  96 0012 9342     	 cmp r3,r2
+  97 0014 03D0     	 beq .L4
+  98 0016 0D4A     	 ldr r2,.L7+4
+  99 0018 9342     	 cmp r3,r2
+ 100 001a 09D0     	 beq .L5
+ 104:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 105:../Libraries/XMCLib/src/xmc_posif.c ****     case (uint32_t)POSIF0:
+ 106:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 107:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF0);
+ 108:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 109:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 110:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF0);
+ 111:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 112:../Libraries/XMCLib/src/xmc_posif.c ****       break;
+ 113:../Libraries/XMCLib/src/xmc_posif.c ****       
+ 114:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)
+ 115:../Libraries/XMCLib/src/xmc_posif.c ****     case (uint32_t)POSIF1:
+ 116:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 117:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF1);
+ 118:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 119:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 120:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF1);
+ 121:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 122:../Libraries/XMCLib/src/xmc_posif.c ****       break;
+ 123:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 124:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 125:../Libraries/XMCLib/src/xmc_posif.c ****     default:
+ 126:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_ASSERT("XMC_POSIF_Disable:Invalid module pointer", 0);
+ 127:../Libraries/XMCLib/src/xmc_posif.c ****       break;      
+ 101              	 .loc 2 127 0
+ 102 001c 11E0     	 b .L2
+ 103              	.L4:
+ 107:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 104              	 .loc 2 107 0
+ 105 001e 4FF40070 	 mov r0,#512
+ 106 0022 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 110:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 107              	 .loc 2 110 0
+ 108 0026 4FF40070 	 mov r0,#512
+ 109 002a FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+ 112:../Libraries/XMCLib/src/xmc_posif.c ****       
+ 110              	 .loc 2 112 0
+ 111 002e 08E0     	 b .L2
+ 112              	.L5:
+ 117:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 113              	 .loc 2 117 0
+ 114 0030 4FF48060 	 mov r0,#1024
+ 115 0034 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 120:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 116              	 .loc 2 120 0
+ 117 0038 4FF48060 	 mov r0,#1024
+ 118 003c FFF7FEFF 	 bl XMC_SCU_RESET_DeassertPeripheralReset
+ 122:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 119              	 .loc 2 122 0
+ 120 0040 00BF     	 nop
+ 121              	.L2:
+ 128:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 129:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 122              	 .loc 2 129 0
+ 123 0042 0837     	 adds r7,r7,#8
+ 124              	.LCFI9:
+ 125              	 .cfi_def_cfa_offset 8
+ 126 0044 BD46     	 mov sp,r7
+ 127              	.LCFI10:
+ 128              	 .cfi_def_cfa_register 13
+ 129              	 
+ 130 0046 80BD     	 pop {r7,pc}
+ 131              	.L8:
+ 132              	 .align 2
+ 133              	.L7:
+ 134 0048 00800240 	 .word 1073905664
+ 135 004c 00C00240 	 .word 1073922048
+ 136              	 .cfi_endproc
+ 137              	.LFE178:
+ 139              	 .section .text.XMC_POSIF_Disable,"ax",%progbits
+ 140              	 .align 2
+ 141              	 .global XMC_POSIF_Disable
+ 142              	 .thumb
+ 143              	 .thumb_func
+ 145              	XMC_POSIF_Disable:
+ 146              	.LFB179:
+ 130:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 131:../Libraries/XMCLib/src/xmc_posif.c **** /* API to disable the POSIF module */
+ 132:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Disable(XMC_POSIF_t *const peripheral)
+ 133:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 147              	 .loc 2 133 0
+ 148              	 .cfi_startproc
+ 149              	 
+ 150              	 
+ 151 0000 80B5     	 push {r7,lr}
+ 152              	.LCFI11:
+ 153              	 .cfi_def_cfa_offset 8
+ 154              	 .cfi_offset 7,-8
+ 155              	 .cfi_offset 14,-4
+ 156 0002 82B0     	 sub sp,sp,#8
+ 157              	.LCFI12:
+ 158              	 .cfi_def_cfa_offset 16
+ 159 0004 00AF     	 add r7,sp,#0
+ 160              	.LCFI13:
+ 161              	 .cfi_def_cfa_register 7
+ 162 0006 7860     	 str r0,[r7,#4]
+ 134:../Libraries/XMCLib/src/xmc_posif.c ****   switch ((uint32_t)peripheral)
+ 163              	 .loc 2 134 0
+ 164 0008 7B68     	 ldr r3,[r7,#4]
+ 165 000a 0E4A     	 ldr r2,.L14
+ 166 000c 9342     	 cmp r3,r2
+ 167 000e 03D0     	 beq .L11
+ 168 0010 0D4A     	 ldr r2,.L14+4
+ 169 0012 9342     	 cmp r3,r2
+ 170 0014 09D0     	 beq .L12
+ 135:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 136:../Libraries/XMCLib/src/xmc_posif.c ****     case (uint32_t)POSIF0:
+ 137:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 138:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF0);
+ 139:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 140:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 141:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF0);
+ 142:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 143:../Libraries/XMCLib/src/xmc_posif.c ****       break;
+ 144:../Libraries/XMCLib/src/xmc_posif.c ****       
+ 145:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)
+ 146:../Libraries/XMCLib/src/xmc_posif.c ****     case (uint32_t)POSIF1:
+ 147:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 148:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF1);
+ 149:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 150:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 151:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF1);
+ 152:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 153:../Libraries/XMCLib/src/xmc_posif.c ****       break;
+ 154:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 155:../Libraries/XMCLib/src/xmc_posif.c ****     
+ 156:../Libraries/XMCLib/src/xmc_posif.c ****     default:
+ 157:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_ASSERT("XMC_POSIF_Disable:Invalid module pointer", 0);
+ 158:../Libraries/XMCLib/src/xmc_posif.c ****       break;      
+ 171              	 .loc 2 158 0
+ 172 0016 11E0     	 b .L9
+ 173              	.L11:
+ 138:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 174              	 .loc 2 138 0
+ 175 0018 4FF40070 	 mov r0,#512
+ 176 001c FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 141:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 177              	 .loc 2 141 0
+ 178 0020 4FF40070 	 mov r0,#512
+ 179 0024 FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+ 143:../Libraries/XMCLib/src/xmc_posif.c ****       
+ 180              	 .loc 2 143 0
+ 181 0028 08E0     	 b .L9
+ 182              	.L12:
+ 148:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 183              	 .loc 2 148 0
+ 184 002a 4FF48060 	 mov r0,#1024
+ 185 002e FFF7FEFF 	 bl XMC_SCU_RESET_AssertPeripheralReset
+ 151:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 186              	 .loc 2 151 0
+ 187 0032 4FF48060 	 mov r0,#1024
+ 188 0036 FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+ 153:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 189              	 .loc 2 153 0
+ 190 003a 00BF     	 nop
+ 191              	.L9:
+ 159:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 160:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 192              	 .loc 2 160 0
+ 193 003c 0837     	 adds r7,r7,#8
+ 194              	.LCFI14:
+ 195              	 .cfi_def_cfa_offset 8
+ 196 003e BD46     	 mov sp,r7
+ 197              	.LCFI15:
+ 198              	 .cfi_def_cfa_register 13
+ 199              	 
+ 200 0040 80BD     	 pop {r7,pc}
+ 201              	.L15:
+ 202 0042 00BF     	 .align 2
+ 203              	.L14:
+ 204 0044 00800240 	 .word 1073905664
+ 205 0048 00C00240 	 .word 1073922048
+ 206              	 .cfi_endproc
+ 207              	.LFE179:
+ 209              	 .section .text.XMC_POSIF_Init,"ax",%progbits
+ 210              	 .align 2
+ 211              	 .global XMC_POSIF_Init
+ 212              	 .thumb
+ 213              	 .thumb_func
+ 215              	XMC_POSIF_Init:
+ 216              	.LFB180:
+ 161:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 162:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize POSIF global resources */
+ 163:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_CONFIG_t *const config)
+ 164:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 217              	 .loc 2 164 0
+ 218              	 .cfi_startproc
+ 219              	 
+ 220              	 
+ 221 0000 80B5     	 push {r7,lr}
+ 222              	.LCFI16:
+ 223              	 .cfi_def_cfa_offset 8
+ 224              	 .cfi_offset 7,-8
+ 225              	 .cfi_offset 14,-4
+ 226 0002 82B0     	 sub sp,sp,#8
+ 227              	.LCFI17:
+ 228              	 .cfi_def_cfa_offset 16
+ 229 0004 00AF     	 add r7,sp,#0
+ 230              	.LCFI18:
+ 231              	 .cfi_def_cfa_register 7
+ 232 0006 7860     	 str r0,[r7,#4]
+ 233 0008 3960     	 str r1,[r7]
+ 165:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 166:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_Init:NULL Pointer", (config != (XMC_POSIF_CONFIG_t *)NULL) );
+ 167:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 168:../Libraries/XMCLib/src/xmc_posif.c ****   /* Enable the POSIF module */
+ 169:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_Enable(peripheral);
+ 234              	 .loc 2 169 0
+ 235 000a 7868     	 ldr r0,[r7,#4]
+ 236 000c FFF7FEFF 	 bl XMC_POSIF_Enable
+ 170:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 171:../Libraries/XMCLib/src/xmc_posif.c ****   /* Stop POSIF */
+ 172:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_Stop(peripheral);
+ 237              	 .loc 2 172 0
+ 238 0010 7868     	 ldr r0,[r7,#4]
+ 239 0012 FFF7FEFF 	 bl XMC_POSIF_Stop
+ 173:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 174:../Libraries/XMCLib/src/xmc_posif.c ****   /* Program the operational mode, input selectors and debounce filter */
+ 175:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PCONF = config->pconf;
+ 240              	 .loc 2 175 0
+ 241 0016 3B68     	 ldr r3,[r7]
+ 242 0018 1A68     	 ldr r2,[r3]
+ 243 001a 7B68     	 ldr r3,[r7,#4]
+ 244 001c 1A60     	 str r2,[r3]
+ 176:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 245              	 .loc 2 176 0
+ 246 001e 0837     	 adds r7,r7,#8
+ 247              	.LCFI19:
+ 248              	 .cfi_def_cfa_offset 8
+ 249 0020 BD46     	 mov sp,r7
+ 250              	.LCFI20:
+ 251              	 .cfi_def_cfa_register 13
+ 252              	 
+ 253 0022 80BD     	 pop {r7,pc}
+ 254              	 .cfi_endproc
+ 255              	.LFE180:
+ 257              	 .section .text.XMC_POSIF_HSC_Init,"ax",%progbits
+ 258              	 .align 2
+ 259              	 .global XMC_POSIF_HSC_Init
+ 260              	 .thumb
+ 261              	 .thumb_func
+ 263              	XMC_POSIF_HSC_Init:
+ 264              	.LFB181:
+ 177:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 178:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize hall sensor interface */
+ 179:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_HSC_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_HSC_CONFIG_t *
+ 180:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 265              	 .loc 2 180 0
+ 266              	 .cfi_startproc
+ 267              	 
+ 268              	 
+ 269              	 
+ 270 0000 80B4     	 push {r7}
+ 271              	.LCFI21:
+ 272              	 .cfi_def_cfa_offset 4
+ 273              	 .cfi_offset 7,-4
+ 274 0002 85B0     	 sub sp,sp,#20
+ 275              	.LCFI22:
+ 276              	 .cfi_def_cfa_offset 24
+ 277 0004 00AF     	 add r7,sp,#0
+ 278              	.LCFI23:
+ 279              	 .cfi_def_cfa_register 7
+ 280 0006 7860     	 str r0,[r7,#4]
+ 281 0008 3960     	 str r1,[r7]
+ 181:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 182:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 183:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_HSC_Init:Invalid module pointer\n", XMC_POSIF_IsPeripheralValid(peripheral)
+ 184:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_HSC_Init:NULL Pointer\n", (config != (XMC_POSIF_HSC_CONFIG_t *)NULL) );
+ 185:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 186:../Libraries/XMCLib/src/xmc_posif.c ****   if (XMC_POSIF_MODE_HALL_SENSOR == (XMC_POSIF_MODE_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_
+ 282              	 .loc 2 186 0
+ 283 000a 7B68     	 ldr r3,[r7,#4]
+ 284 000c 1B68     	 ldr r3,[r3]
+ 285 000e DBB2     	 uxtb r3,r3
+ 286 0010 03F00303 	 and r3,r3,#3
+ 287 0014 002B     	 cmp r3,#0
+ 288 0016 09D1     	 bne .L18
+ 187:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 188:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= config->hall_config;
+ 289              	 .loc 2 188 0
+ 290 0018 7B68     	 ldr r3,[r7,#4]
+ 291 001a 1A68     	 ldr r2,[r3]
+ 292 001c 3B68     	 ldr r3,[r7]
+ 293 001e 1B68     	 ldr r3,[r3]
+ 294 0020 1A43     	 orrs r2,r2,r3
+ 295 0022 7B68     	 ldr r3,[r7,#4]
+ 296 0024 1A60     	 str r2,[r3]
+ 189:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 297              	 .loc 2 189 0
+ 298 0026 0023     	 movs r3,#0
+ 299 0028 FB73     	 strb r3,[r7,#15]
+ 300 002a 01E0     	 b .L19
+ 301              	.L18:
+ 190:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 191:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 192:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 193:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 302              	 .loc 2 193 0
+ 303 002c 0123     	 movs r3,#1
+ 304 002e FB73     	 strb r3,[r7,#15]
+ 305              	.L19:
+ 194:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 195:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 306              	 .loc 2 195 0
+ 307 0030 FB7B     	 ldrb r3,[r7,#15]
+ 196:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 308              	 .loc 2 196 0
+ 309 0032 1846     	 mov r0,r3
+ 310 0034 1437     	 adds r7,r7,#20
+ 311              	.LCFI24:
+ 312              	 .cfi_def_cfa_offset 4
+ 313 0036 BD46     	 mov sp,r7
+ 314              	.LCFI25:
+ 315              	 .cfi_def_cfa_register 13
+ 316              	 
+ 317 0038 5DF8047B 	 ldr r7,[sp],#4
+ 318              	.LCFI26:
+ 319              	 .cfi_restore 7
+ 320              	 .cfi_def_cfa_offset 0
+ 321 003c 7047     	 bx lr
+ 322              	 .cfi_endproc
+ 323              	.LFE181:
+ 325 003e 00BF     	 .section .text.XMC_POSIF_QD_Init,"ax",%progbits
+ 326              	 .align 2
+ 327              	 .global XMC_POSIF_QD_Init
+ 328              	 .thumb
+ 329              	 .thumb_func
+ 331              	XMC_POSIF_QD_Init:
+ 332              	.LFB182:
+ 197:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 198:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize quadrature decoder interface */
+ 199:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_QD_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_QD_CONFIG_t * c
+ 200:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 333              	 .loc 2 200 0
+ 334              	 .cfi_startproc
+ 335              	 
+ 336              	 
+ 337              	 
+ 338 0000 80B4     	 push {r7}
+ 339              	.LCFI27:
+ 340              	 .cfi_def_cfa_offset 4
+ 341              	 .cfi_offset 7,-4
+ 342 0002 85B0     	 sub sp,sp,#20
+ 343              	.LCFI28:
+ 344              	 .cfi_def_cfa_offset 24
+ 345 0004 00AF     	 add r7,sp,#0
+ 346              	.LCFI29:
+ 347              	 .cfi_def_cfa_register 7
+ 348 0006 7860     	 str r0,[r7,#4]
+ 349 0008 3960     	 str r1,[r7]
+ 201:../Libraries/XMCLib/src/xmc_posif.c ****   uint8_t reg;
+ 202:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 203:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 204:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_QD_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 205:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_QD_Init:NULL Pointer", (config != (XMC_POSIF_QD_CONFIG_t *)NULL) );
+ 206:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 207:../Libraries/XMCLib/src/xmc_posif.c ****   reg = (uint8_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_FSEL_Msk);
+ 350              	 .loc 2 207 0
+ 351 000a 7B68     	 ldr r3,[r7,#4]
+ 352 000c 1B68     	 ldr r3,[r3]
+ 353 000e DBB2     	 uxtb r3,r3
+ 354 0010 03F00303 	 and r3,r3,#3
+ 355 0014 BB73     	 strb r3,[r7,#14]
+ 208:../Libraries/XMCLib/src/xmc_posif.c ****   if (((uint32_t)XMC_POSIF_MODE_QD == reg) || ((uint32_t)XMC_POSIF_MODE_MCM_QD == reg))
+ 356              	 .loc 2 208 0
+ 357 0016 BB7B     	 ldrb r3,[r7,#14]
+ 358 0018 012B     	 cmp r3,#1
+ 359 001a 02D0     	 beq .L22
+ 360              	 .loc 2 208 0 is_stmt 0 discriminator 1
+ 361 001c BB7B     	 ldrb r3,[r7,#14]
+ 362 001e 032B     	 cmp r3,#3
+ 363 0020 0ED1     	 bne .L23
+ 364              	.L22:
+ 209:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 210:../Libraries/XMCLib/src/xmc_posif.c ****     /* Program the quadrature mode */
+ 211:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= (uint32_t)(config->mode) << POSIF_PCONF_QDCM_Pos;
+ 365              	 .loc 2 211 0 is_stmt 1
+ 366 0022 7B68     	 ldr r3,[r7,#4]
+ 367 0024 1A68     	 ldr r2,[r3]
+ 368 0026 3B68     	 ldr r3,[r7]
+ 369 0028 1B78     	 ldrb r3,[r3]
+ 370 002a 9B00     	 lsls r3,r3,#2
+ 371 002c 1A43     	 orrs r2,r2,r3
+ 372 002e 7B68     	 ldr r3,[r7,#4]
+ 373 0030 1A60     	 str r2,[r3]
+ 212:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->QDC = config->qdc;
+ 374              	 .loc 2 212 0
+ 375 0032 3B68     	 ldr r3,[r7]
+ 376 0034 5A68     	 ldr r2,[r3,#4]
+ 377 0036 7B68     	 ldr r3,[r7,#4]
+ 378 0038 1A66     	 str r2,[r3,#96]
+ 213:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 379              	 .loc 2 213 0
+ 380 003a 0023     	 movs r3,#0
+ 381 003c FB73     	 strb r3,[r7,#15]
+ 382 003e 01E0     	 b .L24
+ 383              	.L23:
+ 214:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 215:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 216:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 217:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 384              	 .loc 2 217 0
+ 385 0040 0123     	 movs r3,#1
+ 386 0042 FB73     	 strb r3,[r7,#15]
+ 387              	.L24:
+ 218:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 219:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 220:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 388              	 .loc 2 220 0
+ 389 0044 FB7B     	 ldrb r3,[r7,#15]
+ 221:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 390              	 .loc 2 221 0
+ 391 0046 1846     	 mov r0,r3
+ 392 0048 1437     	 adds r7,r7,#20
+ 393              	.LCFI30:
+ 394              	 .cfi_def_cfa_offset 4
+ 395 004a BD46     	 mov sp,r7
+ 396              	.LCFI31:
+ 397              	 .cfi_def_cfa_register 13
+ 398              	 
+ 399 004c 5DF8047B 	 ldr r7,[sp],#4
+ 400              	.LCFI32:
+ 401              	 .cfi_restore 7
+ 402              	 .cfi_def_cfa_offset 0
+ 403 0050 7047     	 bx lr
+ 404              	 .cfi_endproc
+ 405              	.LFE182:
+ 407 0052 00BF     	 .section .text.XMC_POSIF_MCM_Init,"ax",%progbits
+ 408              	 .align 2
+ 409              	 .global XMC_POSIF_MCM_Init
+ 410              	 .thumb
+ 411              	 .thumb_func
+ 413              	XMC_POSIF_MCM_Init:
+ 414              	.LFB183:
+ 222:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 223:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize multi-channel mode.
+ 224:../Libraries/XMCLib/src/xmc_posif.c ****  * This is used in Hall mode, standalone multi-channel mode and quadrature with multi-channel mode
+ 225:../Libraries/XMCLib/src/xmc_posif.c ****  */
+ 226:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_MCM_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_MCM_CONFIG_t *
+ 227:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 415              	 .loc 2 227 0
+ 416              	 .cfi_startproc
+ 417              	 
+ 418              	 
+ 419              	 
+ 420 0000 80B4     	 push {r7}
+ 421              	.LCFI33:
+ 422              	 .cfi_def_cfa_offset 4
+ 423              	 .cfi_offset 7,-4
+ 424 0002 85B0     	 sub sp,sp,#20
+ 425              	.LCFI34:
+ 426              	 .cfi_def_cfa_offset 24
+ 427 0004 00AF     	 add r7,sp,#0
+ 428              	.LCFI35:
+ 429              	 .cfi_def_cfa_register 7
+ 430 0006 7860     	 str r0,[r7,#4]
+ 431 0008 3960     	 str r1,[r7]
+ 228:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 229:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 230:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_MCM_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 231:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_MCM_Init:NULL Pointer", (config != (XMC_POSIF_MCM_CONFIG_t *)NULL) );
+ 232:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 233:../Libraries/XMCLib/src/xmc_posif.c ****   if ((XMC_POSIF_MODE_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_FSEL_Msk) != XMC_POSIF_MODE_QD
+ 432              	 .loc 2 233 0
+ 433 000a 7B68     	 ldr r3,[r7,#4]
+ 434 000c 1B68     	 ldr r3,[r3]
+ 435 000e DBB2     	 uxtb r3,r3
+ 436 0010 03F00303 	 and r3,r3,#3
+ 437 0014 012B     	 cmp r3,#1
+ 438 0016 09D0     	 beq .L27
+ 234:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 235:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= config->mcm_config;
+ 439              	 .loc 2 235 0
+ 440 0018 7B68     	 ldr r3,[r7,#4]
+ 441 001a 1A68     	 ldr r2,[r3]
+ 442 001c 3B68     	 ldr r3,[r7]
+ 443 001e 1B68     	 ldr r3,[r3]
+ 444 0020 1A43     	 orrs r2,r2,r3
+ 445 0022 7B68     	 ldr r3,[r7,#4]
+ 446 0024 1A60     	 str r2,[r3]
+ 236:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 447              	 .loc 2 236 0
+ 448 0026 0023     	 movs r3,#0
+ 449 0028 FB73     	 strb r3,[r7,#15]
+ 450 002a 01E0     	 b .L28
+ 451              	.L27:
+ 237:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 238:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 239:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 240:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 452              	 .loc 2 240 0
+ 453 002c 0123     	 movs r3,#1
+ 454 002e FB73     	 strb r3,[r7,#15]
+ 455              	.L28:
+ 241:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 242:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 456              	 .loc 2 242 0
+ 457 0030 FB7B     	 ldrb r3,[r7,#15]
+ 243:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 458              	 .loc 2 243 0
+ 459 0032 1846     	 mov r0,r3
+ 460 0034 1437     	 adds r7,r7,#20
+ 461              	.LCFI36:
+ 462              	 .cfi_def_cfa_offset 4
+ 463 0036 BD46     	 mov sp,r7
+ 464              	.LCFI37:
+ 465              	 .cfi_def_cfa_register 13
+ 466              	 
+ 467 0038 5DF8047B 	 ldr r7,[sp],#4
+ 468              	.LCFI38:
+ 469              	 .cfi_restore 7
+ 470              	 .cfi_def_cfa_offset 0
+ 471 003c 7047     	 bx lr
+ 472              	 .cfi_endproc
+ 473              	.LFE183:
+ 475 003e 00BF     	 .section .text.XMC_POSIF_SelectInputSource,"ax",%progbits
+ 476              	 .align 2
+ 477              	 .global XMC_POSIF_SelectInputSource
+ 478              	 .thumb
+ 479              	 .thumb_func
+ 481              	XMC_POSIF_SelectInputSource:
+ 482              	.LFB184:
+ 244:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 245:../Libraries/XMCLib/src/xmc_posif.c **** /* API to configure input source */
+ 246:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_SelectInputSource (XMC_POSIF_t *const peripheral, const XMC_POSIF_INPUT_PORT_t input
+ 247:../Libraries/XMCLib/src/xmc_posif.c ****     const XMC_POSIF_INPUT_PORT_t input1, const XMC_POSIF_INPUT_PORT_t input2)
+ 248:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 483              	 .loc 2 248 0
+ 484              	 .cfi_startproc
+ 485              	 
+ 486              	 
+ 487              	 
+ 488 0000 80B4     	 push {r7}
+ 489              	.LCFI39:
+ 490              	 .cfi_def_cfa_offset 4
+ 491              	 .cfi_offset 7,-4
+ 492 0002 85B0     	 sub sp,sp,#20
+ 493              	.LCFI40:
+ 494              	 .cfi_def_cfa_offset 24
+ 495 0004 00AF     	 add r7,sp,#0
+ 496              	.LCFI41:
+ 497              	 .cfi_def_cfa_register 7
+ 498 0006 7860     	 str r0,[r7,#4]
+ 499 0008 0846     	 mov r0,r1
+ 500 000a 1146     	 mov r1,r2
+ 501 000c 1A46     	 mov r2,r3
+ 502 000e 0346     	 mov r3,r0
+ 503 0010 FB70     	 strb r3,[r7,#3]
+ 504 0012 0B46     	 mov r3,r1
+ 505 0014 BB70     	 strb r3,[r7,#2]
+ 506 0016 1346     	 mov r3,r2
+ 507 0018 7B70     	 strb r3,[r7,#1]
+ 249:../Libraries/XMCLib/src/xmc_posif.c ****   uint32_t reg;
+ 250:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peri
+ 251:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input0", (input0 < XMC_POSIF_INSEL_MAX))
+ 252:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input1", (input1 < XMC_POSIF_INSEL_MAX))
+ 253:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input2", (input2 < XMC_POSIF_INSEL_MAX))
+ 254:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****   reg = (uint32_t)((((uint32_t)input0 << POSIF_PCONF_INSEL0_Pos) & (uint32_t)POSIF_PCONF_INSEL0_Msk
+ 508              	 .loc 2 255 0
+ 509 001a FB78     	 ldrb r3,[r7,#3]
+ 510 001c 1B02     	 lsls r3,r3,#8
+ 511 001e 03F44072 	 and r2,r3,#768
+ 256:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 512              	 .loc 2 256 0
+ 513 0022 BB78     	 ldrb r3,[r7,#2]
+ 514 0024 9B02     	 lsls r3,r3,#10
+ 515 0026 03F44063 	 and r3,r3,#3072
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 516              	 .loc 2 255 0
+ 517 002a 1A43     	 orrs r2,r2,r3
+ 257:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input2 << POSIF_PCONF_INSEL2_Pos) & (uint32_t)POSIF_PCONF_INSEL2_Msk));
+ 518              	 .loc 2 257 0
+ 519 002c 7B78     	 ldrb r3,[r7,#1]
+ 520 002e 1B03     	 lsls r3,r3,#12
+ 521 0030 03F44053 	 and r3,r3,#12288
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 522              	 .loc 2 255 0
+ 523 0034 1343     	 orrs r3,r3,r2
+ 524 0036 FB60     	 str r3,[r7,#12]
+ 258:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PCONF = ((peripheral->PCONF & ~(uint32_t)XMC_POSIF_PCONF_INSEL_Msk) | reg);
+ 525              	 .loc 2 258 0
+ 526 0038 7B68     	 ldr r3,[r7,#4]
+ 527 003a 1B68     	 ldr r3,[r3]
+ 528 003c 23F47C52 	 bic r2,r3,#16128
+ 529 0040 FB68     	 ldr r3,[r7,#12]
+ 530 0042 1A43     	 orrs r2,r2,r3
+ 531 0044 7B68     	 ldr r3,[r7,#4]
+ 532 0046 1A60     	 str r2,[r3]
+ 259:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 533              	 .loc 2 259 0
+ 534 0048 1437     	 adds r7,r7,#20
+ 535              	.LCFI42:
+ 536              	 .cfi_def_cfa_offset 4
+ 537 004a BD46     	 mov sp,r7
+ 538              	.LCFI43:
+ 539              	 .cfi_def_cfa_register 13
+ 540              	 
+ 541 004c 5DF8047B 	 ldr r7,[sp],#4
+ 542              	.LCFI44:
+ 543              	 .cfi_restore 7
+ 544              	 .cfi_def_cfa_offset 0
+ 545 0050 7047     	 bx lr
+ 546              	 .cfi_endproc
+ 547              	.LFE184:
+ 549 0052 00BF     	 .section .text.XMC_POSIF_SetInterruptNode,"ax",%progbits
+ 550              	 .align 2
+ 551              	 .global XMC_POSIF_SetInterruptNode
+ 552              	 .thumb
+ 553              	 .thumb_func
+ 555              	XMC_POSIF_SetInterruptNode:
+ 556              	.LFB185:
+ 260:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 261:../Libraries/XMCLib/src/xmc_posif.c **** /* API to select an interrupt node */
+ 262:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_SetInterruptNode(XMC_POSIF_t *const peripheral, const XMC_POSIF_IRQ_EVENT_t event, c
+ 263:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 557              	 .loc 2 263 0
+ 558              	 .cfi_startproc
+ 559              	 
+ 560              	 
+ 561              	 
+ 562 0000 80B4     	 push {r7}
+ 563              	.LCFI45:
+ 564              	 .cfi_def_cfa_offset 4
+ 565              	 .cfi_offset 7,-4
+ 566 0002 85B0     	 sub sp,sp,#20
+ 567              	.LCFI46:
+ 568              	 .cfi_def_cfa_offset 24
+ 569 0004 00AF     	 add r7,sp,#0
+ 570              	.LCFI47:
+ 571              	 .cfi_def_cfa_register 7
+ 572 0006 7860     	 str r0,[r7,#4]
+ 573 0008 0B46     	 mov r3,r1
+ 574 000a FB70     	 strb r3,[r7,#3]
+ 575 000c 1346     	 mov r3,r2
+ 576 000e BB70     	 strb r3,[r7,#2]
+ 264:../Libraries/XMCLib/src/xmc_posif.c ****   uint32_t reg;
+ 265:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 266:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Invalid module pointer", XMC_POSIF_IsPeripheralValid(perip
+ 267:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Wrong IRQ event", (event <= XMC_POSIF_IRQ_EVENT_PCLK) );
+ 268:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Wrong SR ID", (sr <= XMC_POSIF_SR_ID_1) );
+ 269:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 270:../Libraries/XMCLib/src/xmc_posif.c ****   reg = peripheral->PFLGE;
+ 577              	 .loc 2 270 0
+ 578 0010 7B68     	 ldr r3,[r7,#4]
+ 579 0012 5B6F     	 ldr r3,[r3,#116]
+ 580 0014 FB60     	 str r3,[r7,#12]
+ 271:../Libraries/XMCLib/src/xmc_posif.c ****   reg &= ~((uint32_t)1 << ((uint32_t)event + (uint32_t)POSIF_PFLGE_CHESEL_Pos));
+ 581              	 .loc 2 271 0
+ 582 0016 FB78     	 ldrb r3,[r7,#3]
+ 583 0018 1033     	 adds r3,r3,#16
+ 584 001a 1A46     	 mov r2,r3
+ 585 001c 0123     	 movs r3,#1
+ 586 001e 9340     	 lsls r3,r3,r2
+ 587 0020 DB43     	 mvns r3,r3
+ 588 0022 FA68     	 ldr r2,[r7,#12]
+ 589 0024 1340     	 ands r3,r3,r2
+ 590 0026 FB60     	 str r3,[r7,#12]
+ 272:../Libraries/XMCLib/src/xmc_posif.c ****   reg |= (uint32_t)sr << ((uint32_t)event + (uint32_t)POSIF_PFLGE_CHESEL_Pos);
+ 591              	 .loc 2 272 0
+ 592 0028 BB78     	 ldrb r3,[r7,#2]
+ 593 002a FA78     	 ldrb r2,[r7,#3]
+ 594 002c 1032     	 adds r2,r2,#16
+ 595 002e 9340     	 lsls r3,r3,r2
+ 596 0030 FA68     	 ldr r2,[r7,#12]
+ 597 0032 1343     	 orrs r3,r3,r2
+ 598 0034 FB60     	 str r3,[r7,#12]
+ 273:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PFLGE = reg;
+ 599              	 .loc 2 273 0
+ 600 0036 7B68     	 ldr r3,[r7,#4]
+ 601 0038 FA68     	 ldr r2,[r7,#12]
+ 602 003a 5A67     	 str r2,[r3,#116]
+ 274:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 603              	 .loc 2 274 0
+ 604 003c 1437     	 adds r7,r7,#20
+ 605              	.LCFI48:
+ 606              	 .cfi_def_cfa_offset 4
+ 607 003e BD46     	 mov sp,r7
+ 608              	.LCFI49:
+ 609              	 .cfi_def_cfa_register 13
+ 610              	 
+ 611 0040 5DF8047B 	 ldr r7,[sp],#4
+ 612              	.LCFI50:
+ 613              	 .cfi_restore 7
+ 614              	 .cfi_def_cfa_offset 0
+ 615 0044 7047     	 bx lr
+ 616              	 .cfi_endproc
+ 617              	.LFE185:
+ 619 0046 00BF     	 .text
+ 620              	.Letext0:
+ 621              	 .file 3 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 622              	 .file 4 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 623              	 .file 5 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+ 624              	 .file 6 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc4_scu.h"
+ 625              	 .file 7 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Include/core_cm4.h"
+ 626              	 .file 8 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 xmc_posif.c
+    {standard input}:20     .text.XMC_POSIF_Stop:00000000 $t
+    {standard input}:24     .text.XMC_POSIF_Stop:00000000 XMC_POSIF_Stop
+    {standard input}:66     .text.XMC_POSIF_Enable:00000000 $t
+    {standard input}:71     .text.XMC_POSIF_Enable:00000000 XMC_POSIF_Enable
+    {standard input}:134    .text.XMC_POSIF_Enable:00000048 $d
+    {standard input}:140    .text.XMC_POSIF_Disable:00000000 $t
+    {standard input}:145    .text.XMC_POSIF_Disable:00000000 XMC_POSIF_Disable
+    {standard input}:204    .text.XMC_POSIF_Disable:00000044 $d
+    {standard input}:210    .text.XMC_POSIF_Init:00000000 $t
+    {standard input}:215    .text.XMC_POSIF_Init:00000000 XMC_POSIF_Init
+    {standard input}:258    .text.XMC_POSIF_HSC_Init:00000000 $t
+    {standard input}:263    .text.XMC_POSIF_HSC_Init:00000000 XMC_POSIF_HSC_Init
+    {standard input}:326    .text.XMC_POSIF_QD_Init:00000000 $t
+    {standard input}:331    .text.XMC_POSIF_QD_Init:00000000 XMC_POSIF_QD_Init
+    {standard input}:408    .text.XMC_POSIF_MCM_Init:00000000 $t
+    {standard input}:413    .text.XMC_POSIF_MCM_Init:00000000 XMC_POSIF_MCM_Init
+    {standard input}:476    .text.XMC_POSIF_SelectInputSource:00000000 $t
+    {standard input}:481    .text.XMC_POSIF_SelectInputSource:00000000 XMC_POSIF_SelectInputSource
+    {standard input}:550    .text.XMC_POSIF_SetInterruptNode:00000000 $t
+    {standard input}:555    .text.XMC_POSIF_SetInterruptNode:00000000 XMC_POSIF_SetInterruptNode
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_EnableClock
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_RESET_DeassertPeripheralReset
+XMC_SCU_RESET_AssertPeripheralReset
+XMC_SCU_CLOCK_GatePeripheralClock

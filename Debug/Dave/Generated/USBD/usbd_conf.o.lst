@@ -1,0 +1,65 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "usbd_conf.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .global usb_event_cb
+  20              	 .section .bss.usb_event_cb,"aw",%nobits
+  21              	 .align 2
+  24              	usb_event_cb:
+  25 0000 00000000 	 .space 40
+  25      00000000 
+  25      00000000 
+  25      00000000 
+  25      00000000 
+  26              	 .global USBD_0
+  27              	 .section .data.USBD_0,"aw",%progbits
+  28              	 .align 2
+  31              	USBD_0:
+  32 0000 00000450 	 .word 1342439424
+  33 0004 00000000 	 .space 8
+  33      00000000 
+  34 000c 07       	 .byte 7
+  35 000d 00       	 .byte 0
+  36 000e 0000     	 .space 2
+  37 0010 00000000 	 .word usb_event_cb
+  38              	 .global USBD_handle
+  39              	 .section .data.USBD_handle,"aw",%progbits
+  40              	 .align 2
+  43              	USBD_handle:
+  44 0000 00000000 	 .word USBD_0
+  45              	 .text
+  46              	.Letext0:
+  47              	 .file 1 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  48              	 .file 2 "e:\\davev4\\dave-4.1.4\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  49              	 .file 3 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+  50              	 .file 4 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc_usbd_regs.h"
+  51              	 .file 5 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode\\Libraries\\XMCLib\\inc/xmc_usbd.h"
+  52              	 .file 6 "../Dave/Generated/USBD/usbd.h"
+  53              	 .file 7 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Include/core_cm4.h"
+  54              	 .file 8 "D:\\dholler\\Dokumente\\uni\\bus\\xmc\\usbCanNode/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+  55              	 .file 9 "../Dave/Generated/USBD/usbd_extern.h"
+  56              	 .file 10 "../Dave/Generated/USBD/usbd_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 usbd_conf.c
+    {standard input}:24     .bss.usb_event_cb:00000000 usb_event_cb
+    {standard input}:21     .bss.usb_event_cb:00000000 $d
+    {standard input}:31     .data.USBD_0:00000000 USBD_0
+    {standard input}:28     .data.USBD_0:00000000 $d
+    {standard input}:43     .data.USBD_handle:00000000 USBD_handle
+    {standard input}:40     .data.USBD_handle:00000000 $d
+
+NO UNDEFINED SYMBOLS

@@ -39,15 +39,15 @@ Send CAN frames. Sending may be triggered by a `<condition>`. `<condition>` may 
 - `passive`, which could by triggerd by Button1
 - `<CAN-ID:BitPostion>`, which activates if bit on position `BitPostion` is set in recived CAN frame with `CAN-ID`, and deactivates if this bit is not set. Bits in CAN frame are counted in LSB 0 like 
 ```
-	7  6  5  4  3  2  1  0
-	15 14 13 12 11 10  9  8
-	 23 22 21 20 19 18 17 16
-	 31 30 29 28 27 26 25 24
-	 39 38 37 36 35 34 33 32
-	 47 46 45 44 43 42 41 40
-	 55 54 53 52 51 50 49 48
-	 63 62 61 60 59 58 57 56
-	```
+ 7  6  5  4  3  2  1  0
+15 14 13 12 11 10  9  8
+23 22 21 20 19 18 17 16
+31 30 29 28 27 26 25 24
+39 38 37 36 35 34 33 32
+47 46 45 44 43 42 41 40
+55 54 53 52 51 50 49 48
+63 62 61 60 59 58 57 56
+```
 ### Surge
 `Surge`
 Sends a surge of CAN frames from high to low priority.
